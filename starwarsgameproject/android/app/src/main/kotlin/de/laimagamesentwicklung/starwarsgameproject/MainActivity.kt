@@ -1,6 +1,0 @@
-package de.laimagamesentwicklung.starwarsgameproject
-
-import io.flutter.embedding.android.FlutterActivity
-
-class MainActivity: FlutterActivity() {
-}
