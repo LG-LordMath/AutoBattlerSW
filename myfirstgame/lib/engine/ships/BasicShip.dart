@@ -1,14 +1,22 @@
 
 
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:myfirstgame/engine/ships/MovementDirection.dart';
-class BasicShip extends SpriteComponent with HasGameRef, CollisionCallbacks
+import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/game/MySpaceGame.dart';
+
+import '../../main.dart';
+import '../basics/MovementDirection.dart';
+
+class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>
 {
+  final _defaultColor = Colors.cyan;
 
   //werte vom Schiff
   bool _isenable  = true;
@@ -16,18 +24,15 @@ class BasicShip extends SpriteComponent with HasGameRef, CollisionCallbacks
   int _movementspeed = 1;
   double _positionx = 0;
   double _positiony = 0;
-  MovementDirection _movment  = MovementDirection.no;
-
+  MovementDirection _movment  = MovementDirection.moveleft;
 
   //werte des images
   String _imagepath = '';
   double _imagesizex = 0;
   double _imagesizey = 0;
-
   double _rotation = 0.5;
 
-
-
+  bool hasCollided = false;
 
 
   BasicShip(String pimagepath, double pposX, double pposY,
@@ -40,6 +45,7 @@ class BasicShip extends SpriteComponent with HasGameRef, CollisionCallbacks
     _imagesizey = pisizeY;
 
   }
+
   @override
   Future<void> onLoad() async
   {
@@ -49,20 +55,26 @@ class BasicShip extends SpriteComponent with HasGameRef, CollisionCallbacks
     }
     size = Vector2(_imagesizex, _imagesizey);
     position = Vector2(_positionx, _positiony);
-
-
-
     angle =  angle + _rotation;
+    final defaultPaint = Paint()
+      ..color = _defaultColor
+      ..style = PaintingStyle.stroke;
+    ShapeHitbox hitbox = RectangleHitbox()
+      ..paint = defaultPaint
+      ..renderShape = true;
+    add(hitbox);
 
   }
+
+
   @override
   void update(double dt) {
     // TODO: implement update
     super.update(dt);
     moveShip();
 
-
   }
+
 
 
   void moveShip() {
@@ -158,4 +170,8 @@ class BasicShip extends SpriteComponent with HasGameRef, CollisionCallbacks
   set movment(MovementDirection value) {
     _movment = value;
   }
+
+
 }
+
+

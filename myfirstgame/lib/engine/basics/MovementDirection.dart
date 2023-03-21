@@ -7,4 +7,5 @@ enum MovementDirection {
   movedown,
   moveright,
   moveleft
+
 }
