@@ -32,13 +32,12 @@ class MySpaceGame extends FlameGame with HasCollisionDetection  {
     final screenheight = size[1];
     add(Background());
     print("laod assets, screen: x" + size[1].toString() + ", y "+size[0].toString() );
-    base = BasicShip('ship.png', 200, 10, 100, 100, 100, 100, 1);
-    base1 = BasicShip('ship.png', 200, 400, 100, 100, 100, 100, 2);
-    base2 = BasicShip('ship.png', 250, 500, 100, 100, 100, 100, 2);
+    base = BasicShip(0, 'ship.png', 200, 10, 100, 100, 1000, 100, 1);
+    base1 = BasicShip(0, 'ship.png', 200, 400, 100, 100, 100, 100, 2);
+    base2 = BasicShip(1, 'ship.png', 250, 400, 100, 100, 100, 100, 2);
     team1.add(base);
     team2.add(base1);
     team2.add(base2);
-
     add(base);
     add(base1);
     add(base2);

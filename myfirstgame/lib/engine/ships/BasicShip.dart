@@ -26,6 +26,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   late int _currentteam;
 
   //werte vom Schiff
+  int _shipid = 0;
   bool _isenable  = true;
   int _maxhp = 0;
   int _maxshieldhp = 0;
@@ -48,10 +49,15 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
 
 
   //enemy
-  Vector2 positionEnemy = Vector2(0, 0);
+  int _maxammonition = 1;
+  int _maxreloadtime  = 30;
+  int _currentreloadtime  = 30;
+  int _currentamonition =0;
+  late Vector2 positionEnemy = Vector2(0, 0);
 
 
-  BasicShip(this._imagepath, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam)
+
+  BasicShip(this._shipid, this._imagepath, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
 
 
@@ -66,11 +72,11 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     }
     size = Vector2(_imagesizex, _imagesizey);
     position = Vector2(_positionx, _positiony);
-    angle =  angle + _rotation;
+   // angle =  angle + _rotation;
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
-    ShapeHitbox hitbox = CircleHitbox()
+    ShapeHitbox hitbox = RectangleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
     add(hitbox);
@@ -88,6 +94,12 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     if(_currenthp > 0){
     }else{
       super.removeFromParent();
+      if(_currentteam == 1){
+        gameRef.team1.remove(this);
+      }else if(currentteam == 2) {
+        gameRef.team2.remove(this);
+      }
+    
     }
 
     checkifEnemyisinrange();
@@ -98,15 +110,30 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
 
   void shootEnemy()
   {
-    add(NormalBullet(position, positionEnemy));
+    if(_currentamonition == 0 ){
+      _currentreloadtime--;
+    }
+    if(_currentreloadtime == 0){
+      _currentamonition = _maxammonition;
+      _currentreloadtime = _maxreloadtime;
+    }
+    if(_currentamonition > 0 ){
+        //print("Ship position: " + position.toString());
+      if (positionEnemy.x != 0 && positionEnemy.y != 0) {
+        add(NormalBullet(position , positionEnemy, _currentteam));
+        _currentamonition--;
+
+      }
+
+    }
+
   }
 
   void checkifEnemyisinrange()
   {
      int temp = checknearenemy();
-
-     if( temp >= _weaponrange) {
-     print("move: " + temp.toString() + " | " + _weaponrange.toString());
+     if( temp >= _weaponrange && temp != 0) {
+     //print("move: " + temp.toString() + " | " + _weaponrange.toString());
 
       if(positionEnemy.x < positionx){
         _movment  = MovementDirection.moveup;
@@ -117,7 +144,6 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
       } if(positionEnemy.y > positiony){
         _movment  = MovementDirection.moveleft;
       }
-      //_movment  = MovementDirection.moveleft;
 
     }else {
        shootEnemy();
@@ -131,8 +157,10 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   {
     int enemyrange = 0;
     int enemycounter = 0;
+    print(gameRef.team1.length.toString()+ " | "+gameRef.team2.length.toString());
     if(_currentteam == 1)
     {
+      if(gameRef.team2.isNotEmpty){
         for(int i = 0; i <gameRef.team2.length ; i++)
         {
           Vector2 temp =  gameRef.team2.elementAt(i).position;
@@ -146,29 +174,43 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
             enemyrange = resges.toInt();
             enemycounter = i;
           }
-       }
-      positionEnemy = gameRef.team2.elementAt(enemycounter).position;
+        }
+        positionEnemy = gameRef.team2.elementAt(enemycounter).position;
+
+      }else{
+        enemyrange = 0;
+        positionEnemy = Vector2(0, 0);
+
+      }
+
     }else if(_currentteam == 2)
     {
-      for(int i = 0; i <gameRef.team1.length ; i++)
-      {
-        Vector2 temp =  gameRef.team1.elementAt(i).position;
-        var resges =  distanceTo(temp);
+      if(gameRef.team1.isNotEmpty){
+        for(int i = 0; i <gameRef.team1.length ; i++)
+        {
+          Vector2 temp =  gameRef.team1.elementAt(i).position;
+          var resges =  distanceTo(temp);
 
-        if(resges.toInt() >= enemyrange && enemyrange!=0){
+          if(resges.toInt() >= enemyrange && enemyrange!=0){
 
-        }else if(enemyrange == 0){
-          enemyrange = resges.toInt();
-        }else{
-          enemyrange = resges.toInt();
-          enemycounter = i;
+          }else if(enemyrange == 0){
+            enemyrange = resges.toInt();
+          }else{
+            enemyrange = resges.toInt();
+            enemycounter = i;
+          }
         }
+        positionEnemy = gameRef.team1.elementAt(enemycounter).position;
+
+      }else{
+        enemyrange = 0;
+        positionEnemy = Vector2(0, 0);
+
       }
-      positionEnemy = gameRef.team1.elementAt(enemycounter).position;
-      gameRef.team2.elementAt(enemycounter)._currentshieldhp  = 50;
     }else
     {
-
+      enemyrange = 0;
+      positionEnemy = Vector2(0, 0);
     }
     return (enemyrange);
   }
@@ -210,6 +252,14 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     super.onCollisionStart(intersectionPoints, other);
     if (other is ScreenHitbox) {
       _movementspeed = 0;
+    }
+    else if(other is NormalBullet)
+    {
+      if(other.team==_currentteam){
+
+      }else{
+        _currenthp -= other.damage;
+      }
     }
   }
 
@@ -284,12 +334,11 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     _movment = value;
   }
 
+  int get currentteam => _currentteam;
 
-
-
-
-
-
+  set currentteam(int value) {
+    _currentteam = value;
+  }
 }
 
 
