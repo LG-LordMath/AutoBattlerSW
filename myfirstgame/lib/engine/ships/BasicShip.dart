@@ -11,6 +11,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/src/gestures/events.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/bullets/NormalBullet.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -42,7 +43,6 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   double _imagesizey = 0;
   double _rotation = 0.1;
 
-  bool hasCollided = false;
   // hp anzeige
   late Healthbar healbar;
 
@@ -67,27 +67,15 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     size = Vector2(_imagesizex, _imagesizey);
     position = Vector2(_positionx, _positiony);
     angle =  angle + _rotation;
-
-
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
-
-
     ShapeHitbox hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
     add(hitbox);
-
     healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble());
-
-
-
     add(healbar);
-
-
-
-
   }
 
 
@@ -108,15 +96,34 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
 
   }
 
+  void shootEnemy()
+  {
+    add(NormalBullet(position, positionEnemy));
+  }
+
   void checkifEnemyisinrange()
   {
      int temp = checknearenemy();
-    if( temp > _weaponrange) {
-      print("move: " + temp.toString() + " | " + _weaponrange.toString());
-      _movment  = MovementDirection.moveleft;
-    }else{
-      _movment  = MovementDirection.no;
-    }
+
+     if( temp >= _weaponrange) {
+     print("move: " + temp.toString() + " | " + _weaponrange.toString());
+
+      if(positionEnemy.x < positionx){
+        _movment  = MovementDirection.moveup;
+      } else if(positionEnemy.x > positionx){
+        _movment  = MovementDirection.movedown;
+      } if(positionEnemy.y < positiony){
+        _movment  = MovementDirection.moveright;
+      } if(positionEnemy.y > positiony){
+        _movment  = MovementDirection.moveleft;
+      }
+      //_movment  = MovementDirection.moveleft;
+
+    }else {
+       shootEnemy();
+        _movment  = MovementDirection.no;
+
+     }
   }
 
 
@@ -128,7 +135,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     {
         for(int i = 0; i <gameRef.team2.length ; i++)
         {
-          Vector2 temp =  gameRef.team2.elementAt(i).position - Vector2(positionx, positiony);
+          Vector2 temp =  gameRef.team2.elementAt(i).position;
           var resges =  distanceTo(temp);
 
           if(resges.toInt() >= enemyrange && enemyrange!=0){
@@ -141,13 +148,24 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
           }
        }
       positionEnemy = gameRef.team2.elementAt(enemycounter).position;
-      gameRef.team2.elementAt(enemycounter)._currentshieldhp  = 50;
-
-
-
     }else if(_currentteam == 2)
     {
+      for(int i = 0; i <gameRef.team1.length ; i++)
+      {
+        Vector2 temp =  gameRef.team1.elementAt(i).position;
+        var resges =  distanceTo(temp);
 
+        if(resges.toInt() >= enemyrange && enemyrange!=0){
+
+        }else if(enemyrange == 0){
+          enemyrange = resges.toInt();
+        }else{
+          enemyrange = resges.toInt();
+          enemycounter = i;
+        }
+      }
+      positionEnemy = gameRef.team1.elementAt(enemycounter).position;
+      gameRef.team2.elementAt(enemycounter)._currentshieldhp  = 50;
     }else
     {
 
@@ -265,6 +283,8 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   set movment(MovementDirection value) {
     _movment = value;
   }
+
+
 
 
 

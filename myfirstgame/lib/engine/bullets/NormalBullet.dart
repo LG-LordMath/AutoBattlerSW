@@ -2,34 +2,35 @@
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
+import 'package:myfirstgame/game/MySpaceGame.dart';
 
-class NormalBullet extends PositionComponent with CollisionCallbacks
+class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<MySpaceGame>
 {
+  late Vector2 _enemy;
+  late Vector2 _currentpossition;
+  String _imagepath = 'laser.png';
+  double _imagesizex = 10;
+  double _imagesizey = 30;
 
-  
-
-  @override
-  bool onComponentTypeCheck(PositionComponent other) {
-   // if (other is Player || other is Water) {
-      // do NOT collide with Player or Water
-      //return false;
-   // }
-    return super.onComponentTypeCheck(other);
+  NormalBullet(this._currentpossition, this._enemy){
+    position = _currentpossition;
   }
-
   @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints,
-      PositionComponent other,
-      ) {
-    // Removes the component when it comes in contact with a Brick.
-    // Neither Player nor Water would be passed to this function
-    // because these classes are filtered out by [onComponentTypeCheck]
-    // in an earlier stage.
-    //if (other is Brick) {
-     // removeFromParent();
-    //}
-    super.onCollisionStart(intersectionPoints, other);
+  Future<void> onLoad() async
+  {
+    super.onLoad();
+    if(_imagepath.isNotEmpty){
+      sprite = await gameRef.loadSprite(_imagepath); }
+    size = Vector2(_imagesizex, _imagesizey);
+
+  }
+  @override
+  void update(double dt){
+    super.update(dt);
+    final effect = MoveEffect.to(_enemy, EffectController(duration: 2));
+    add(effect);
+
   }
 
 
