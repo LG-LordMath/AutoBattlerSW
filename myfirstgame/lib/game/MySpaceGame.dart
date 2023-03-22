@@ -1,16 +1,19 @@
 import 'dart:ffi';
 
 import 'package:flame/components.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/background/Background.dart';
+import 'package:myfirstgame/engine/basics/Button.dart';
 import 'package:myfirstgame/engine/basics/MyCollidable.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 
 
-class MySpaceGame extends FlameGame with HasCollisionDetection  {
+class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComponents, HasTappables {
 
+  bool _fight = false;
 
 
   final double charactersize = 100;
@@ -26,6 +29,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection  {
   Future<void> onLoad() async
 
   {
+
     await super.onLoad();
 
     final screenwidth = size[0];
@@ -35,6 +39,9 @@ class MySpaceGame extends FlameGame with HasCollisionDetection  {
     base = BasicShip(0, 'ship.png', 200, 10, 100, 100, 1000, 100, 1);
     base1 = BasicShip(0, 'ship.png', 200, 400, 100, 100, 100, 100, 2);
     base2 = BasicShip(1, 'ship.png', 250, 400, 100, 100, 100, 100, 2);
+
+    add(Button());
+
     team1.add(base);
     team2.add(base1);
     team2.add(base2);
@@ -48,6 +55,10 @@ class MySpaceGame extends FlameGame with HasCollisionDetection  {
   @override
   void update(double dt){
     super.update(dt);
+    base.fighting(true);
+    base1.fighting(true);
+    base2.fighting(true);
+
 
   }
 }

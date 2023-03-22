@@ -7,6 +7,7 @@ import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/src/gestures/events.dart';
@@ -18,8 +19,9 @@ import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../main.dart';
 import '../basics/MovementDirection.dart';
+import '../basics/Trail.dart';
 
-class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionCallbacks
+class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
 {
   final _defaultColor = Colors.cyan;
 
@@ -50,12 +52,12 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
 
   //enemy
   int _maxammonition = 1;
-  int _maxreloadtime  = 30;
-  int _currentreloadtime  = 30;
-  int _currentamonition =0;
+  int _maxreloadtime  = 80;
+  int _currentreloadtime  = 0;
+  int _currentamonition =1;
   late Vector2 positionEnemy = Vector2(0, 0);
-
-
+  bool _isDragged = false;
+  bool _fight = false;
 
   BasicShip(this._shipid, this._imagepath, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
@@ -89,24 +91,42 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   void update(double dt) {
     // TODO: implement update
     super.update(dt);
-    healbar.updateHealBar(_currenthp.toDouble(), _currentshieldhp.toDouble());
-    moveShip();
-    if(_currenthp > 0){
-    }else{
-      super.removeFromParent();
-      if(_currentteam == 1){
-        gameRef.team1.remove(this);
-      }else if(currentteam == 2) {
-        gameRef.team2.remove(this);
+
+    if(_isDragged){
+      position = Vector2(positionx, positiony);
+
+    }else {
+
+      if (_currenthp > 0)
+      {
+        if(_fight){
+          healbar.init();
+          healbar.updateHealBar(_currenthp.toDouble(), _currentshieldhp.toDouble());
+          moveShip();
+          checkifEnemyisinrange();
+        }
+
       }
-    
+      else {
+        super.removeFromParent();
+        if (_currentteam == 1) {
+          gameRef.team1.remove(this);
+        } else if (currentteam == 2) {
+          gameRef.team2.remove(this);
+        }
+      }
+
+
     }
 
-    checkifEnemyisinrange();
+  }
 
-
+  void fighting(bool pfight)
+  {
+    _fight = pfight;
 
   }
+
 
   void shootEnemy()
   {
@@ -157,7 +177,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   {
     int enemyrange = 0;
     int enemycounter = 0;
-    print(gameRef.team1.length.toString()+ " | "+gameRef.team2.length.toString());
+   // print(gameRef.team1.length.toString()+ " | "+gameRef.team2.length.toString());
     if(_currentteam == 1)
     {
       if(gameRef.team2.isNotEmpty){
@@ -224,7 +244,6 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   void moveShip() {
     switch (_movment) {
       case MovementDirection.moveup:
-
         positionx -= movementspeed;
         break;
       case MovementDirection.movedown:
@@ -243,6 +262,44 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     position = Vector2(positionx, positiony);
   }
 
+  @override
+  void onDragStart(DragStartEvent event) {
+    // Do something in response to a drag event
+    if(_fight){
+
+    }else{
+      _isDragged = true;
+      priority = 10;
+    }
+
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event)
+  {
+    if(_fight){
+
+    }else {
+      positionx += event.delta.x;
+      positiony += event.delta.y;
+    }
+  }
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    if(_fight){
+
+    }else {
+      _isDragged = false;
+      priority = 0;
+      position = Vector2(positionx, positiony);
+    }
+  }
+
+  @override
+  void onDragCancel(DragCancelEvent event) {
+
+  }
 
   @override
   void onCollisionStart(
@@ -255,7 +312,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     }
     else if(other is NormalBullet)
     {
-      if(other.team==_currentteam){
+      if(other.team == _currentteam){
 
       }else{
         _currenthp -= other.damage;
@@ -340,5 +397,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     _currentteam = value;
   }
 }
+
+
 
 

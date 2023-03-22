@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -22,9 +23,9 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
   final double _imagesizey = 30;
   MovementDirection _movment  = MovementDirection.no;
   final int movementspeed = 2;
-  int lifetime = 100;
+  int lifetime = 200;
   final int damage = 100;
-
+  bool _isplayingmusic = false;
   NormalBullet(this._currentship, this._enemy, this._team){
   }
   @override
@@ -43,6 +44,15 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
       ..paint = defaultPaint
       ..renderShape = true;
       add(hitbox);
+    if(!_isplayingmusic)
+    {
+      FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
+      _isplayingmusic = true;
+
+    }
+
+
+
 
 
     final effect = MoveEffect.to(_enemy - _currentship, EffectController(duration: 3));

@@ -1,7 +1,9 @@
 
 import 'package:flame/components.dart';
-import 'package:myfirstgame/engine/background/GlobalsBackground.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+
+import 'GlobalsBackground.dart';
+
 
 class Background extends SpriteComponent with HasGameRef<MySpaceGame>
 {

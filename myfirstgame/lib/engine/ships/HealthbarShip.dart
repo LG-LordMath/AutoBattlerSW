@@ -52,14 +52,21 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
       ..size = Vector2(10, 50)
       ..paint = shieldbar;
 
-    add(rec);
-    add(recshield);
-    add(rechealth);
+
+  }
+
+  void init(){
+    if(rec.isMounted && recshield.isMounted && rechealth.isMounted){
+
+    }else {
+      add(rec);
+      add(recshield);
+      add(rechealth);
+    }
   }
 
   void updateHealBar(double hp, double shield)
   {
-    double health;
     if(_hpFromShip != 0){
       _healtbarlength = ((hp / _hpFromShip) * 50) ;
     }
