@@ -15,6 +15,7 @@ https://docs.flutter.dev/get-started/install/windows
 Youtube:
 
 current : https://www.youtube.com/watch?v=wUf3UytV4wQ
+
 https://www.youtube.com/watch?v=fjNx0otqF-k&list=PLiZZKL9HLmWPL0URlq9WLng1A_g1LDuxx
 https://www.youtube.com/watch?v=8cqkmgvhHdw&list=PLxvyAnoL-vu6WtCSTlNXaJLx0Pgscq4-D
 
@@ -25,4 +26,7 @@ https://www.kodeco.com/37130129-building-games-in-flutter-with-flame-getting-sta
 
 Dart:
 https://www.tutorialspoint.com/dart_programming/dart_programming_enumeration.htm
+
+other:
+https://gamesupply.itch.io/ultimate-space-game-mega-asset-package
 
