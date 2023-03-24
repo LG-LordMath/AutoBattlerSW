@@ -1,5 +1,7 @@
 
 
+
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/collisions.dart';
@@ -7,69 +9,75 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
-import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../basics/MovementDirection.dart';
+import '../../game/MySpaceGame.dart';
+import '../ships/BasicShip.dart';
+import 'EnumGoodAginst.dart';
 
-class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<MySpaceGame>
+abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionCallbacks
 {
+
   final _defaultColor = Colors.red;
-  Vector2 _enemy = Vector2(0, 0);
-  Vector2 _currentship = Vector2(0, 0);
+  late Vector2 _enemy;
+  late Vector2 _currentship;
+  //image
+  late String _imagepath;
+  late double _imagesizex;
+  late double _imagesizey;
+
+  //team
   late int _team;
-  final String _imagepath = 'laser.png';
-  final double _imagesizex = 10;
-  final double _imagesizey = 30;
-  final int movementspeed = 2;
-  int lifetime = 300;
-  final int damage = 100;
+
+  //
+  late int _lifetime;
+  late int _damage;
+
   bool _isplayingmusic = false;
-  NormalBullet(this._currentship, this._enemy, this._team){
-  }
+
+
+  EnumGoodAginst goodAginst = EnumGoodAginst.hp;
+
+
+  IBasicBullet(this._imagepath, this._imagesizex, this._imagesizey, this._enemy, this._currentship
+      , this._damage, this._lifetime, this._team);
+
   @override
   Future<void> onLoad() async
   {
     super.onLoad();
+    //loadImage
     if(_imagepath.isNotEmpty){
       sprite = await gameRef.loadSprite(_imagepath);
     }
-      size = Vector2(_imagesizex, _imagesizey);
-      position = Vector2(50, 0);
+    size = Vector2(_imagesizex, _imagesizey);
+    position = Vector2(_currentship.x, _currentship.y);
+    parent = gameRef;
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
     ShapeHitbox hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
-      add(hitbox);
-    if(!_isplayingmusic)
-    {
-      FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
-      _isplayingmusic = true;
-
-    }
+    add(hitbox);
 
 
-
-
-
-    final effect = MoveEffect.to(_enemy - _currentship, EffectController(duration: 5));
+    final effect = MoveEffect.to(_enemy, EffectController(duration: 3));
     add(effect);
-  }
 
+  }
   @override
   void update(double dt){
     super.update(dt);
 
 
-    lifetime--;
-    if(lifetime <=  0){
+    _lifetime--;
+    if(_lifetime <=  0){
       removeFromParent();
     }
 
 
   }
+
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints,
@@ -86,9 +94,16 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
     }
   }
 
+  int get damage => _damage;
+
+  set damage(int value) {
+    _damage = value;
+  }
+
   int get team => _team;
 
   set team(int value) {
     _team = value;
   }
 }
+

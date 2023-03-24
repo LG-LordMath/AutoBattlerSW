@@ -72,7 +72,7 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
     }
     if(_shielfFromShip != 0)
     {
-      _shieldbarlength = ((_shielfFromShip / shield) * 50);
+      _shieldbarlength = ((shield / _shielfFromShip) * 50);
     }
 
   }
