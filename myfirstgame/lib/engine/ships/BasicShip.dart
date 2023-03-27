@@ -132,10 +132,13 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
       }
       else {
         super.removeFromParent();
-        if (_currentteam == 1) {
-          gameRef.team1.remove(this);
+        if (_currentteam == 1)
+        {
+          gameRef.gameAutoBattle.player1.team.remove(this);
+          //gameRef.team1.remove(this);
         } else if (currentteam == 2) {
-          gameRef.team2.remove(this);
+          //gameRef.team2.remove(this);
+          gameRef.gameAutoBattle.player2.team.remove(this);
         }
       }
     }
@@ -186,10 +189,10 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
    // print(gameRef.team1.length.toString()+ " | "+gameRef.team2.length.toString());
     if(_currentteam == 1)
     {
-      if(gameRef.team2.isNotEmpty){
-        for(int i = 0; i <gameRef.team2.length ; i++)
+      if(gameRef.gameAutoBattle.player2.team.isNotEmpty){
+        for(int i = 0; i <gameRef.gameAutoBattle.player2.team.length ; i++)
         {
-          Vector2 temp =  gameRef.team2.elementAt(i).position;
+          Vector2 temp =  gameRef.gameAutoBattle.player2.team.elementAt(i).position;
           var resges =  distanceTo(temp);
 
           if(resges.toInt() >= enemyrange && enemyrange!=0){
@@ -201,7 +204,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
             enemycounter = i;
           }
         }
-        positionEnemy = gameRef.team2.elementAt(enemycounter).position;
+        positionEnemy = gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).position;
 
       }else{
         enemyrange = 0;
@@ -211,10 +214,10 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
 
     }else if(_currentteam == 2)
     {
-      if(gameRef.team1.isNotEmpty){
-        for(int i = 0; i <gameRef.team1.length ; i++)
+      if(gameRef.gameAutoBattle.player1.team.isNotEmpty){
+        for(int i = 0; i <gameRef.gameAutoBattle.player1.team.length ; i++)
         {
-          Vector2 temp =  gameRef.team1.elementAt(i).position;
+          Vector2 temp =  gameRef.gameAutoBattle.player1.team.elementAt(i).position;
           var resges =  distanceTo(temp);
 
           if(resges.toInt() >= enemyrange && enemyrange!=0){
@@ -226,7 +229,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
             enemycounter = i;
           }
         }
-        positionEnemy = gameRef.team1.elementAt(enemycounter).position;
+        positionEnemy = gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).position;
 
       }else{
         enemyrange = 0;

@@ -1,41 +1,31 @@
 
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/player/EnumPlayerImages.dart';
+import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/szene/background/EnumGlobalsBackgroundElements.dart';
+import 'package:myfirstgame/engine/szene/menue/GameAutoBattle.dart';
 import 'package:myfirstgame/engine/szene/menue/LoadingScreen.dart';
+import 'package:myfirstgame/engine/szene/menue/MainMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/LosingScreen.dart';
 
+import '../engine/player/Player.dart';
 import '../engine/szene/background/Background.dart';
 
 
 class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComponents, HasTappables {
 
 
-  bool _fight = false;
-  int _hpPlayer1 = 1;
-  int _hpPlayer2 = 10;
-  late GameTimer timer;
-
-
-  final double charactersize = 100;
-  late BasicShip base;
-  late BasicShip base1;
-  late BasicShip base2;
-  late BasicShip base4;
-  late BasicShip base5;
-  late LoadingScreen loadingScreen;
-  List<BasicShip> team1 = [];
-  List<BasicShip> team2 = [];
-
-  late Background background;
-
-  final style = TextStyle(color:  BasicPalette.white.color);
-
+  late LoadingScreen _loadingScreen;
+  late GameAutoBattle _gameAutoBattle;
+  late MainMenue _mainMenue;
 
 
 
@@ -43,141 +33,75 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   Future<void> onLoad() async
 
   {
-
     await super.onLoad();
-    loadingScreen = LoadingScreen();
-    add(loadingScreen);
     final screenwidth = size[0];
     final screenheight = size[1];
-    timer = GameTimer(Vector2(size[0] / 2, 20) ,period: 15);
+    _loadingScreen = LoadingScreen();
+    add(_loadingScreen);
+  }
+
+  void startMainMenue(){
+    _loadingScreen.removeFromParent();
+    _mainMenue = MainMenue();
+  }
 
 
+  void startGameAutoBattle()
+  {
+    Player enemyplayer = searchEnemyPlayer();
   }
 
 
   @override
   void update(double dt){
     super.update(dt);
-    //print(loadingScreen.finishloading);
-    if(loadingScreen.finishloading)
-    {
-      if(checkWon()){
 
-      }
-      else
-      {
-        if(_fight){
-          fighting();
-        }else{
+  }
 
-          int temptimer = (15- timer.timer.current.toInt());
-
-          if(timer.timer.finished){
-            loadShips();
-
-
-          }else{
-          }
-        }
-      }
+  Player searchEnemyPlayer() {
+    Random random = new Random();
+    int randomNumber = random.nextInt(5);
+    EnumPlayerImages image;
+    switch (randomNumber){
+      case 1:
+        image = EnumPlayerImages.image1;
+        break;
+      case 2:
+        image = EnumPlayerImages.image2;
+        break;
+      case 3:
+        image = EnumPlayerImages.image3;
+        break;
+      case 4:
+        image = EnumPlayerImages.image4;
+        break;
+      case 5:
+        image = EnumPlayerImages.image5;
+        break;
+      default:
+        image = EnumPlayerImages.image6;
+        break;
     }
 
+
+    return PlayerAi(8, image);
   }
 
+  GameAutoBattle get gameAutoBattle => _gameAutoBattle;
 
-
-  void laodBackground() {
-    add(ScreenHitbox());
-    background = Background();
-    background.setSizes(size[0].toInt(), size[1].toInt());
-    add(background );
-
-    background.addingAnimatedBackgroundElement
-      (EnumGlobalsBackgroundElements.AnimatedElementBlackHole1);
-    background.addingAnimatedBackgroundElement
-      (EnumGlobalsBackgroundElements.AnimatedElementBlackHole1);
+  set gameAutoBattle(GameAutoBattle value) {
+    _gameAutoBattle = value;
   }
 
-  void loadUI()
-  {
+  MainMenue get mainMenue => _mainMenue;
 
-    add(timer);
+  set mainMenue(MainMenue value) {
+    _mainMenue = value;
   }
 
-  bool checkWon()
-  {
-      if(_hpPlayer1<=0 || _hpPlayer1<=0){
-        if(_hpPlayer1 <= 0){
-          LosingScreen losing = LosingScreen();
-          add(losing);
-        }
+  LoadingScreen get loadingScreen => _loadingScreen;
 
-        return true;
-      }
-      return false;
+  set loadingScreen(LoadingScreen value) {
+    _loadingScreen = value;
   }
-
-
-  void fighting()
-  {
-    if(team1.isEmpty || team2.isEmpty){
-      if(team2.isNotEmpty){
-        team2.forEach((BasicShip ship) { ship.fighting(false);  ship.removeFromParent();});
-        _fight = false; _hpPlayer1-=1;timer.timer.start();
-      }
-      if(team1.isNotEmpty){
-        team1.forEach((BasicShip ship) { ship.fighting(false); ship.removeFromParent();});
-        _fight = false; _hpPlayer2-=1;timer.timer.start();
-      }
-    }
-
-  }
-
-  void loadShips()
-  {
-
-    if(!_fight){
-      base = BasicShip(0, 'ships/normal/other/AlienShip1.png', 200, 10, 50, 50, 200, 0, 1);
-      base1 = BasicShip(0, 'ships/normal/other/AlienShip1.png', 200, 400, 100, 100, 800, 200, 2);
-      base2 = BasicShip(1, 'ships/normal/other/AlienShip1.png', 50, 400, 100, 100, 100, 100, 2);
-      base4 = BasicShip(1, 'ships/normal/other/AlienShip1.png', 50, 10, 50, 50, 200, 00, 1);
-      team1.add(base);
-      team1.add(base4);
-      team2.add(base1);
-      team2.add(base2);
-
-      add(base);
-      add(base1);
-      add(base2);
-      add(base4);
-      beginnfight();
-    }
-
-  }
-
-  void beginnfight()
-  {
-    team1.forEach((BasicShip ship) { ship.fighting(true);});
-    team2.forEach((BasicShip ship) { ship.fighting(true);});
-    _fight = true;
-
-  }
-
-
-
-
-  void removeAllComponents()
-  {
-    remove(background);
-    remove(timer);
-
-    remove(loadingScreen);
-    _hpPlayer1 = 10;
-    _hpPlayer2 = 10;
-
-  }
-
-
-
-
 }

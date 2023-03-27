@@ -34,7 +34,8 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
   int percentage  = 0;
   bool _isplayingmusic = false;
-
+  late MyUIText textfieldwithUi;
+  late  MyUIText textFieldwithUITwo;
   @override
   Future<void> onLoad() async
   {
@@ -42,18 +43,11 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
       sprite = Sprite(await Flame.images.load("background/space1.png"));
       position  = Vector2(0, 0 );
       size = Vector2(gameRef.size[0] , gameRef.size[1]);
-
-
-
-
-
-
-
       Sprite spi = Sprite(await Flame.images.load('elements/normal/UICard2.png'));
-      MyUIText textfieldwithUi =  MyUIText(spi, 300, 200, Vector2(position.x + 25 , position.y + size.y / 5  ), getRandomOpeningQuotes(), Colors.lightBlue);
+      textfieldwithUi =  MyUIText(spi, 300, 200, Vector2(position.x + 25 , position.y + size.y / 5  ), getRandomOpeningQuotes(), Colors.lightBlue);
       textfieldwithUi.add(effect);
       Sprite spt = Sprite(await Flame.images.load('elements/normal/UICard1.png'));
-      MyUIText textFieldwithUITwo =  MyUIText(spt, 350, 200, Vector2(position.x + 30 , position.y + size.y / 1.5  ), "Random Tipp:" + getRandomToolTipp(), Colors.white);
+      textFieldwithUITwo =  MyUIText(spt, 350, 200, Vector2(position.x + 30 , position.y + size.y / 1.5  ), "Random Tipp:" + getRandomToolTipp(), Colors.white);
 
 
 
@@ -118,16 +112,17 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
     if(_loadingimages && _loadingAudio &&  _loadingAnimations)
     {
-      removeFromParent();
-      gameRef.laodBackground();
-      gameRef.loadUI();
-      gameRef.loadShips();
       if(FlameAudio.bgm.isPlaying){
         FlameAudio.bgm.stop();
       }
-      print("laod assets, screen: x" + size[1].toString() + ", y "+size[0].toString() );
-
+     // print("laod assets, screen: x" + size[1].toString() + ", y "+size[0].toString() );
       _finishloading = true;
+      textfieldwithUi.destroy();
+      textFieldwithUITwo.destroy();
+      btn.destroy();
+      gameRef.startMainMenue();
+
+
     }
 
   }

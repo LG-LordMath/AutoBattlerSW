@@ -53,10 +53,6 @@ class LosingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
   void mainMenue()
   {
-    gameRef.removeAllComponents();
-    gameRef.laodBackground();
-    gameRef.loadUI();
-    gameRef.loadShips();
     print("Exiting app");
     //exit(0);
   }
