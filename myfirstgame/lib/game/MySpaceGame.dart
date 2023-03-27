@@ -36,7 +36,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
   final style = TextStyle(color:  BasicPalette.white.color);
 
-  late TextComponent timmerview;
+
 
 
   @override
@@ -47,37 +47,10 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     await super.onLoad();
     loadingScreen = LoadingScreen();
     add(loadingScreen);
+    final screenwidth = size[0];
+    final screenheight = size[1];
+    timer = GameTimer(Vector2(size[0] / 2, 20) ,period: 15);
 
-
-
-      final screenwidth = size[0];
-      final screenheight = size[1];
-
-
-
-      /*
-     add(
-        TimerComponent(
-          period: 10,
-          repeat: true,
-          onTick: () => print('10 seconds elapsed'),
-        )
-    );
-     */
-    timer = GameTimer(Vector2(0,0) ,period: 15);
-    final regular = TextPaint(style: style);
-    timmerview = TextComponent();
-    timmerview.text = timer.timer.current.toString();
-    timmerview.position = Vector2(size[0] / 2, 20);
-    if(loadingScreen.finishloading)
-    {
-      laodBackground();
-      loadUI();
-      loadShips();
-      print("laod assets, screen: x" + size[1].toString() + ", y "+size[0].toString() );
-
-
-    }
 
   }
 
@@ -98,8 +71,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
         }else{
 
           int temptimer = (15- timer.timer.current.toInt());
-         // print( (15 - timer.timer.current.toInt()).toString() + " " + timer.timer.current.toInt().toString() );
-          timmerview.text = (temptimer.toString());
+
           if(timer.timer.finished){
             loadShips();
 
@@ -128,7 +100,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
   void loadUI()
   {
-    add(timmerview);
+
     add(timer);
   }
 
@@ -197,7 +169,6 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   void removeAllComponents()
   {
     remove(background);
-    remove(timmerview);
     remove(timer);
 
     remove(loadingScreen);

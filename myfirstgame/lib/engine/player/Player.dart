@@ -8,13 +8,14 @@ import 'EnumPlayerImages.dart';
 class Player
 {
 
-
+  late String nickname;
   late int _hp;
   late EnumPlayerImages _image;
   List<BasicShip> _team = [];
+  late int _currentcredits;
 
 
-  Player(this._hp, this._image);
+  Player(this.nickname, this._hp, this._image);
 
   void lostround(){
     _hp--;
@@ -36,5 +37,11 @@ class Player
 
   set hp(int value) {
     _hp = value;
+  }
+
+  int get currentcredits => _currentcredits;
+
+  set currentcredits(int value) {
+    _currentcredits = value;
   }
 }

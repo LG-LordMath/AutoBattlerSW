@@ -9,6 +9,7 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
+
 class MyTextField extends TextComponent with HasGameRef<MySpaceGame>
 {
 

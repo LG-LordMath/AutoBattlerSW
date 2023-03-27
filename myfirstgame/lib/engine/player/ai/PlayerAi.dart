@@ -2,12 +2,14 @@
 
 
 
+import '../EnumPlayerImages.dart';
 import '../Player.dart';
 
 class PlayerAi extends Player
 
 {
-  PlayerAi(super.hp, super.image);
+  PlayerAi(int php, EnumPlayerImages pimage) : super('BOT', php, pimage);
+
 
 
 
