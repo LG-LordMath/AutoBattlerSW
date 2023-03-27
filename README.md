@@ -1,6 +1,22 @@
 # AutoBattlerSW
 Here i will programm my first app game
 
+
+# Important 
+Ich habe mir auf Fiverr animations und weiteres bestellt und in das Projekt eingefügt, 
+daher liegt das Projekt [AutoBattlerSW] nicht zur Veröffentlichung zur verfügung.
+Die Rechte an diesem Projekt besitzt nur @LG-LordMath vom Laima Games Entwicklung Teams.
+
+Untersagt:
+Verbreitung / Veröffentlichung und in irgendeiner Form an Eigentumsrechten.
+Erlaubt:
+Das Projekt darf durch Erlaubnis getestet und gespielt werden  (Anmeldung: Discord Server). 
+
+# Allows the program to redistribute:
+## Distribution without prior agreement with the development team is not permitted. The source code is only intended for the development team.
+
+
+
 # Version  Log
 *************************************************************************************************************************************************
 ## V0.01-6
@@ -23,10 +39,6 @@ Update: 24.03.2023
  *************************************************************************************************************************************************
  
  
- 
- 
-# Allows the program to redistribute:
-## Distribution without prior agreement with the development team is not permitted. The source code is only intended for the development team.
 
 
 # Set Up
