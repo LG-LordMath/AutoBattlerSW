@@ -58,7 +58,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
       if(!_isplayingmusic)
       {
-        FlameAudio.bgm.play('music/FertigCloneWarsBegin.ogg').timeout(Duration(minutes: 1, seconds: 10));
+        FlameAudio.bgm.play('music/FertigCloneWarsBegin.ogg');//.timeout(Duration(minutes: 1, seconds: 10));
         _isplayingmusic = true;
       }
 

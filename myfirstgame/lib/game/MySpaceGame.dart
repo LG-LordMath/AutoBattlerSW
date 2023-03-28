@@ -43,6 +43,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   void startMainMenue(){
     _loadingScreen.removeFromParent();
     _mainMenue = MainMenue();
+    add(_mainMenue);
   }
 
 

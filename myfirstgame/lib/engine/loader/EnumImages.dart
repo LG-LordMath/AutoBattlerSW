@@ -18,8 +18,11 @@ enum EnumImages
   UICardThree,
   UICardFour,
   UIIconCell,
+  UIIconCellTwo,
   UIStatesPanel,
   UICellShipfractions,
+  UIButtonOne,
+  UIDiscord,
 
 
   //Icons Fractions

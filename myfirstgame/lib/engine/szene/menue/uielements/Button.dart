@@ -56,6 +56,17 @@ class Button extends SpriteComponent with Tappable, HasGameRef<MySpaceGame>
 
     textField.position = Vector2(positionofButton.x + _imagesizex / 2.5  ,positionofButton.y + _imagesizey / 3);
   }
+
+  setTextPosition(Vector2 pos)
+  {
+      textField.position = pos;
+  }
+  addImage(SpriteComponent image)
+  {
+    add(image);
+  }
+
+
   destroy()
   {
     textField.destroy();
