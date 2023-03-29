@@ -366,6 +366,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         case MovementDirection.moveright:
           _movment =  MovementDirection.moveleft;
           break;
+        default:
+          break;
 
       }
     }

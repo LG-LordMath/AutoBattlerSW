@@ -39,14 +39,17 @@ class MyUIText extends SpriteComponent with HasGameRef<MySpaceGame>
   setText(String text)
   {
     textField.text = text;
-
     textField.position = Vector2(positionofButton.x + _imagesizex / 2.5  ,positionofButton.y + _imagesizey / 3);
   }
 
   destroy()
   {
-    textField.destroy();
+    if(textField != null && textField.isMounted){
+
+      textField.destroy();
+    }
     gameRef.remove(this);
+
   }
 
 }

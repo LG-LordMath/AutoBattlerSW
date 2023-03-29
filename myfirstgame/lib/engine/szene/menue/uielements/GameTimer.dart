@@ -11,7 +11,11 @@ class GameTimer extends TimerComponent
 {
   late Vector2 _positionofui;
   late MyUIText text;
+
   GameTimer(this._positionofui, {required super.period});
+
+
+
   @override
   Future<void> onLoad() async
   {

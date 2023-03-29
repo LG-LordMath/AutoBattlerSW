@@ -15,6 +15,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 {
   int _round = 0;
   bool _isactivestate = false;
+  bool _isgameloaded = false;
   late Player _player1;
   late Player _player2;
   late GameTimer _timer;
@@ -29,10 +30,12 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   Future<void> onLoad() async
 
   {
+
+
     position = Vector2(0, 0);
     if(initSzene())
     {
-
+      //_isgameloaded = true;
     }else{
 
     }
@@ -44,76 +47,79 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   @override
   void update(double dt) {
     super.update(dt);
-    switch(_gameState){
-      case EnumGameState.BEGINPHASE:
-        print("Phase: Begin");
-        if(checkWon())
-        {
 
-        }
-        else
-        {
-          _round ++;
-          _gameState = EnumGameState.BUYPHASE;
-        }
 
-        break;
-      case EnumGameState.BUYPHASE:
-        print("Phase: Buy");
-        if(!_isactivestate){
-          _isactivestate = true;
-        }else{
-          if(_timer.timer.finished){
-            _gameState = EnumGameState.FIGHTPHASE;
-            _isactivestate = false;
-            break;
-          }else{
-            _timer = GameTimer(Vector2(size[0] / 2, 20) ,period: _gameState.timeforphase.toDouble());
+    if(!_isgameloaded){
+
+    }else {
+      switch (_gameState) {
+        case EnumGameState.BEGINPHASE:
+          print("Phase: Begin");
+          if (checkWon()) {
+
           }
-        }
-        break;
-      case EnumGameState.FIGHTPHASE:
-        print("Phase: Fight");
-        if(!_isactivestate){
-          _isactivestate = true;
-
-
-        }else{
-          if(_timer.timer.finished){
-            _isactivestate = false;
-            break;
-          }else{
-            _timer = GameTimer(Vector2(size[0] / 2, 20) ,period: _gameState.timeforphase.toDouble());
+          else {
+            _round ++;
+            _gameState = EnumGameState.BUYPHASE;
           }
-        }
-        break;
-      case EnumGameState.ENDPHASE:
-        print("Phase: End");
-        if(!_isactivestate){
-          _isactivestate = true;
 
-
-        }else{
-          if(_timer.timer.finished){
-            _isactivestate = false;
-            break;
-          }else{
-            _timer = GameTimer(Vector2(size[0] / 2, 20) ,period: _gameState.timeforphase.toDouble());
+          break;
+        case EnumGameState.BUYPHASE:
+          print("Phase: Buy");
+          if (!_isactivestate) {
+            _isactivestate = true;
+          } else {
+            if (_timer.timer.finished) {
+              _gameState = EnumGameState.FIGHTPHASE;
+              _isactivestate = false;
+              break;
+            } else {
+              _timer = GameTimer(Vector2(size[0] / 2, 20),
+                  period: _gameState.timeforphase.toDouble());
+            }
           }
-        }
-        break;
-      case EnumGameState.ENDGAME:
-        print("Phase: EndGame");
-        if(!_isactivestate){
-          _isactivestate = true;
-          if(identical(_winner, "BOT")){
-            // remove all Components -> MySpaceGame.losingscreen
+          break;
+        case EnumGameState.FIGHTPHASE:
+          print("Phase: Fight");
+          if (!_isactivestate) {
+            _isactivestate = true;
+          } else {
+            if (_timer.timer.finished) {
+              _isactivestate = false;
+              break;
+            } else {
+              _timer = GameTimer(Vector2(size[0] / 2, 20),
+                  period: _gameState.timeforphase.toDouble());
+            }
           }
-        }else{
+          break;
+        case EnumGameState.ENDPHASE:
+          print("Phase: End");
+          if (!_isactivestate) {
+            _isactivestate = true;
+          } else {
+            if (_timer.timer.finished) {
+              _isactivestate = false;
+              break;
+            } else {
+              _timer = GameTimer(Vector2(size[0] / 2, 20),
+                  period: _gameState.timeforphase.toDouble());
+            }
+          }
+          break;
+        case EnumGameState.ENDGAME:
+          print("Phase: EndGame");
+          if (!_isactivestate) {
+            _isactivestate = true;
+            if (identical(_winner, "BOT")) {
+              // remove all Components -> MySpaceGame.losingscreen
+            }
+          } else {
 
-        }
+          }
 
-        break;
+          break;
+      }
     }
   }
 
@@ -178,6 +184,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     try{
       _background = Background();
       add(_background);
+      _background.setSizes(gameRef.size[0].toInt(), gameRef.size[1].toInt());
       _background.addingAnimatedBackgroundElement
         (EnumGlobalsBackgroundElements.AnimatedElementBlackHole1);
       _background.addingAnimatedBackgroundElement
@@ -189,7 +196,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
     return true;
     }catch(exeption){
-      print(exeption);
+      print("Fehler beim Laden: " + exeption.toString());
     }
     return false;
 

@@ -44,17 +44,17 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
       position  = Vector2(0, 0 );
       size = Vector2(gameRef.size[0] , gameRef.size[1]);
       Sprite spi = Sprite(await Flame.images.load('elements/normal/UICard2.png'));
-      textfieldwithUi =  MyUIText(spi, 300, 200, Vector2(position.x + 25 , position.y + size.y / 5  ), getRandomOpeningQuotes(), Colors.lightBlue);
+      textfieldwithUi =  MyUIText(spi, gameRef.size[0] / 1.35, gameRef.size[1] / 3.7, Vector2(position.x + 25 , position.y + size.y / 5  ), getRandomOpeningQuotes(), Colors.lightBlue);
       textfieldwithUi.add(effect);
       Sprite spt = Sprite(await Flame.images.load('elements/normal/UICard1.png'));
-      textFieldwithUITwo =  MyUIText(spt, 350, 200, Vector2(position.x + 30 , position.y + size.y / 1.5  ), "Random Tipp:" + getRandomToolTipp(), Colors.white);
+      textFieldwithUITwo =  MyUIText(spt, gameRef.size[0] / 1.15, gameRef.size[1] / 3.7, Vector2(position.x + 30 , position.y + size.y / 1.5  ), "Random Tipp:" + getRandomToolTipp(), Colors.white);
 
 
 
 
      Sprite sp = Sprite(await Flame.images.load('ButtonN.png'));
 
-      btn =  Button(sp, 280,  75,  Vector2(position.x + size.x / 6, position.y + size.y  / 1.12), finishLoadingAssets,  "Loading  Ressources...");
+      btn =  Button(sp,  gameRef.size[0] / 1.18,  gameRef.size[1] / 9.4,  Vector2(position.x + 33, position.y + size.y  / 1.12), finishLoadingAssets,  "Loading  Ressources...");
 
       if(!_isplayingmusic)
       {

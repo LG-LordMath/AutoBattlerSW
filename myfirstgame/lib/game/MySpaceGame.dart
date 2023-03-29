@@ -47,9 +47,18 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   }
 
 
-  void startGameAutoBattle()
+  void startGameAutoBattleAi()
   {
+    _mainMenue.destroy();
     Player enemyplayer = searchEnemyPlayer();
+    EnumPlayerImages image = EnumPlayerImages.image1;
+    _gameAutoBattle = GameAutoBattle(Player("Gast", 8, image), enemyplayer);
+    add(_gameAutoBattle);
+  }
+
+  void startGameAutoBattleOnline()
+  {
+
   }
 
 
@@ -59,7 +68,9 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
   }
 
-  Player searchEnemyPlayer() {
+  Player searchEnemyPlayer()
+  {
+
     Random random = new Random();
     int randomNumber = random.nextInt(5);
     EnumPlayerImages image;

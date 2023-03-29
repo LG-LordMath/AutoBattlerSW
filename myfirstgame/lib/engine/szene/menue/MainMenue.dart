@@ -35,10 +35,20 @@ class MainMenue extends PositionComponent with HasGameRef<MySpaceGame>
   }
   @override
   void update(double dt)
+
   {
+
 
   }
 
+  void destroy()
+
+  {
+    myMainMenueButtonSection.destroy();
+    myHeaderMainMenue.destroy();
+    myAnimatedSzene.destroy();
+
+  }
 
 
 }

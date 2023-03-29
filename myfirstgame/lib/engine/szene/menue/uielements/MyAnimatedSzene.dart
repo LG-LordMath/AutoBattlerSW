@@ -29,5 +29,10 @@ class MyAnimatedSzene extends SpriteComponent with HasGameRef<MySpaceGame>
 
   }
 
+  void destroy()
+  {
+    gameRef.remove(this);
+  }
+
 
 }
