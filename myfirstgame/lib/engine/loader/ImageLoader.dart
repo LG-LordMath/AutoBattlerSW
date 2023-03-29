@@ -30,6 +30,12 @@ class ImageLoader
     sprites[EnumImages.UIButtonOne] = Sprite(await Flame.images.load('elements/normal/Btn1.png'));
     sprites[EnumImages.UIDiscord] = Sprite(await Flame.images.load('elements/normal/discord.png'));
 
+    //Icons
+    sprites[EnumImages.IconBook] = Sprite(await Flame.images.load('elements/normal/Book.png'));
+    sprites[EnumImages.IconGearSettings] = Sprite(await Flame.images.load('elements/normal/Gear.png'));
+    sprites[EnumImages.IconTrophy] = Sprite(await Flame.images.load('elements/normal/Trophy.png'));
+
+
     //Icons Fractions
     sprites[EnumImages.IconRepublic] = Sprite(await Flame.images.load('elements/normal/shipfraction/Republic.jpg'));
     sprites[EnumImages.IconImperium] = Sprite(await Flame.images.load('elements/normal/shipfraction/Imperium.jpg'));

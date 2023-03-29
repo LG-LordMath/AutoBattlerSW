@@ -13,6 +13,8 @@ import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 
 import '../../game/MySpaceGame.dart';
+import '../music/EnumMusic.dart';
+import '../music/MyMusicPlayer.dart';
 import '../ships/BasicShip.dart';
 import 'EnumGoodAginst.dart';
 
@@ -37,11 +39,12 @@ abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>
   bool _isplayingmusic = false;
 
 
-  EnumGoodAginst goodAginst = EnumGoodAginst.hp;
+  late EnumGoodAginst goodAginst;
+  late EnumMusic sound;
 
 
   IBasicBullet(this._image, this._imagesizex, this._imagesizey, this._enemy, this._currentship
-      , this._damage, this._lifetime, this._team);
+      , this._damage, this._lifetime, this._team, this.goodAginst, this.sound);
 
   @override
   Future<void> onLoad() async
@@ -92,6 +95,29 @@ abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>
       }
     }
   }
+
+  void destroy()
+  {
+
+    removeFromParent();
+  }
+
+
+  void playSound()
+  {
+    if(!_isplayingmusic)
+    {
+
+      MyMusicPlayer.play(sound);
+
+      _isplayingmusic = true;
+
+    }
+
+  }
+
+
+
 
   int get damage => _damage;
 

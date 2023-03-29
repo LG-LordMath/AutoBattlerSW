@@ -7,6 +7,8 @@ import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
+import 'MyGameChoise.dart';
+
 class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGame> {
 
   Vector2 positions;
@@ -15,6 +17,14 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
   late Button btnarmee;
   late Button btndiscord;
   late SpriteComponent spdiscord;
+
+  //boolean
+  late bool _isGamechoiseopen = false;
+  late bool _isDiscordopen = false;
+  late bool _isArchivementsopen = false;
+  late bool _isArmeeopen = false;
+
+  late MyGameChoise _gameChoise;
 
   MyMainMenueButtonSection(this.positions);
 
@@ -26,6 +36,7 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
     position = Vector2(positions.x, positions.y);
     sprite = ImageLoader.sprites[EnumImages.UICardThree];
     size = Vector2(gameRef.size[0], gameRef.size[1] / 3);
+
     Sprite? sp = ImageLoader.sprites[EnumImages.UIButtonOne];
     btnPlay = Button(sp!,
         gameRef.size[0] - 50, gameRef.size[1] / 9.5,
@@ -73,8 +84,24 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
   }
 
 
-  void playbuttonaction() {
-    print("clicked");
+  void playbuttonaction()
+
+  {
+
+    if(!_isGamechoiseopen){
+      _gameChoise = MyGameChoise(Vector2(0, 50), Vector2(gameRef.size[0], gameRef.size[1] / 3));
+      add(_gameChoise);
+      btnPlay.setText("Cancel");
+      _isGamechoiseopen = true;
+    }else{
+      _gameChoise.destroy();
+      btnPlay.setText("Play");
+      _isGamechoiseopen = false;
+    }
+
+
+
+
   }
 
   void archivementsbuttonaction() {

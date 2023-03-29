@@ -12,10 +12,14 @@ import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
+import 'Button.dart';
+
 class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
 
 {
   late MyTextField textField;
+  late Button btnsettings;
+  late Button btninstructions;
 
   @override
   Future<void> onLoad() async
@@ -25,12 +29,35 @@ class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
     size = Vector2(gameRef.size[0], 50);
     textField = MyTextField(gameRef.size[0] / 3, 10, "MY GAME", Colors.white);
     add(textField);
+
+    Sprite? imageset = ImageLoader.sprites[EnumImages.IconGearSettings];
+    btnsettings = Button(imageset!,
+        40, 40, Vector2(gameRef.size[0] - 70, 5), settings, "");
+    add(btnsettings);
+
+
+    Sprite? imageinst = ImageLoader.sprites[EnumImages.IconBook];
+    btninstructions = Button(imageinst!,
+        40, 40, Vector2(gameRef.size[0] - 120, 5), instructions, "");
+    add(btninstructions);
+
+  }
+
+  void settings()
+  {
+
+  }
+
+  void instructions(){
+
   }
 
 
  void destroy()
 
  {
+   btnsettings.destroy();
+   btninstructions.destroy();
    textField.destroy();
     this.removeFromParent();
  }

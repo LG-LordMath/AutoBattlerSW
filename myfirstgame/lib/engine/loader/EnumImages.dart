@@ -24,6 +24,11 @@ enum EnumImages
   UIButtonOne,
   UIDiscord,
 
+  //Icons
+  IconBook,
+  IconGearSettings,
+  IconTrophy,
+
 
   //Icons Fractions
   IconRepublic,

@@ -17,18 +17,21 @@ import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 import 'package:myfirstgame/engine/bullets/LaserBullet.dart';
 import 'package:myfirstgame/engine/bullets/NormalBullet.dart';
 import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
-import 'package:myfirstgame/engine/turrets/LaserCannons.dart';
+import 'package:myfirstgame/engine/turrets/LaserCannon.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
+import '../turrets/weaponturret/BasicWeaponCanon.dart';
 
-class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
+class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
 {
   final _defaultColor = Colors.cyan;
 
   late int _currentteam;
 
   //werte vom Schiff
+
+
   int _shipid = 0;
   bool _isenable  = true;
   int _maxhp = 0;
@@ -50,13 +53,6 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   // hp anzeige
   late Healthbar healbar;
 
-
-
-  //enemy
-  int _maxammonition = 1;
-  int _maxreloadtime  = 80;
-  int _currentreloadtime  = 0;
-  int _currentamonition =1;
   late Vector2 positionEnemy = Vector2(0, 0);
 
 
@@ -66,7 +62,9 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   bool _isDragged = false;
   bool _fight = false;
 
-  late LaserCannons _laser;
+  late List<BasicWeaponCanon> _weapons;
+
+
 
   BasicShip(this._shipid, this._imagepath, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
@@ -80,7 +78,9 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     super.onLoad();
     if(_imagepath.isNotEmpty){
       Sprite imagesprite = await gameRef.loadSprite(_imagepath);
-      sprite = imagesprite;
+      SpriteComponent spaceshipimage = SpriteComponent(sprite: imagesprite, position: Vector2(positionx, positiony), size: Vector2(imagesizex, imagesizey));
+      add(spaceshipimage);
+      //sprite = imagesprite;
     }
 
     size = Vector2(_imagesizex, _imagesizey);
@@ -102,9 +102,6 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
     add(hitbox);
     healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble());
     add(healbar);
-
-    _laser = LaserCannons(position, 100, 200, _currentteam, Vector2(imagesizex, imagesizey));
-    add(_laser);
   }
 
 
@@ -126,7 +123,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
           checkifEnemyisinrange();
         }else{
           healbar.removeFromParent();
-          _laser.stopfireing();
+          _weapons.forEach((element) {element.stopfireing();});
         }
 
       }
@@ -175,7 +172,7 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
         }
     }else if(temp < _weaponrange  && !_ishittingwall){
        //shootEnemy();
-       _laser.fire(true, positionEnemy);
+       _weapons.forEach((element) {element.fire(true, positionEnemy); });
         _movment  = MovementDirection.no;
 
      }
@@ -411,7 +408,10 @@ class BasicShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
   }
 
 
-
+  void addTurretWeapon(BasicWeaponCanon turret)
+  {
+    _weapons.add(turret);
+  }
 
   void positionship(double x, double y){
     _positionx = x;
