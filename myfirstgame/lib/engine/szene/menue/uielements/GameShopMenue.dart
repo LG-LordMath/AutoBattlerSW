@@ -26,8 +26,9 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
   position = Vector2(0, gameRef.size[1] / 2 - 200);
   size = Vector2(gameRef.size[0], gameRef.size[1] / 5);
 
-  buttons.add(ShopButton(Vector2(position.x + 20, position.y + 20), Vector2(100, 100), addShiptoGame));
-
+  buttons.add(ShopButton(Vector2(position.x + 20, position.y + 20), Vector2(90, 90), addShiptoGame));
+  buttons.add(ShopButton(Vector2(position.x + 120, position.y + 20), Vector2(90, 90), addShiptoGame));
+  buttons.add(ShopButton(Vector2(position.x + 220, position.y + 20), Vector2(90, 90), addShiptoGame));
   buttons.forEach((element) {add(element);});
 
  }

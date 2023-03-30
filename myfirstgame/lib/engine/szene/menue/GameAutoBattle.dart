@@ -62,8 +62,10 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     }else {
       switch (_gameState) {
         case EnumGameState.BEGINPHASE:
+
           print("Phase: Begin");
-          if (checkWon()) {
+          if (checkWon())
+          {
 
           }
           else
@@ -75,7 +77,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
           break;
         case EnumGameState.BUYPHASE:
-          print("Phase: Buy");
+         // print("Phase: Buy");
           if(!_isactivestate){
             _isactivestate = true;
             _timer.destroy();
@@ -95,7 +97,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           break;
         case EnumGameState.FIGHTPHASE:
           print("Phase: Fight");
-          if(!_isactivestate){
+          if(!_isactivestate)
+          {
             _isactivestate = true;
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  45);
@@ -114,7 +117,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           if(!_isactivestate){
             _isactivestate = true;
             _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  5);
+            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  0);
             add(_timer);
           }
           if(_isactivestate){
@@ -175,14 +178,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
   void loadShips()
   {
-    ARC170 ship = ARC170(0, 0, 40, 50, 1);
-
-
-    add(ship);
-
-
-
-
 /*
     if(!_fight){
       base = BasicShip(0, 'ships/normal/other/AlienShip1.png', 200, 10, 50, 50, 200, 0, 1);
@@ -221,7 +216,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       add(_timer);
       _gameState = EnumGameState.BEGINPHASE;
       _isactivestate = false;
-      loadShips();
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());

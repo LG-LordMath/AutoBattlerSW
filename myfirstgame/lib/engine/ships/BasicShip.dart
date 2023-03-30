@@ -21,6 +21,7 @@ import 'package:myfirstgame/engine/turrets/LaserCannon.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
+import '../nations/EnumNation.dart';
 import '../turrets/weaponturret/BasicWeaponCanon.dart';
 
 class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
@@ -54,7 +55,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   late Vector2 positionEnemy = Vector2(0, 0);
 
-
+  late  EnumNation nation;
+  late int creditcost;
 
   // checking
   bool _ishittingwall = false;
@@ -65,7 +67,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
 
 
-  BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam)
+  BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
 
 
@@ -515,6 +517,9 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   set maxhp(int value) {
     _maxhp = value;
   }
+
+
+
 }
 
 

@@ -38,18 +38,20 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     final screenheight = size[1];
     _loadingScreen = LoadingScreen();
     add(_loadingScreen);
+
   }
 
   void startMainMenue(){
     _loadingScreen.removeFromParent();
-    _mainMenue = MainMenue();
+    mainMenue = MainMenue();
     add(_mainMenue);
+
   }
 
 
   void startGameAutoBattleAi()
   {
-    _mainMenue.destroy();
+    //_mainMenue.destroy();
     Player enemyplayer = searchEnemyPlayer();
     EnumPlayerImages image = EnumPlayerImages.image1;
     _gameAutoBattle = GameAutoBattle(Player("Gast", 8, image), enemyplayer);
@@ -64,7 +66,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
   @override
   void update(double dt){
-    super.update(dt);
+   super.update(dt);
 
   }
 
