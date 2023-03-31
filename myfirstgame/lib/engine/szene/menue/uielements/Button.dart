@@ -50,6 +50,8 @@ class Button extends SpriteComponent with Tappable, HasGameRef<MySpaceGame>
   }
 
 
+
+
   setText(String text)
   {
     textField.text = text;
@@ -61,6 +63,13 @@ class Button extends SpriteComponent with Tappable, HasGameRef<MySpaceGame>
   {
       textField.position = pos;
   }
+
+  setTextColor(Color pcolor){
+
+    textField.style = TextStyle(color:  pcolor, fontSize: 24);
+
+  }
+
   addImage(SpriteComponent image)
   {
     add(image);
@@ -69,7 +78,11 @@ class Button extends SpriteComponent with Tappable, HasGameRef<MySpaceGame>
 
   destroy()
   {
+
+
     textField.destroy();
+
+
     gameRef.remove(this);
   }
   String get text => _text;

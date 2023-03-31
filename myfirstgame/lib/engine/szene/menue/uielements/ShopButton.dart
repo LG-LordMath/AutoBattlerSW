@@ -1,6 +1,7 @@
 
 
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/nations/EnumNation.dart';
-import 'package:myfirstgame/engine/nations/NationLoader.dart';
 import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
@@ -21,7 +21,10 @@ class ShopButton extends Button
 
 {
   late MyUIText uiText;
-  late BasicShip basicShip;
+  late BasicShip tempbasicShip;
+  late SpriteComponent spriteComponent;
+  late Sprite? imagebasicShip;
+
 
   ShopButton(Vector2 position, Vector2 sizeofImage, Function methode):
     super(ImageLoader.sprites[EnumImages.UIIconCell]!, sizeofImage.x, sizeofImage.y,position, methode , "");
@@ -32,15 +35,17 @@ class ShopButton extends Button
   {
     super.onLoad();
     uiText = MyUIText(ImageLoader.sprites[EnumImages.IconCredits]!, 40, 40, Vector2(super.positionofButton.x + super.size.x / 3.3,super.positionofButton.y + super.size.y / 1.2), "", Colors.black);
-
-    getShip();
     add(uiText);
+    getShip();
+
  }
 
-  @override
+ @override
   void destroy(){
-    uiText.destroy();
-    super.destroy();
+   textField.destroy();
+   gameRef.remove(this);
+   uiText.destroy();
+
   }
 
 
@@ -91,14 +96,16 @@ class ShopButton extends Button
     var random = Random();
     var randomNumber = random.nextInt(100);
     var randomNumberShip;
+
     if (randomNumber < republic) {
       print("Republic hat gewonnen!");
 
-     // randomNumberShip = random.nextInt(RepublicShipsLoader.republicships.length );
-      randomNumberShip = 0;
-      var basicShip = RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(1)]!;
-      print(basicShip);
-
+      randomNumberShip = random.nextInt(RepublicShipsLoader.republicships.length );
+      imagebasicShip = RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]?.getimage;
+      tempbasicShip = RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]!;
+      spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
+      add(spriteComponent);
+      uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
 
     } else if (randomNumber < republic + imperium) {
       print("Imperium hat gewonnen!");
@@ -107,16 +114,9 @@ class ShopButton extends Button
     } else {
       print("CIS hat gewonnen!");
     }
-
-/*
-
-    SpriteComponent image = SpriteComponent(sprite: basicShip.image, position: Vector2(super.positionofButton.x + super.size.x / 3.3,super.positionofButton.y + super.size.y / 1.2), size: Vector2(30, 30));
-    add(image);
-    uiText.setTextwPos(basicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-*/
-
-
   }
+
+
 
 
 }

@@ -13,6 +13,7 @@ import 'package:myfirstgame/engine/szene/background/EnumGlobalsBackgroundElement
 import 'package:myfirstgame/engine/szene/menue/GameAutoBattle.dart';
 import 'package:myfirstgame/engine/szene/menue/LoadingScreen.dart';
 import 'package:myfirstgame/engine/szene/menue/MainMenue.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/LosingScreen.dart';
 
@@ -118,4 +119,12 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   set loadingScreen(LoadingScreen value) {
     _loadingScreen = value;
   }
+
+  void addChild(Button element) {
+    add(element);
+  }
+  void removeChild(Button element){
+    remove(element);
+  }
+
 }

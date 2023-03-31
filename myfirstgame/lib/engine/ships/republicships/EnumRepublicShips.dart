@@ -12,7 +12,7 @@ enum EnumRepublicShips
   NuAttackShuttle,
   Venator,
   YWing,
-  Z69
+  Z95
 
 
 

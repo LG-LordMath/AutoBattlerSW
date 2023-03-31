@@ -3,6 +3,7 @@
 
 import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/ships/republicships/ARC170.dart';
+import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -81,7 +82,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           if(!_isactivestate){
             _isactivestate = true;
             _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  15);
+            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  10);
             shopMenue=  GameShopMenue();
             add(shopMenue);
             add(_timer);
@@ -101,7 +102,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           {
             _isactivestate = true;
             _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  45);
+            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  5);
             add(_timer);
           }
           if(_isactivestate){
@@ -216,6 +217,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       add(_timer);
       _gameState = EnumGameState.BEGINPHASE;
       _isactivestate = false;
+      RepublicShipsLoader republicShipsLoader = RepublicShipsLoader();
+      republicShipsLoader.load();
+
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());

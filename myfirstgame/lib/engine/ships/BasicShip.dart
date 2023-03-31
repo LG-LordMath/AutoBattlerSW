@@ -494,7 +494,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     _weapons = value;
   }
 
-  Sprite get image => _image;
+  Sprite get getimage => _image;
 
   set image(Sprite value) {
     _image = value;
