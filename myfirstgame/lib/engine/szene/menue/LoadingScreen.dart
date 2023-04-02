@@ -12,6 +12,7 @@ import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/music/MyMusicPlayer.dart';
+import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import 'package:myfirstgame/engine/szene/background/Background.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
@@ -19,6 +20,8 @@ import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+
+import '../../ships/republicships/RepublicShipsLoader.dart';
 
 class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
@@ -28,6 +31,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
   bool _loadingimages = false;
   bool _loadingAudio = false;
   bool _loadingAnimations = false;
+  bool _loadingShips = false;
 
   final effect = ScaleEffect.by(Vector2.all(1.2), EffectController(duration: 3));
   late  Button btn;
@@ -68,31 +72,6 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
       add(btn);
 
 
-      try{
-        ImageLoader imageLoader = ImageLoader();
-        imageLoader.load();
-        _loadingimages = true;
-      } catch (exception)
-      {
-        print("image |fehler beim laden");
-      }
-      try{
-        MyMusicPlayer musicplayer = MyMusicPlayer();
-        musicplayer.load();
-        _loadingAudio = true;
-      } catch (exception)
-      {
-        print("music |fehler beim laden");
-      }
-
-      try{
-
-        _loadingAnimations = true;
-      } catch (exception)
-      {
-        print("animations |fehler beim laden");
-      }
-
 
       //finishloading = true;
 
@@ -100,9 +79,11 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
   @override
   void update(double dt)
   {
-    //print("Laden [image | music | animations]: "+ _loadingimages.toString() + ", "+ _loadingAudio.toString()+ ", "+ _loadingAnimations.toString());
-    if(_loadingimages && _loadingAudio &&  _loadingAnimations){
+  //  print("Laden [image | music | animations | ships]: "+ _loadingimages.toString() + ", "+ _loadingAudio.toString()+ ", "+ _loadingAnimations.toString()+ ", "+_loadingShips.toString());
+    if(_loadingimages && _loadingAudio &&  _loadingAnimations && _loadingShips){
       btn.setText("Play");
+    }else{
+      loadData();
     }
 
 
@@ -206,5 +187,53 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
 
     return quote;
+  }
+
+  void loadData()
+  {
+
+    if(!_loadingimages){
+      try{
+        ImageLoader imageLoader = ImageLoader();
+        imageLoader.load();
+        _loadingimages = true;
+      } catch (exception)
+      {
+        print("image |fehler beim laden");
+      }
+    }
+    if(!_loadingAudio){
+      try{
+        MyMusicPlayer musicplayer = MyMusicPlayer();
+        musicplayer.load();
+        _loadingAudio = true;
+      } catch (exception)
+      {
+        print("music |fehler beim laden");
+      }
+    }
+   if(!_loadingAnimations)
+   {
+     try{
+
+       _loadingAnimations = true;
+     } catch (exception)
+     {
+       print("animations |fehler beim laden");
+     }
+   }
+    if(!_loadingShips && _loadingimages){
+      try{
+        RepublicShipsLoader republicShipsLoader = RepublicShipsLoader();
+        republicShipsLoader.load();
+        GalaticEmpireShipsLoader empireShipsLoader =GalaticEmpireShipsLoader();
+        empireShipsLoader.load();
+
+        _loadingShips = true;
+      } catch (exception)
+      {
+        print("ships |fehler beim laden");
+      }
+    }
   }
 }

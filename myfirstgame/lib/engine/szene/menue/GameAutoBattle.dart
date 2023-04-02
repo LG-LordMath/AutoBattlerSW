@@ -2,8 +2,8 @@
 
 
 import 'package:flame/components.dart';
-import 'package:myfirstgame/engine/ships/republicships/ARC170.dart';
 import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/GameBottomBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -15,24 +15,26 @@ import '../background/EnumGlobalsBackgroundElements.dart';
 import 'enums/EnumGameState.dart';
 
 class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
-
 {
   int _round = 0;
   bool _isactivestate = false;
   bool _isgameloaded = false;
+  bool isShopopen = false;
   late Player _player1;
   late Player _player2;
-  List<BasicShip> _player1shoppmenue = [];
+
+
   late GameShopMenue shopMenue;
-
-
+  late GameBottomBar bottomBar;
   late GameTimer _timer;
   late Background _background;
   late EnumGameState _gameState;
   late String _winner;
 
-  GameAutoBattle(this._player1, this._player2);
 
+
+
+  GameAutoBattle(this._player1, this._player2);
 
   @override
   Future<void> onLoad() async
@@ -83,13 +85,22 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _isactivestate = true;
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  10);
-            shopMenue=  GameShopMenue();
-            add(shopMenue);
+
+            if(!isShopopen){
+              shopMenue=  GameShopMenue();
+              add(shopMenue);
+              isShopopen = true;
+            }
+
+
             add(_timer);
           }
           if(_isactivestate){
-              if(_timer.timer.finished){
-                shopMenue.destroy();
+              if(_timer.timer.current > 9){
+                if(isShopopen){
+                  shopMenue.destroy();
+                  isShopopen = false;
+                }
                 _isactivestate = false;
                 _gameState = EnumGameState.FIGHTPHASE;
               }
@@ -103,11 +114,14 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _isactivestate = true;
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  5);
+            beginnFight();
             add(_timer);
+
           }
           if(_isactivestate){
             if(_timer.timer.finished){
               _isactivestate = false;
+              endFight();
               _gameState = EnumGameState.ENDPHASE;
             }
           }
@@ -133,7 +147,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           print("Phase: EndGame");
           if (!_isactivestate) {
             _isactivestate = true;
-            if (identical(_winner, "BOT")) {
+            if (identical(_winner, "BOT"))
+            {
               // remove all Components -> MySpaceGame.losingscreen
             }
           } else {
@@ -147,17 +162,16 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
   void fighting()
   {
-
-
-
-
     /*
-    if(team1.isEmpty || team2.isEmpty){
-      if(team2.isNotEmpty){
+    if(team1.isEmpty || team2.isEmpty)
+    {
+      if(team2.isNotEmpty)
+      {
         team2.forEach((BasicShip ship) { ship.fighting(false);  ship.removeFromParent();});
         _fight = false; _hpPlayer1-=1;timer.timer.start();
       }
-      if(team1.isNotEmpty){
+      if(team1.isNotEmpty)
+      {
         team1.forEach((BasicShip ship) { ship.fighting(false); ship.removeFromParent();});
         _fight = false; _hpPlayer2-=1;timer.timer.start();
       }
@@ -165,15 +179,15 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 */
   }
 
-  void beginnfight()
+  void beginnFight()
   {
-    /*
-    team1.forEach((BasicShip ship) { ship.fighting(true);});
-    team2.forEach((BasicShip ship) { ship.fighting(true);});
-    _fight = true;
-    */
+    player1.team.forEach((BasicShip ship) {ship.fighting(true);});
+    player2.team.forEach((BasicShip ship) {ship.fighting(true);});
+  }
 
-
+  void endFight() {
+    player1.team.forEach((BasicShip ship) {ship.fighting(false);});
+    player2.team.forEach((BasicShip ship) {ship.fighting(false);});
   }
 
 
@@ -200,6 +214,20 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   }
 
 
+  void openOrcloseShop(){
+
+    if(isShopopen){
+      shopMenue.destroy();
+      isShopopen = false;
+    }else{
+      shopMenue = GameShopMenue();
+      add(shopMenue);
+      isShopopen = true;
+    }
+
+  }
+
+
 
   bool initSzene()
 
@@ -217,8 +245,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       add(_timer);
       _gameState = EnumGameState.BEGINPHASE;
       _isactivestate = false;
-      RepublicShipsLoader republicShipsLoader = RepublicShipsLoader();
-      republicShipsLoader.load();
+      bottomBar = GameBottomBar();
+      add(bottomBar);
+
 
     return true;
     }catch(exeption){

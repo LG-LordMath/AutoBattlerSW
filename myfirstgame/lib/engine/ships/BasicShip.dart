@@ -56,7 +56,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   late Vector2 positionEnemy = Vector2(0, 0);
 
   late  EnumNation nation;
-  late int creditcost;
+  late int creditcost = 0;
 
   // checking
   bool _ishittingwall = false;
@@ -69,6 +69,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
+
+  BasicShip.from(BasicShip basicShip);
 
 
 
@@ -304,6 +306,13 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   }
 
 
+  void setPosition(Vector2 ppos)
+  {
+    positionx = ppos.x;
+    positiony = ppos.y;
+    position = ppos;
+  }
+
 
   @override
   void onDragStart(DragStartEvent event) {
@@ -311,6 +320,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     if(_fight){
 
     }else{
+      positionx = position.x;
+      positiony  = position.y;
       _isDragged = true;
       priority = 10;
     }
@@ -336,6 +347,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       _isDragged = false;
       priority = 0;
       position = Vector2(positionx, positiony);
+
     }
   }
 

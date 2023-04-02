@@ -31,20 +31,16 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
  {
   parent = gameRef;
   sprite = ImageLoader.sprites[EnumImages.UICardTwo];
-  position = Vector2(0, gameRef.size[1] / 2 - 200);
+  position = Vector2(0, gameRef.size[1] / 3 );
   size = Vector2(gameRef.size[0], gameRef.size[1] / 5);
  Sprite? loadingimage = ImageLoader.sprites[EnumImages.IconLoading];
-
-  rerollButton = Button(loadingimage!, 50, 50, Vector2(position.x + 320, position.y + 90), reroll, "1");
+  rerollButton = Button(loadingimage!, gameRef.size[0] / 9, gameRef.size[0] / 9, Vector2(position.x + gameRef.size[0] / 1.3, position.y + 80), reroll, "1");
   add(rerollButton);
-
-
   rerollButton.setTextColor(Colors.black);
   rerollButton.setText("1");
-
-  btnOne = (ShopButton(Vector2(position.x + 20, position.y + 20), Vector2(90, 90), addShiptoGame));
-  btnTwo = (ShopButton(Vector2(position.x + 120, position.y + 20), Vector2(90, 90), addShiptoGame));
-  btnThree = (ShopButton(Vector2(position.x + 220, position.y + 20), Vector2(90, 90), addShiptoGame));
+  btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
+  btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8),donothing ));
+  btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
   add(btnOne);
   add(btnTwo);
   add(btnThree);
@@ -58,12 +54,21 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 void reroll()
 {
 
- btnOne.destroy();
- btnTwo.destroy();
- btnThree.destroy();
- btnOne = (ShopButton(Vector2(position.x + 20, position.y + 20), Vector2(90, 90), addShiptoGame));
- btnTwo = (ShopButton(Vector2(position.x + 120, position.y + 20), Vector2(90, 90), addShiptoGame));
- btnThree = (ShopButton(Vector2(position.x + 220, position.y + 20), Vector2(90, 90), addShiptoGame));
+ if(!btnOne.isRemoved){
+  btnOne.destroy();
+ }
+ if(!btnTwo.isRemoved){
+  btnTwo.destroy();
+ }
+ if(!btnThree.isRemoved){
+  btnThree.destroy();
+ }
+
+
+
+ btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
+ btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
+ btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
  add(btnOne);
  add(btnTwo);
  add(btnThree);
@@ -71,21 +76,27 @@ void reroll()
 }
 
 
- void addShiptoGame(){
-   print("add ship to temp side bar");
- }
-
 
   void destroy()
   {
    rerollButton.destroy();
-   btnOne.destroy();
-   btnTwo.destroy();
-   btnThree.destroy();
+
+   if(!btnOne.isRemoved){
+    btnOne.destroy();
+   }
+   if(!btnTwo.isRemoved){
+    btnTwo.destroy();
+   }
+   if(!btnThree.isRemoved){
+    btnThree.destroy();
+   }
    gameRef.remove(this);
   }
 
 
+  void donothing(){
+
+  }
 
 
 

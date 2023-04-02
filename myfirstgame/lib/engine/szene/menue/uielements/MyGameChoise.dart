@@ -22,7 +22,7 @@ class MyGameChoise extends PositionComponent with HasGameRef<MySpaceGame>
   late Button btnGameBot;
   late Button btnGameOnline;
   late  MyUIText textmatch;
-  late TimerComponent timer =  timer = TimerComponent(period: 5, repeat: false);
+  late TimerComponent timer =  timer = TimerComponent(period: 3, repeat: false);
   bool _searchMatchBot = false;
   bool _searchMatchOnline = false;
 
@@ -88,7 +88,7 @@ MyGameChoise(this._position, this._size);
   void update(double dt)
   {
     if(_searchMatchBot){
-      int lefttime = 5 - timer.timer.current.toInt();
+      int lefttime = 3 - timer.timer.current.toInt();
       textmatch.setText("Match: " + lefttime.toString());
       timer.removeOnFinish;
       if(lefttime <= 0){
@@ -104,8 +104,12 @@ MyGameChoise(this._position, this._size);
     _searchMatchBot = true;
     timer = TimerComponent(period: 5, repeat: false);
       add(timer);
-      btnGameBot.destroy();
-      btnGameOnline.destroy();
+      if(!btnGameBot.isRemoved){
+        btnGameBot.destroy();
+      }
+      if(!btnGameOnline.isRemoved){
+        btnGameOnline.destroy();
+      }
       add(textmatch);
 
   }
