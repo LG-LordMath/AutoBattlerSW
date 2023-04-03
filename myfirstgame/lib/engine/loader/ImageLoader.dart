@@ -44,6 +44,14 @@ class ImageLoader
     sprites[EnumImages.IconSeperatisten] = Sprite(await Flame.images.load('elements/normal/shipfraction/Seperatisten.jpg'));
     //Ships
     //Ships Imperium
+    sprites[EnumImages.ShipEmpireTie] = Sprite(await Flame.images.load('ships/normal/imperium/Tie.jpg'));
+    sprites[EnumImages.ShipEmpireTieBomber] = Sprite(await Flame.images.load('ships/normal/imperium/TieBomber.jpg'));
+    sprites[EnumImages.ShipEmpireTieIntercepter] = Sprite(await Flame.images.load('ships/normal/imperium/TieAbfangjäger.jpg'));
+    sprites[EnumImages.ShipEmpireDeltaClass] = Sprite(await Flame.images.load('ships/normal/imperium/DeltaClass.jpg'));
+    sprites[EnumImages.ShipEmpireArquitens] = Sprite(await Flame.images.load('ships/normal/imperium/Arquitens.png'));
+    sprites[EnumImages.ShipEmpireAcclamator] = Sprite(await Flame.images.load('ships/normal/imperium/AcclamatorII.png'));
+    sprites[EnumImages.ShipEmpireImperialClass] = Sprite(await Flame.images.load('ships/normal/imperium/ImperialClass.png'));
+    sprites[EnumImages.ShipEmpireVictory] = Sprite(await Flame.images.load('ships/normal/imperium/Victory.png'));
     //Ships Republic
     sprites[EnumImages.ShipRepublicACCLAMATOR] = Sprite(await Flame.images.load('ships/normal/republic/Acclamator.png'));
     sprites[EnumImages.ShipRepublicARC170] = Sprite(await Flame.images.load('ships/normal/republic/ARC170.png'));

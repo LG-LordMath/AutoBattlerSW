@@ -64,11 +64,8 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
       ship.size = (Vector2(gameRef.size[0] / 6, gameRef.size[1] / 10));
       switch (counterMaxShips){
         case 5:
-
-
           add(ship);
           ship.setPosition((Vector2(10, gameRef.size[1] / 1.13)));
-
           counterMaxShips--;
           return true;
         case 4:

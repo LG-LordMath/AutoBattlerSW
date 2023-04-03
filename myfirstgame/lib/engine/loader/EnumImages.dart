@@ -43,6 +43,14 @@ enum EnumImages
   //Ships
 
   //Ships Imperium
+  ShipEmpireTie,
+  ShipEmpireTieBomber,
+  ShipEmpireTieIntercepter,
+  ShipEmpireDeltaClass,
+  ShipEmpireArquitens,
+  ShipEmpireAcclamator,
+  ShipEmpireImperialClass,
+  ShipEmpireVictory,
 
   //Ships Republic
 

@@ -17,7 +17,7 @@ class ArquitensEmpire extends BasicShip
 
 
   ArquitensEmpire(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-    : super(ImageLoader.sprites[EnumImages.ShipRepublicARQUITENS]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3);
+    : super(ImageLoader.sprites[EnumImages.ShipEmpireArquitens]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3);
 
 
 @override

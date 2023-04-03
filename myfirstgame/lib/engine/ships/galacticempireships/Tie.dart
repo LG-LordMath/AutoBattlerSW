@@ -16,7 +16,7 @@ class Tie extends BasicShip
 
 
   Tie(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipRepublicACCLAMATOR]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3);
+      : super(ImageLoader.sprites[EnumImages.ShipEmpireTie]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3);
 
 
   @override

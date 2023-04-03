@@ -26,6 +26,10 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 
  late Button rerollButton;
 
+
+
+
+
  @override
  Future<void> onLoad() async
  {
