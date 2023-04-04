@@ -65,6 +65,18 @@ enum EnumImages
   ShipRepublicYWING,
   ShipRepublicZ95,
   //Ships Seperatisten
+  ShipCISValture,
+  ShipCISC9979,
+  ShipCISHyaenen,
+  ShipCISSRPDroid,
+  ShipCISZenuas33,
+
+  ShipCISLucrehulk,
+  ShipCISMunificent,
+  ShipCISProvidenz,
+  ShipCISRecusant,
+  ShipCISSubjugator,
+
   //Ships Rebellen
   //Ships Alien (other)
   AlienShipOne,

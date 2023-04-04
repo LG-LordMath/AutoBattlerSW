@@ -66,6 +66,21 @@ class ImageLoader
 
 
     //Ships Seperatisten
+    sprites[EnumImages.ShipCISValture] = Sprite(await Flame.images.load('ships/normal/seperatisten/Geier.jpg'));
+    sprites[EnumImages.ShipCISC9979] = Sprite(await Flame.images.load('ships/normal/seperatisten/C-9979.jpg'));
+    sprites[EnumImages.ShipCISHyaenen] = Sprite(await Flame.images.load('ships/normal/seperatisten/Hyänen.jpg'));
+    sprites[EnumImages.ShipCISSRPDroid] = Sprite(await Flame.images.load('ships/normal/seperatisten/SRP-Droid.jpg'));
+    sprites[EnumImages.ShipCISZenuas33] = Sprite(await Flame.images.load('ships/normal/seperatisten/Zenuas-33.jpg'));
+
+
+    sprites[EnumImages.ShipCISLucrehulk] = Sprite(await Flame.images.load('ships/normal/seperatisten/Lucrehulk.jpg'));
+    sprites[EnumImages.ShipCISMunificent] = Sprite(await Flame.images.load('ships/normal/seperatisten/Munificent.jpg'));
+    sprites[EnumImages.ShipCISProvidenz] = Sprite(await Flame.images.load('ships/normal/seperatisten/Providenz.png'));
+    sprites[EnumImages.ShipCISRecusant] = Sprite(await Flame.images.load('ships/normal/seperatisten/Recusant.jpg'));
+    sprites[EnumImages.ShipCISSubjugator] = Sprite(await Flame.images.load('ships/normal/seperatisten/Subjugator.png'));
+
+
+
     //Ships Rebellen
     //Ships Alien (other)
     sprites[EnumImages.AlienShipOne] = Sprite(await Flame.images.load('ships/normal/other/AlienShip1.png'));

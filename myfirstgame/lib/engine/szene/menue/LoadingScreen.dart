@@ -13,6 +13,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/music/MyMusicPlayer.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 import 'package:myfirstgame/engine/szene/background/Background.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
@@ -228,6 +229,8 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
         republicShipsLoader.load();
         GalaticEmpireShipsLoader empireShipsLoader =GalaticEmpireShipsLoader();
         empireShipsLoader.load();
+        SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();
+        cisShipLoader.load();
 
         _loadingShips = true;
       } catch (exception)

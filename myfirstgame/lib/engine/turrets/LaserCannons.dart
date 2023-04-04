@@ -3,6 +3,7 @@
 
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 import 'package:myfirstgame/engine/bullets/LaserBullet.dart';
 import 'package:myfirstgame/engine/bullets/NormalBullet.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
@@ -58,8 +59,8 @@ class LaserCannons extends PositionComponent
         //print("Ship position: " + position.toString());
         if (_positionEnemy.x != 0 && _positionEnemy.y != 0) {
           //print("fire");
-          LaserBullet laser = LaserBullet(ImageLoader.sprites[EnumImages.LaserOne]!, 10, 30, _positionEnemy ,  _currentshipposition + position, _damage, _lifetime, _team);
-          laser.playSound(EnumMusic.LaserOne);
+          LaserBullet laser = LaserBullet(ImageLoader.sprites[EnumImages.LaserOne]!, 10, 30, _damage, _lifetime, _team, EnumGoodAginst.hp,  EnumMusic.LaserOne);
+
 
           add(laser);
           _currentamonition--;

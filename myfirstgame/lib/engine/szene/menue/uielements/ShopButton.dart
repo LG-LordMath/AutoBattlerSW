@@ -13,6 +13,8 @@ import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/EnumGalaticEmpireShips.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
 
@@ -151,6 +153,16 @@ class ShopButton extends Button
       print("Rebell hat gewonnen!");
     } else {
       print("CIS hat gewonnen!");
+      randomNumberShip = random.nextInt(SeperatistCISShipLoader.cisships.length );
+      imagebasicShip = SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]?.getimage;
+      tempbasicShip =  SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]!;
+      SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();
+      cisShipLoader.reloadObject(EnumCISShips.values.elementAt(randomNumberShip));
+      spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
+      add(spriteComponent);
+      uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
+
+
     }
   }
 
