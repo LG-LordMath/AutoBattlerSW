@@ -8,6 +8,6 @@ import 'package:myfirstgame/engine/music/MyMusicPlayer.dart';
 
 class LaserBullet extends IBasicBullet
 {
-  LaserBullet(super.image, super.imagesizex, super.imagesizey, super.enemy, super.currentship, super.damage, super.lifetime, super.team, super.goodAginst, super.sound);
+  LaserBullet(super.image, super.imagesizex, super.imagesizey, super.damage, super.lifetime, super.team, super.goodAginst, super.sound);
 
 }

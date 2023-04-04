@@ -1,10 +1,13 @@
 
 
 
-class RepublicShipsLoader{
+import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
 
+import '../BasicShip.dart';
 
-  static Map<EnumRepublicShips, BasicShip> empireships  = {};
+class RepublicShipsLoader
+{
+  static Map<EnumCISShips, BasicShip> cisships  = {};
 
   void load()  {
     republicships[EnumRepublicShips.Acclamator] = Acclamator(0, 0, 40, 50, 1);
