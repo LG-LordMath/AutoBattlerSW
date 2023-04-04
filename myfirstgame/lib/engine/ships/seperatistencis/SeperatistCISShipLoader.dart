@@ -10,17 +10,7 @@ class RepublicShipsLoader
   static Map<EnumCISShips, BasicShip> cisships  = {};
 
   void load()  {
-    republicships[EnumRepublicShips.Acclamator] = Acclamator(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.ARC170] = ARC170(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.Arquitens] = Arquitens(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.CR90Corvette] = CR90Corvette(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.ETA2Actis] = ETA2Actis(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.NuAttackShuttle] = NuAttackShuttle(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.Venator] = Venator(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.YWing] = YWing(0, 0, 40, 50, 1);
-    republicships[EnumRepublicShips.Z95] = Z95(0, 0, 40, 50, 1);
-
-
+    cisships
     //   republicships[EnumNation.Imperium] = BasicNation("Galactic Empire", ImageLoader.sprites[EnumImages.IconImperium]!, "The Galactic Empire, also known as the First Galactic Empire, the Empire and later as the Old Empire, was the monarchy that replaced the Galactic Republic at the end of the Clone Wars. Though the Empire rose to power by promising to bring order to the galaxy, it oversaw a period of harsh military rule and aggressive expansion.");
 
   }

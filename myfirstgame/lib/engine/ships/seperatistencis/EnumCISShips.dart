@@ -8,7 +8,7 @@ enum EnumCISShips
 {
   valture,
   C9979,
-  Hyänen,
+  Hyaenen,
 
 
   Lucrehulk,
