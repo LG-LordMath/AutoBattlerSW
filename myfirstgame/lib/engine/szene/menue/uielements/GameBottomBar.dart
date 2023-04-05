@@ -66,29 +66,35 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
         case 5:
           add(ship);
           ship.setPosition((Vector2(10, gameRef.size[1] / 1.13)));
+          ship.rotateImage();
           counterMaxShips--;
           return true;
         case 4:
           add(ship);
           ship.position = (Vector2(10+ gameRef.size[0] / 6, gameRef.size[1] / 1.13));
+          ship.rotateImage();
           counterMaxShips--;
           return true;
         case 3:
           add(ship);
           ship.position = (Vector2(10+ gameRef.size[0] / 6 *2, gameRef.size[1] / 1.13));
+          ship.rotateImage();
           counterMaxShips--;
           return true;
         case 2:
           add(ship);
           ship.position = (Vector2(10+ gameRef.size[0] / 6 *3, gameRef.size[1] / 1.13));
+          ship.rotateImage();
           counterMaxShips--;
           return true;
         case 1:
           add(ship);
           ship.position = (Vector2(10+ gameRef.size[0] / 6 *4, gameRef.size[1] / 1.13));
+          ship.rotateImage();
           counterMaxShips--;
           return true;
       }
+
     }
     return false;
 

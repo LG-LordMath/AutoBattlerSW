@@ -27,7 +27,7 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
  late Button rerollButton;
 
 
-
+ GameShopMenue();
 
 
  @override
@@ -37,7 +37,7 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
   sprite = ImageLoader.sprites[EnumImages.UICardTwo];
   position = Vector2(0, gameRef.size[1] / 3 );
   size = Vector2(gameRef.size[0], gameRef.size[1] / 5);
- Sprite? loadingimage = ImageLoader.sprites[EnumImages.IconLoading];
+  Sprite? loadingimage = ImageLoader.sprites[EnumImages.IconLoading];
   rerollButton = Button(loadingimage!, gameRef.size[0] / 9, gameRef.size[0] / 9, Vector2(position.x + gameRef.size[0] / 1.3, position.y + 80), reroll, "1");
   add(rerollButton);
   rerollButton.setTextColor(Colors.black);

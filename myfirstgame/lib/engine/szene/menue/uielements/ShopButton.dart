@@ -62,6 +62,7 @@ class ShopButton extends Button
     super.onLoad();
     uiText = MyUIText(ImageLoader.sprites[EnumImages.IconCredits]!, 40, 40, Vector2(super.positionofButton.x + super.size.x / 3.3,super.positionofButton.y + super.size.y / 1.2), "", Colors.black);
     add(uiText);
+
     getShip();
 
  }
@@ -120,14 +121,12 @@ class ShopButton extends Button
        }
 
    });
-
     var random = Random();
     var randomNumber = random.nextInt(100);
     var randomNumberShip;
 
     if (randomNumber < republic) {
       print("Republic hat gewonnen!");
-
       randomNumberShip = random.nextInt(RepublicShipsLoader.republicships.length );
       imagebasicShip = RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]?.getimage;
       tempbasicShip =  RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]!;
@@ -136,8 +135,7 @@ class ShopButton extends Button
       spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
       add(spriteComponent);
       uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-
-    } else if (randomNumber < republic + imperium) {
+     } else if (randomNumber < republic + imperium) {
       print("Imperium hat gewonnen!");
       randomNumberShip = random.nextInt(GalaticEmpireShipsLoader.empireships.length );
       imagebasicShip = GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]?.getimage;
@@ -147,8 +145,6 @@ class ShopButton extends Button
       spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
       add(spriteComponent);
       uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-
-
     } else if (randomNumber < republic + imperium + rebell) {
       print("Rebell hat gewonnen!");
     } else {
@@ -161,8 +157,6 @@ class ShopButton extends Button
       spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
       add(spriteComponent);
       uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-
-
     }
   }
 

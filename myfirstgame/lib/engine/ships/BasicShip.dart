@@ -63,6 +63,10 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   bool _isDragged = false;
   bool _fight = false;
 
+  int currentlevelship = 0;
+
+
+
   late List<BasicWeaponCanon> _weapons = [];
 
 
@@ -72,15 +76,14 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   BasicShip.from(BasicShip basicShip);
 
-
-
-
   @override
   Future<void> onLoad() async
   {
     super.onLoad();
      spaceshipimage = SpriteComponent(sprite: _image, position: Vector2(positionx, positiony), size: Vector2(imagesizex, imagesizey));
      add(spaceshipimage);
+
+
 
    // Sprite imageship = _image;
    // sprite = imageship;
@@ -303,6 +306,22 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         _currenthp -= damage;
       }
     }
+  }
+
+  void rotateImage(){
+   // spaceshipimage.angle -= 90;
+    print(""+position.x.toString()+", "+ position.y.toString());
+    final effect = RotateEffect.to(
+    tau/4,
+    EffectController(duration: 0), );
+  //  spaceshipimage.add(effect);
+  //  spaceshipimage.position = Vector2(0, 0);
+  //  print(""+spaceshipimage.x.toString()+", "+ spaceshipimage.y.toString());
+    add(effect);
+    print(""+position.x.toString()+", "+ position.y.toString());
+
+    position = Vector2(position.x+50, position.y);
+
   }
 
 
