@@ -13,7 +13,4 @@ enum EnumGalaticEmpireShips
   Acclamator,
   ImperialClass,
   Victory,
-
-
-
 }

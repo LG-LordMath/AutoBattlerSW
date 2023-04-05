@@ -355,6 +355,10 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     }else {
       positionx += event.delta.x;
       positiony += event.delta.y;
+      if(positiony < gameRef.size[1] / 1.2)
+      {
+          
+      }
     }
   }
 

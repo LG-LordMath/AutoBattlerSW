@@ -22,6 +22,13 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   late SpriteComponent fieldFour;
   late SpriteComponent fieldFive;
 
+  bool fieldOneismanned = false;
+  bool fieldTwoismanned = false;
+  bool fieldThreeismanned = false;
+  bool fieldFourismanned = false;
+  bool fieldFiveismanned = false;
+
+
   @override
   Future<void> onLoad() async
 
@@ -56,45 +63,12 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
   bool addShipToBar(BasicShip pship)
   {
-
     BasicShip ship = (pship);
-
     if(counterMaxShips > 0){
       // gameRef.gameAutoBattle.player1.team.add(ship);
       ship.size = (Vector2(gameRef.size[0] / 6, gameRef.size[1] / 10));
-      switch (counterMaxShips){
-        case 5:
-          add(ship);
-          ship.setPosition((Vector2(10, gameRef.size[1] / 1.13)));
-          ship.rotateImage();
-          counterMaxShips--;
-          return true;
-        case 4:
-          add(ship);
-          ship.position = (Vector2(10+ gameRef.size[0] / 6, gameRef.size[1] / 1.13));
-          ship.rotateImage();
-          counterMaxShips--;
-          return true;
-        case 3:
-          add(ship);
-          ship.position = (Vector2(10+ gameRef.size[0] / 6 *2, gameRef.size[1] / 1.13));
-          ship.rotateImage();
-          counterMaxShips--;
-          return true;
-        case 2:
-          add(ship);
-          ship.position = (Vector2(10+ gameRef.size[0] / 6 *3, gameRef.size[1] / 1.13));
-          ship.rotateImage();
-          counterMaxShips--;
-          return true;
-        case 1:
-          add(ship);
-          ship.position = (Vector2(10+ gameRef.size[0] / 6 *4, gameRef.size[1] / 1.13));
-          ship.rotateImage();
-          counterMaxShips--;
-          return true;
-      }
-
+      settingShipOnPosition(ship);
+      return true;
     }
     return false;
 
@@ -118,5 +92,53 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
     gameRef.remove(fieldFive);
     removeFromParent();
   }
+
+  void settingShipOnPosition(BasicShip ship)
+
+  {
+    if(!fieldOneismanned)
+    {
+      add(ship);
+      ship.position = (Vector2(10+ gameRef.size[0] / 6 *4, gameRef.size[1] / 1.13));
+      ship.rotateImage();
+      counterMaxShips--;
+      fieldOneismanned = true;
+    }
+    else if(!fieldTwoismanned)
+    {
+      add(ship);
+      ship.position = (Vector2(10+ gameRef.size[0] / 6 *3, gameRef.size[1] / 1.13));
+      ship.rotateImage();
+      counterMaxShips--;
+      fieldTwoismanned = true;
+    }
+    else if(!fieldThreeismanned)
+    {
+      add(ship);
+      ship.position = (Vector2(10+ gameRef.size[0] / 6 *2, gameRef.size[1] / 1.13));
+      ship.rotateImage();
+      counterMaxShips--;
+      fieldThreeismanned = true;
+    }
+    else if(!fieldFourismanned)
+    {
+      add(ship);
+      ship.position = (Vector2(10+ gameRef.size[0] / 6, gameRef.size[1] / 1.13));
+      ship.rotateImage();
+      counterMaxShips--;
+      fieldFourismanned = true;
+    }
+    else if(!fieldFiveismanned)
+    {
+      add(ship);
+      ship.setPosition((Vector2(10, gameRef.size[1] / 1.13)));
+      ship.rotateImage();
+      counterMaxShips--;
+      fieldFiveismanned = true;
+    }
+  }
+
+
+
 
 }

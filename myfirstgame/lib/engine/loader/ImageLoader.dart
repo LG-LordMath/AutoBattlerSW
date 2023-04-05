@@ -27,6 +27,7 @@ class ImageLoader
     sprites[EnumImages.UICellShipfractions] = Sprite(await Flame.images.load('elements/normal/CellSpaceshipFraction.png'));
     sprites[EnumImages.UIStatesPanel] = Sprite(await Flame.images.load('elements/normal/StatesPanel.png'));
     sprites[EnumImages.UIIconCellTwo] = Sprite(await Flame.images.load('elements/normal/IconCell2.png'));
+    sprites[EnumImages.UIIconCellThree] = Sprite(await Flame.images.load('elements/normal/IconCell3.png'));
     sprites[EnumImages.UIButtonOne] = Sprite(await Flame.images.load('elements/normal/Btn1.png'));
     sprites[EnumImages.UIDiscord] = Sprite(await Flame.images.load('elements/normal/discord.png'));
 

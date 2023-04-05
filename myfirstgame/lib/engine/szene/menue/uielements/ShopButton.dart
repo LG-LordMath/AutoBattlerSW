@@ -62,9 +62,7 @@ class ShopButton extends Button
     super.onLoad();
     uiText = MyUIText(ImageLoader.sprites[EnumImages.IconCredits]!, 40, 40, Vector2(super.positionofButton.x + super.size.x / 3.3,super.positionofButton.y + super.size.y / 1.2), "", Colors.black);
     add(uiText);
-
     getShip();
-
  }
 
  @override

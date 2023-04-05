@@ -4,8 +4,10 @@
 import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameBottomBar.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/GamePlayFieldMap.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/GameUpperBar.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../player/Player.dart';
@@ -32,7 +34,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   late String _winner;
 
 
-
+  late GamePlayFieldMap map = GamePlayFieldMap(30, gameRef.size[1]/ 2.4);
+  late GamePlayFieldMap ennemymap = GamePlayFieldMap(30, 20);
+  GameUpperBar upperBar = GameUpperBar();
 
   GameAutoBattle(this._player1, this._player2);
 
@@ -84,7 +88,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           if(!_isactivestate){
             _isactivestate = true;
             _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  10);
+            _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  10);
 
             if(!isShopopen){
               shopMenue=  GameShopMenue();
@@ -113,7 +117,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           {
             _isactivestate = true;
             _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  5);
+            _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
             beginnFight();
             add(_timer);
 
@@ -132,7 +136,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           if(!_isactivestate){
             _isactivestate = true;
             _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  0);
+            _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  0);
             add(_timer);
           }
           if(_isactivestate){
@@ -241,14 +245,16 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         (EnumGlobalsBackgroundElements.AnimatedElementBlackHole1);
       _background.addingAnimatedBackgroundElement
         (EnumGlobalsBackgroundElements.AnimatedElementBlackHole1);
-      _timer = GameTimer(Vector2(gameRef.size[0] / 2, 20),  1);
-      add(_timer);
+      _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  1);
+
       _gameState = EnumGameState.BEGINPHASE;
       _isactivestate = false;
       bottomBar = GameBottomBar();
+      add(_timer);
       add(bottomBar);
-
-
+      add(upperBar);
+      add(map);
+      //add(ennemymap);
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());

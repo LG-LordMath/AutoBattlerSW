@@ -19,6 +19,7 @@ enum EnumImages
   UICardFour,
   UIIconCell,
   UIIconCellTwo,
+  UIIconCellThree,
   UIStatesPanel,
   UICellShipfractions,
   UIButtonOne,
