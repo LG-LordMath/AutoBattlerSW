@@ -43,11 +43,28 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
   rerollButton.setTextColor(Colors.black);
   rerollButton.setText("1");
   btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
-  btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8),donothing ));
+
+
+  btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
+
   btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
   add(btnOne);
   add(btnTwo);
   add(btnThree);
+
+  if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty){
+    btnOne.setShip(gameRef.gameAutoBattle.tempshipsshop[0]);
+
+    btnTwo.setShip(gameRef.gameAutoBattle.tempshipsshop[1]);
+
+    btnThree.setShip(gameRef.gameAutoBattle.tempshipsshop[2]);
+
+
+
+  }
+
+
+
 
 
  }
@@ -58,13 +75,18 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 void reroll()
 {
 
- if(!btnOne.isRemoved){
+
+ if(!btnOne.isRemoved)
+ {
   btnOne.destroy();
  }
- if(!btnTwo.isRemoved){
+ if(!btnTwo.isRemoved)
+ {
   btnTwo.destroy();
  }
- if(!btnThree.isRemoved){
+ if(!btnThree.isRemoved)
+ {
+
   btnThree.destroy();
  }
 
@@ -73,9 +95,14 @@ void reroll()
  btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
  btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
  btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing));
+
+
  add(btnOne);
  add(btnTwo);
  add(btnThree);
+ gameRef.gameAutoBattle.tempshipsshop[0] = btnOne.tempbasicShip;
+ gameRef.gameAutoBattle.tempshipsshop[1] = btnTwo.tempbasicShip;
+ gameRef.gameAutoBattle.tempshipsshop[2] = btnThree.tempbasicShip;
 
 }
 

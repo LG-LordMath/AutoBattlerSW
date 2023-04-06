@@ -17,7 +17,7 @@ class Lucrehulk extends BasicShip
 
 
   Lucrehulk(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISLucrehulk]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3);
+      : super(ImageLoader.sprites[EnumImages.ShipCISLucrehulk]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.CIS, 3);
 
 
   @override

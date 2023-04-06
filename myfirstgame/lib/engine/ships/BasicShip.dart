@@ -21,6 +21,7 @@ import 'package:myfirstgame/engine/turrets/LaserCannon.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
+import '../loader/ImageLoader.dart';
 import '../nations/EnumNation.dart';
 import '../turrets/weaponturret/BasicWeaponCanon.dart';
 
@@ -62,7 +63,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   bool _ishittingwall = false;
   bool _isDragged = false;
   bool _fight = false;
-
+  late ShapeHitbox hitbox;
   int currentlevelship = 0;
 
 
@@ -103,12 +104,33 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
-    ShapeHitbox hitbox = RectangleHitbox()
+    hitbox = RectangleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
-    add(hitbox);
+    spaceshipimage.add(hitbox);
     healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble());
     add(healbar);
+    switch(nation){
+      case EnumNation.Republic:
+        add(SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconRepublic]));
+
+        break;
+      case EnumNation.Rebellen:
+        add(SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconRebellen]));
+
+        break;
+      case EnumNation.Imperium:
+        add( SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconImperium]));
+
+        break;
+      case EnumNation.CIS:
+        add(SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconSeperatisten]));
+
+        break;
+      default:
+        break;
+
+    }
   }
 
 
@@ -317,10 +339,12 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   //  spaceshipimage.add(effect);
   //  spaceshipimage.position = Vector2(0, 0);
   //  print(""+spaceshipimage.x.toString()+", "+ spaceshipimage.y.toString());
-    add(effect);
-    print(""+position.x.toString()+", "+ position.y.toString());
-
-    position = Vector2(position.x+50, position.y);
+   // add(effect);
+   // print(""+position.x.toString()+", "+ position.y.toString());
+   // position = Vector2(position.x+50, position.y);
+    spaceshipimage.add(effect);
+   print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
+    spaceshipimage.position = Vector2(spaceshipimage.position.x+50, spaceshipimage.position.y);
 
   }
 

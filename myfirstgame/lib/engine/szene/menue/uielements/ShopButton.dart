@@ -17,9 +17,11 @@ import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
+import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../../ships/BasicShip.dart';
 import '../../../ships/republicships/RepublicShipsLoader.dart';
+import 'ShopLogic.dart';
 
 class ShopButton extends Button
 
@@ -29,6 +31,7 @@ class ShopButton extends Button
   late BasicShip tempbasicShip;
   late SpriteComponent spriteComponent;
   late Sprite? imagebasicShip;
+  late    SpriteComponent spriteComponenticon;
 
 
   ShopButton(Vector2 position, Vector2 sizeofImage, Function methode)
@@ -38,7 +41,8 @@ class ShopButton extends Button
 
 
   @override
-  bool onTapDown(TapDownInfo event) {
+  bool onTapDown(TapDownInfo event)
+  {
     try {
       print("Button tapped"); // Add this line
       if(gameRef.gameAutoBattle.bottomBar.addShipToBar(tempbasicShip)){
@@ -73,93 +77,59 @@ class ShopButton extends Button
 
   }
 
+  void setShip(BasicShip ship)
+  {
+    tempbasicShip = ship;
+    spriteComponent.removeFromParent();
+    setShipinShop();
+  }
+
 
   void getShip()
   {
 
-    int republic = 25;
-    int imperium = 25;
-    int rebell = 25;
-    int cis = 25;
-   gameRef.gameAutoBattle.player1.team.forEach((element) {
+    tempbasicShip = gameRef.gameAutoBattle.shopLogic.getRandomShip();
 
-       switch (element.nation) {
-         case EnumNation.Republic:
-           if(republic<=74){
-             republic += 15;
-             imperium -= 5;
-             rebell -= 5;
-             cis -= 5;
-           }
-           break;
-         case EnumNation.Imperium:
-           if(imperium<=74) {
-             imperium += 15;
-             republic -= 5;
-             rebell -= 5;
-             cis -= 5;
-           }
-           break;
-         case EnumNation.Rebellen:
-           if(rebell<=74) {
-             rebell += 15;
-             imperium -= 5;
-             republic -= 5;
-             cis -= 5;
-           }
-           break;
-         case EnumNation.CIS:
-           if(cis<=74) {
-             cis += 15;
-             imperium -= 5;
-             rebell -= 5;
-             republic -= 5;
-           }
-           break;
-       }
+    setShipinShop();
 
-   });
-    var random = Random();
-    var randomNumber = random.nextInt(100);
-    var randomNumberShip;
-
-    if (randomNumber < republic) {
-      print("Republic hat gewonnen!");
-      randomNumberShip = random.nextInt(RepublicShipsLoader.republicships.length );
-      imagebasicShip = RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]?.getimage;
-      tempbasicShip =  RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]!;
-      RepublicShipsLoader rep = RepublicShipsLoader();
-      rep.reloadObject(EnumRepublicShips.values.elementAt(randomNumberShip));
-      spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
-      add(spriteComponent);
-      uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-     } else if (randomNumber < republic + imperium) {
-      print("Imperium hat gewonnen!");
-      randomNumberShip = random.nextInt(GalaticEmpireShipsLoader.empireships.length );
-      imagebasicShip = GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]?.getimage;
-      tempbasicShip =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]!;
-      GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
-      rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(randomNumberShip));
-      spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
-      add(spriteComponent);
-      uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-    } else if (randomNumber < republic + imperium + rebell) {
-      print("Rebell hat gewonnen!");
-    } else {
-      print("CIS hat gewonnen!");
-      randomNumberShip = random.nextInt(SeperatistCISShipLoader.cisships.length );
-      imagebasicShip = SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]?.getimage;
-      tempbasicShip =  SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]!;
-      SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();
-      cisShipLoader.reloadObject(EnumCISShips.values.elementAt(randomNumberShip));
-      spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
-      add(spriteComponent);
-      uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
-    }
   }
 
 
+  void setShipinShop()
+  {
+    imagebasicShip = tempbasicShip.getimage;
+    switch (tempbasicShip.nation)
+    {
+      case EnumNation.Republic:
+        spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
+        add(spriteComponent);
+        uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
+        Sprite? iconfraction = ImageLoader.sprites[EnumImages.IconRepublic];
+        spriteComponenticon = SpriteComponent(sprite: iconfraction, position:  Vector2(0, 0), size: Vector2(20, 20));
+        add(spriteComponenticon);
+        break;
+      case EnumNation.Imperium:
+        spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
+        add(spriteComponent);
+        uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
+        Sprite? iconfraction = ImageLoader.sprites[EnumImages.IconImperium];
+        spriteComponenticon = SpriteComponent(sprite: iconfraction, position:  Vector2(0, 0), size: Vector2(20, 20));
+        add(spriteComponenticon);
+        break;
+      case EnumNation.Rebellen:
+        break;
+      case EnumNation.CIS:
+        spriteComponent = SpriteComponent(position: Vector2(15, 10), sprite:  imagebasicShip, size: Vector2(60,60));
+        add(spriteComponent);
+        uiText.setTextwPos(tempbasicShip.creditcost.toString(),  Vector2(super.positionofButton.x + super.size.x / 2.35,super.positionofButton.y + super.size.y / 1.1));
+        Sprite? iconfraction = ImageLoader.sprites[EnumImages.IconSeperatisten];
+        spriteComponenticon = SpriteComponent(sprite: iconfraction, position:  Vector2(0, 0), size: Vector2(20, 20));
+        add(spriteComponenticon);
+        break;
 
+
+    }
+  }
 
 
 }

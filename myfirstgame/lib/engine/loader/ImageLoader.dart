@@ -45,10 +45,10 @@ class ImageLoader
     sprites[EnumImages.IconSeperatisten] = Sprite(await Flame.images.load('elements/normal/shipfraction/Seperatisten.jpg'));
     //Ships
     //Ships Imperium
-    sprites[EnumImages.ShipEmpireTie] = Sprite(await Flame.images.load('ships/normal/imperium/Tie.jpg'));
-    sprites[EnumImages.ShipEmpireTieBomber] = Sprite(await Flame.images.load('ships/normal/imperium/TieBomber.jpg'));
-    sprites[EnumImages.ShipEmpireTieIntercepter] = Sprite(await Flame.images.load('ships/normal/imperium/TieAbfangjäger.jpg'));
-    sprites[EnumImages.ShipEmpireDeltaClass] = Sprite(await Flame.images.load('ships/normal/imperium/DeltaClass.jpg'));
+    sprites[EnumImages.ShipEmpireTie] = Sprite(await Flame.images.load('ships/normal/imperium/Tie.png'));
+    sprites[EnumImages.ShipEmpireTieBomber] = Sprite(await Flame.images.load('ships/normal/imperium/TieBomber.png'));
+    sprites[EnumImages.ShipEmpireTieIntercepter] = Sprite(await Flame.images.load('ships/normal/imperium/TieAbfangjäger.png'));
+    sprites[EnumImages.ShipEmpireDeltaClass] = Sprite(await Flame.images.load('ships/normal/imperium/DeltaClass.png'));
     sprites[EnumImages.ShipEmpireArquitens] = Sprite(await Flame.images.load('ships/normal/imperium/Arquitens.png'));
     sprites[EnumImages.ShipEmpireAcclamator] = Sprite(await Flame.images.load('ships/normal/imperium/AcclamatorII.png'));
     sprites[EnumImages.ShipEmpireImperialClass] = Sprite(await Flame.images.load('ships/normal/imperium/ImperialClass.png'));
@@ -67,17 +67,17 @@ class ImageLoader
 
 
     //Ships Seperatisten
-    sprites[EnumImages.ShipCISValture] = Sprite(await Flame.images.load('ships/normal/seperatisten/Geier.jpg'));
-    sprites[EnumImages.ShipCISC9979] = Sprite(await Flame.images.load('ships/normal/seperatisten/C-9979.jpg'));
-    sprites[EnumImages.ShipCISHyaenen] = Sprite(await Flame.images.load('ships/normal/seperatisten/Hyänen.jpg'));
-    sprites[EnumImages.ShipCISSRPDroid] = Sprite(await Flame.images.load('ships/normal/seperatisten/SRP-Droid.jpg'));
-    sprites[EnumImages.ShipCISZenuas33] = Sprite(await Flame.images.load('ships/normal/seperatisten/Zenuas-33.jpg'));
+    sprites[EnumImages.ShipCISValture] = Sprite(await Flame.images.load('ships/normal/seperatisten/Geier.png'));
+    sprites[EnumImages.ShipCISC9979] = Sprite(await Flame.images.load('ships/normal/seperatisten/C-9979.png'));
+    sprites[EnumImages.ShipCISHyaenen] = Sprite(await Flame.images.load('ships/normal/seperatisten/Hyänen.png'));
+    sprites[EnumImages.ShipCISSRPDroid] = Sprite(await Flame.images.load('ships/normal/seperatisten/SRP-Droid.png'));
+    sprites[EnumImages.ShipCISZenuas33] = Sprite(await Flame.images.load('ships/normal/seperatisten/Zenuas-33.png'));
 
 
-    sprites[EnumImages.ShipCISLucrehulk] = Sprite(await Flame.images.load('ships/normal/seperatisten/Lucrehulk.jpg'));
-    sprites[EnumImages.ShipCISMunificent] = Sprite(await Flame.images.load('ships/normal/seperatisten/Munificent.jpg'));
+    sprites[EnumImages.ShipCISLucrehulk] = Sprite(await Flame.images.load('ships/normal/seperatisten/Lucrehulk.png'));
+    sprites[EnumImages.ShipCISMunificent] = Sprite(await Flame.images.load('ships/normal/seperatisten/Munificent.png'));
     sprites[EnumImages.ShipCISProvidenz] = Sprite(await Flame.images.load('ships/normal/seperatisten/Providenz.png'));
-    sprites[EnumImages.ShipCISRecusant] = Sprite(await Flame.images.load('ships/normal/seperatisten/Recusant.jpg'));
+    sprites[EnumImages.ShipCISRecusant] = Sprite(await Flame.images.load('ships/normal/seperatisten/Recusant.png'));
     sprites[EnumImages.ShipCISSubjugator] = Sprite(await Flame.images.load('ships/normal/seperatisten/Subjugator.png'));
 
 

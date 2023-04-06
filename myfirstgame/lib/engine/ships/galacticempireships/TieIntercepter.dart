@@ -16,7 +16,7 @@ class TieIntercepter extends BasicShip
 
 
   TieIntercepter(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipEmpireTieIntercepter]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3);
+      : super(ImageLoader.sprites[EnumImages.ShipEmpireTieIntercepter]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Imperium, 3);
 
 
   @override

@@ -9,6 +9,7 @@ import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
@@ -31,10 +32,19 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
   @override
   Future<void> onLoad() async
   {
+
     sprite = ImageLoader.sprites[EnumImages.UIIconCellThree];
     parent = gameRef;
     position = Vector2(positionX, positionY);
-    size = Vector2(200,  gameRef.size[1]/ 3.5);
+    size = Vector2(gameRef.size[0] / 1.2,  gameRef.size[1]/ 3.0);
+
+  final effect = GlowEffect(
+      100.0,
+      EffectController(duration: 2),
+    );
+    add(effect);
+
+
   }
 
 

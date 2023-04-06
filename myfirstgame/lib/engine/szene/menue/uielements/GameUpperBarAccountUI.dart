@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
@@ -19,9 +20,10 @@ class GameUpperBarAccountUI extends SpriteComponent
   late Player player;
   late double sizeX;
   late double positionX;
+  late ColorEffect effect;
 
 
-  GameUpperBarAccountUI(this.player, this.sizeX, this.positionX);
+  GameUpperBarAccountUI(this.player, this.sizeX, this.positionX, this.effect);
 
   @override
   Future<void> onLoad() async
@@ -35,8 +37,9 @@ class GameUpperBarAccountUI extends SpriteComponent
     SpriteComponent spriteComponent = SpriteComponent(sprite: sp, position: Vector2(10, 10), size: Vector2(sizeX / 3, 50) );
     add(spriteComponent);
 
-    MyTextField textField = MyTextField(positionX + sizeX /  2, 40, "Hp: "+player.hp.toString(), Colors.black);
+    MyTextField textField = MyTextField(positionX + sizeX /  2, 40, "Hp: "+player.hp.toString(), Colors.white);
     add(textField);
+    add(effect);
   }
 
 

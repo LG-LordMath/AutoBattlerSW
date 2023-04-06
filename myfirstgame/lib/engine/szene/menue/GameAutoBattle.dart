@@ -1,13 +1,17 @@
 
 
 
+import 'dart:collection';
+
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameBottomBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GamePlayFieldMap.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/GameUpperBar.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/ShopLogic.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../player/Player.dart';
@@ -32,11 +36,13 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   late Background _background;
   late EnumGameState _gameState;
   late String _winner;
+  late List<BasicShip> tempshipsshop;
+  late ShopLogic shopLogic;
 
-
-  late GamePlayFieldMap map = GamePlayFieldMap(30, gameRef.size[1]/ 2.4);
-  late GamePlayFieldMap ennemymap = GamePlayFieldMap(30, 20);
+  late GamePlayFieldMap map = GamePlayFieldMap(30, gameRef.size[1]/ 2.1);
+  late GamePlayFieldMap ennemymap = GamePlayFieldMap(30, 100 );
   GameUpperBar upperBar = GameUpperBar();
+
 
   GameAutoBattle(this._player1, this._player2);
 
@@ -93,6 +99,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             if(!isShopopen){
               shopMenue=  GameShopMenue();
               add(shopMenue);
+
+
               isShopopen = true;
             }
 
@@ -250,11 +258,18 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       _gameState = EnumGameState.BEGINPHASE;
       _isactivestate = false;
       bottomBar = GameBottomBar();
+      shopLogic = ShopLogic();
+      add(shopLogic);
+
+      tempshipsshop = List.from([shopLogic.getRandomShip(),
+        shopLogic.getRandomShip(),
+        shopLogic.getRandomShip()]);
+
       add(_timer);
       add(bottomBar);
       add(upperBar);
       add(map);
-      //add(ennemymap);
+      add(ennemymap);
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());
@@ -297,4 +312,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   set player1(Player value) {
     _player1 = value;
   }
+
+
+
 }
