@@ -5,6 +5,7 @@
 
 
 import 'package:flame/components.dart';
+import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
 
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
@@ -29,7 +30,7 @@ class AcclamatorEmpire extends BasicShip
   Future<void> onLoad() async
   {
     super.onLoad();
-
+    super.shipclass = EnumShipClass.Battleship;
     LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
     super.weapons.add(laserCannon);
 

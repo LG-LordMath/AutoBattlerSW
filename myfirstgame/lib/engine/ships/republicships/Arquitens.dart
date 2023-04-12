@@ -7,6 +7,7 @@ import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/turrets/LaserCannon.dart';
 
 import '../../nations/EnumNation.dart';
+import '../EnumShipClass.dart';
 class Arquitens extends BasicShip
 
 {
@@ -24,7 +25,7 @@ Arquitens(double positionx, double positiony, double imagesizex, double imagesiz
 Future<void> onLoad() async
 {
 super.onLoad();
-
+super.shipclass = EnumShipClass.Battleship;
 LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
 super.weapons.add(laserCannon);
 

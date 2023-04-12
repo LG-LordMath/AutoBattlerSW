@@ -7,6 +7,7 @@ import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/turrets/LaserCannon.dart';
 
 import '../../nations/EnumNation.dart';
+import '../EnumShipClass.dart';
 class ArquitensEmpire extends BasicShip
 
 {
@@ -23,12 +24,10 @@ class ArquitensEmpire extends BasicShip
 @override
 Future<void> onLoad() async
 {
-super.onLoad();
-
-LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
-super.weapons.add(laserCannon);
-
-
+  super.onLoad();
+  super.shipclass = EnumShipClass.Battleship;
+  LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
+  super.weapons.add(laserCannon);
 }
 
 

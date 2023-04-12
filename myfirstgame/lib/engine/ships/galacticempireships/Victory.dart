@@ -7,6 +7,7 @@ import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
 import '../../turrets/LaserCannon.dart';
 import '../BasicShip.dart';
+import '../EnumShipClass.dart';
 
 class Victory extends BasicShip
 
@@ -25,7 +26,7 @@ class Victory extends BasicShip
   Future<void> onLoad() async
   {
     super.onLoad();
-
+    super.shipclass = EnumShipClass.Mothership;
     LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
     super.weapons.add(laserCannon);
 

@@ -4,13 +4,11 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flame/cache.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
@@ -18,8 +16,6 @@ import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameMap/MainCell.dart';
-import 'package:myfirstgame/engine/turrets/LaserCannon.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
@@ -30,11 +26,8 @@ import '../turrets/weaponturret/BasicWeaponCanon.dart';
 class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
 {
   final _defaultColor = Colors.cyan;
-
   late int _currentteam;
-
   //werte vom Schiff
-
   late SpriteComponent spaceshipimage;
   bool _isenable  = true;
   int _maxhp = 0;
@@ -46,34 +39,29 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   double _positiony = 0;
   MovementDirection _movment  = MovementDirection.no;
   double _weaponrange = 200;
-
   //werte des images
   late Sprite _image;
   double _imagesizex = 0;
   double _imagesizey = 0;
   double _rotation = 0;
-
   // hp anzeige
   late Healthbar healbar;
-
   late Vector2 positionEnemy = Vector2(0, 0);
-
   late  EnumNation nation;
   late EnumShipClass shipclass = EnumShipClass.Battleship;
   late int creditcost = 0;
-
   // checking
   bool _ishittingwall = false;
   bool _isDragged = false;
   bool _fight = false;
   late ShapeHitbox hitbox;
   int currentlevelship = 0;
-
-
-
   //UI
   int bottombarposition = 0;
+  //MainCell
   int mainfieldis = 0;
+  late List<int> cellfields;
+
 
 
 
@@ -441,8 +429,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         gameRef.gameAutoBattle.map.addShip(this);
 
       }else{
-
-          gameRef.gameAutoBattle.bottomBar.addShipToBar(this);
+        scale = Vector2(1, 1);
+        gameRef.gameAutoBattle.bottomBar.addShipToBar(this);
 
 
       }
