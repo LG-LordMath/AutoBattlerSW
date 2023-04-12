@@ -60,7 +60,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   int bottombarposition = 0;
   //MainCell
   int mainfieldis = 0;
-  late List<int> cellfields;
+  late List<int> cellfields = [];
 
 
 

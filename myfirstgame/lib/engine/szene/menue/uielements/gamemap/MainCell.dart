@@ -88,21 +88,32 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
 
       if(tempcountercellfree >= (cellSizeX * cellSizeY))
         {
-          print("Modulo: "+ (cellSizeX % firstcell).toString());
-          if(cellSizeX % firstcell !=0){
+          print("Modulo: "+ cellSizeX.toString()+ "/2 = "+ (cellSizeX % 2).toString());
+          print("Modulo: "+  "2 /" + cellSizeX.toString()+" = "+ (2 / cellSizeX ).toString());
 
+
+            if(firstcell % 2 ==1 )
+            {
+              firstcell++;
+              cells[firstcell].isOccupied = true;
+              ship.cellfields.add(firstcell);
+              for(int y = firstcell; y < cellSizeX * cellSizeY;y++){
+                cells[y].isOccupied = true;
+                print("cell: "+ y.toString());
+                ship.cellfields.add(y);
+              }
+              cells[firstcell].setShipPosition(ship);
+            }
+            else {
+            cells[firstcell].isOccupied = true;
+            ship.cellfields.add(firstcell);
+            for(int y = firstcell; y < cellSizeX * cellSizeY;y++){
+              cells[y].isOccupied = true;
+              print("cell: "+ y.toString());
+              ship.cellfields.add(y);
+            }
+            cells[firstcell].setShipPosition(ship);
           }
-
-          cells[firstcell].isOccupied = true;
-          ship.cellfields.add(firstcell);
-          for(int y = firstcell; y < cellSizeX * cellSizeY;y++){
-            cells[y].isOccupied = true;
-            print("cell: "+ y.toString());
-            ship.cellfields.add(y);
-          }
-          cells[firstcell].setShipPosition(ship);
-
-
         }
         else
         {
@@ -118,7 +129,6 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
       ship.scale=Vector2(1, 1);
 
     }
-
     /*
     bool hasShip = false;
     for (int i = 0; i < cellSizeY; i++) {
