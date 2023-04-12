@@ -38,7 +38,11 @@ class Cell extends PositionComponent{
     isOccupied = true;
 
   }
+  void deoccupyCell()
+  {
+    isOccupied = false;
 
+  }
   void setShipPosition(BasicShip ship){
     ship.setPosition(this.absolutePosition);
   }

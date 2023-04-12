@@ -20,7 +20,7 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
   late ShapeHitbox hitbox;
   late List<Cell> cells = [];
   late Vector2 sizeofCell;
-
+  Map<BasicShip, List<int>> shipPositions = Map();
   late double height;
   late double width;
 
@@ -69,91 +69,69 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
   void addShip(BasicShip ship) {
     int cellSizeX = EnumShipClass.values[ship.shipclass.index].CellsizeX;
     int cellSizeY = EnumShipClass.values[ship.shipclass.index].CellsizeY;
-    print(cellSizeX.toString() + ", " + cellSizeY.toString());
-    if(numOfCellsHorizontal >= cellSizeX && numOfCellsVertical >= cellSizeY){
-      print("vorhanden");
-      int tempcountercellfree = 0;
-      int firstcell = 0;
-      for(int i = 0; i<cells.length;i++){
-        if(cells[i].isOccupied)
-        {
-          tempcountercellfree = 0;
-          firstcell = i+ 1;
-        }else{
-          tempcountercellfree++;
-        }
-      }
-      print(tempcountercellfree.toString() + ", benötigt: " +  (cellSizeX * cellSizeY).toString());
-      print(firstcell.toString());
 
-      if(tempcountercellfree >= (cellSizeX * cellSizeY))
-        {
-          print("Modulo: "+ cellSizeX.toString()+ "/2 = "+ (cellSizeX % 2).toString());
-          print("Modulo: "+  "2 /" + cellSizeX.toString()+" = "+ (2 / cellSizeX ).toString());
-
-
-            if(firstcell % 2 ==1 )
-            {
-              firstcell++;
-              cells[firstcell].isOccupied = true;
-              ship.cellfields.add(firstcell);
-              for(int y = firstcell; y < cellSizeX * cellSizeY;y++){
-                cells[y].isOccupied = true;
-                print("cell: "+ y.toString());
-                ship.cellfields.add(y);
-              }
-              cells[firstcell].setShipPosition(ship);
+    if (numOfCellsHorizontal >= cellSizeX && numOfCellsVertical >= cellSizeY) {
+      int firstCell = -1;
+      for (int i = 0; i < cells.length; i++) {
+        if (!cells[i].isOccupied) {
+          bool hasEnoughFreeCells = true;
+          for (int y = i; y < i + cellSizeX * cellSizeY; y++) {
+            if (y >= cells.length || cells[y].isOccupied) {
+              hasEnoughFreeCells = false;
+              break;
             }
-            else {
-            cells[firstcell].isOccupied = true;
-            ship.cellfields.add(firstcell);
-            for(int y = firstcell; y < cellSizeX * cellSizeY;y++){
-              cells[y].isOccupied = true;
-              print("cell: "+ y.toString());
-              ship.cellfields.add(y);
-            }
-            cells[firstcell].setShipPosition(ship);
+          }
+
+          if (hasEnoughFreeCells) {
+            firstCell = i;
+            break;
           }
         }
-        else
-        {
-          print("gebe es auf die letzte position zurück / Shop, wegen zuwenig frei");
-          gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-          ship.scale=Vector2(1, 1);
+      }
+
+      if (firstCell != -1) {
+        cells[firstCell].isOccupied = true;
+        ship.cellfields.add(firstCell);
+        for (int y = firstCell + 1; y < firstCell + cellSizeX * cellSizeY; y++) {
+          cells[y].isOccupied = true;
+          ship.cellfields.add(y);
         }
 
-
-    }else{
-      print("gebe es auf die letzte position zurück / Shop, ergen größe");
+        shipPositions[ship] = ship.cellfields;
+        cells[firstCell].setShipPosition(ship);
+      } else {
+       // print("Keine ausreichend großen freien Zellen gefunden");
+        // Handle, wenn nicht genügend freie Zellen vorhanden sind
+        gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
+        ship.scale = Vector2(1, 1);
+      }
+    } else {
+   // print("Ungültige Schiffgröße");
+      // Handle, wenn die Schiffgröße ungültig ist
       gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-      ship.scale=Vector2(1, 1);
-
+      ship.scale = Vector2(1, 1);
     }
-    /*
-    bool hasShip = false;
-    for (int i = 0; i < cellSizeY; i++) {
-      for (int j = 0; j < cellSizeX; j++) {
-        int index = ((ship.position.y.toInt() + i) * numOfCellsHorizontal) + ship.position.x.toInt() + j;
-
-        if (index >= 0 && index < cells.length && !cells[index].isOccupied) {
-          cells[index].occupyCell();
-          print("Celle: "+index.toString()+" wurde besetzt");
-          if (!hasShip) {
-
-            cells[index].setShipPosition(ship);
-            hasShip = true;
-          }
-        } else {
-          // handle cell out of range or already occupied
-          return;
-        }
-      }
-    }
-
-     */
   }
 
-  @override
+  void releaseCellsAndMap(List<int> cellfields, BasicShip ship) {
+    if (cellfields.isNotEmpty) {
+      print(cellfields.isNotEmpty);
+
+      for (int cellIndex in cellfields) {
+        if (cellIndex >= 0 && cellIndex < cells.length) {
+          print(cellIndex.toString() + ", "+cells[cellIndex].isOccupied.toString());
+          cells[cellIndex].deoccupyCell();
+          print(cellIndex.toString() + ", "+cells[cellIndex].isOccupied.toString());
+        }
+      }
+    }
+    shipPositions.keys.forEach((ship) => print(ship.toString()));
+    shipPositions.removeWhere((key, value) => key == ship);
+    shipPositions.keys.forEach((ship) => print(ship.toString()));
+  }
+
+
+@override
   void onCollisionStart(
       Set<Vector2> intersectionPoints,
       PositionComponent other) {

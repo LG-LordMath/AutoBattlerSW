@@ -71,30 +71,22 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
   void addShip(BasicShip ship) {
     double minDistance = double.infinity; // Start mit einer sehr großen Distanz
     MainCell? mainCell;
-
-    maincells.forEach((MainCell element) {
-      Vector2 position1 = element.absolutePosition;
-      Vector2 position2 = Vector2(element.absolutePosition.x + element.width, element.absolutePosition.y + element.height);
+    int cellposition = 0;
+    for (int i = 0; i < maincells.length; i++) {
+      Vector2 position1 = maincells[i].absolutePosition;
+      Vector2 position2 = Vector2(maincells[i].absolutePosition.x + maincells[i].width, maincells[i].absolutePosition.y + maincells[i].height);
       Vector2 center =(position2 + position1)  / 2;
-
       double distance = (ship.absolutePosition - center).length; // Verwendung von hypot für Distanzberechnung
-      // Überprüfen, ob der aktuelle Abstand kleiner als der bisherige minimale Abstand ist
-
-      print(center.toString());
-      print(ship.absolutePosition.toString());
-
       if (distance < minDistance) {
         minDistance = distance; // Aktualisiere den minimalen Abstand
-        mainCell = element;
-        print("Minimale Entfernung: $minDistance");
+        mainCell = maincells[i];
+        cellposition = i;
+        // print("Minimale Entfernung: $minDistance");
       }
-      print("Maximale Entfernung: $minDistance");
 
-      // Der minimale Abstand ist jetzt in der Variable minDistance verfügbar
-
-    });
-
+    }
     if (mainCell != null) { // Überprüfung auf null für mainCell
+      ship.mainfieldis = cellposition;
       mainCell?.addShip(ship);
     }
   }
