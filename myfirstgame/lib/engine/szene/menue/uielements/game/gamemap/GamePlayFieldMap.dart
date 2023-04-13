@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
@@ -11,9 +5,8 @@ import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../ships/EnumShipClass.dart';
-import 'GameMap/Cell.dart';
-import 'GameMap/MainCell.dart';
+import 'MainCell.dart';
+
 
 class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
 
@@ -83,15 +76,10 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
         cellposition = i;
         // print("Minimale Entfernung: $minDistance");
       }
-
     }
     if (mainCell != null) { // Überprüfung auf null für mainCell
       ship.mainfieldis = cellposition;
       mainCell?.addShip(ship);
     }
   }
-
-
-
-
 }

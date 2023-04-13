@@ -37,8 +37,12 @@ class GameUpperBarAccountUI extends SpriteComponent
     SpriteComponent spriteComponent = SpriteComponent(sprite: sp, position: Vector2(10, 10), size: Vector2(sizeX / 3, 50) );
     add(spriteComponent);
 
-    MyTextField textField = MyTextField(positionX + sizeX /  2, 40, "Hp: "+player.hp.toString(), Colors.white);
+    MyTextField textField = MyTextField(positionX + sizeX /  2, 20, "Hp: "+player.hp.toString(), Colors.white);
+  //  textField.style = TextStyle(color:  Colors.white, fontSize: 20);
+    MyTextField textField1= MyTextField(positionX + sizeX /  2, 50, "[R]: "+player.currentcredits.toString(), Colors.white);
+   // textField1.style = TextStyle(color:  Colors.white, fontSize: 20);
     add(textField);
+    add(textField1);
     add(effect);
   }
 

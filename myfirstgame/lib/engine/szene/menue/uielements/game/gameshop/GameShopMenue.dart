@@ -6,10 +6,11 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameShop/ShopButton.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../../loader/ImageLoader.dart';
+import '../../../../../loader/ImageLoader.dart';
+import 'ShopButton.dart';
+
 
 class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 

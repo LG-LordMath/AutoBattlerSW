@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 

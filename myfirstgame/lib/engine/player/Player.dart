@@ -12,7 +12,7 @@ class Player
   late int _hp;
   late EnumPlayerImages _image;
   List<BasicShip> _team = [];
-  late int _currentcredits;
+  late int _currentcredits = 0;
 
 
   Player(this.nickname, this._hp, this._image);

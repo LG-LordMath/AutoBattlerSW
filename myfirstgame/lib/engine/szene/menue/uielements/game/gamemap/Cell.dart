@@ -4,7 +4,8 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../ships/BasicShip.dart';
+import '../../../../../ships/BasicShip.dart';
+
 
 
 class Cell extends PositionComponent{

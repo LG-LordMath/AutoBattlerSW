@@ -8,15 +8,14 @@ import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/republicships/Acclamator.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../../loader/EnumImages.dart';
-import '../../../../loader/ImageLoader.dart';
-import '../../../../nations/EnumNation.dart';
-import '../../../../ships/galacticempireships/EnumGalaticEmpireShips.dart';
-import '../../../../ships/galacticempireships/GalacticEmpireShipsLoader.dart';
-import '../../../../ships/republicships/EnumRepublicShips.dart';
-import '../../../../ships/republicships/RepublicShipsLoader.dart';
-import '../../../../ships/seperatistencis/EnumCISShips.dart';
-import '../../../../ships/seperatistencis/SeperatistCISShipLoader.dart';
+import '../../../../../nations/EnumNation.dart';
+import '../../../../../ships/galacticempireships/EnumGalaticEmpireShips.dart';
+import '../../../../../ships/galacticempireships/GalacticEmpireShipsLoader.dart';
+import '../../../../../ships/republicships/EnumRepublicShips.dart';
+import '../../../../../ships/republicships/RepublicShipsLoader.dart';
+import '../../../../../ships/seperatistencis/EnumCISShips.dart';
+import '../../../../../ships/seperatistencis/SeperatistCISShipLoader.dart';
+
 
 class ShopLogic extends Component with HasGameRef<MySpaceGame>
 

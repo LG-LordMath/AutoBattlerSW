@@ -16,7 +16,6 @@ import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameMap/MainCell.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
@@ -366,7 +365,12 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       positionx = position.x;
       positiony  = position.y;
       _isDragged = true;
-      gameRef.gameAutoBattle.map.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
+      if(_currentteam == 1){
+        gameRef.gameAutoBattle.map.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
+      }else {
+        gameRef.gameAutoBattle.ennemymap.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
+      }
+
      // priority = 0;
 
     }

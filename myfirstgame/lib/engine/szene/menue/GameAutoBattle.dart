@@ -1,17 +1,14 @@
 
 
 
-import 'dart:collection';
 
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
-import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameBottomBar.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GamePlayFieldMap.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameShop/GameShopMenue.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameTimer.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameUpperBar.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/GameShop/ShopLogic.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/GameBottomBar.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/GameUpperBar.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/gamemap/GamePlayFieldMap.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameShopMenue.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../player/Player.dart';
@@ -270,11 +267,13 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
 
 
+
       add(_timer);
       add(bottomBar);
-      add(upperBar);
+
       add(map);
       add(ennemymap);
+      add(upperBar);
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());
