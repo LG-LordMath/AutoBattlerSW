@@ -30,20 +30,20 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
     size = Vector2(gameRef.size[0] / 1.2,  gameRef.size[1]/ 3.0);
     Sprite? image = ImageLoader.sprites[EnumImages.UIGameFieldOne];
     SpriteComponent componentSprite = SpriteComponent(sprite: image, size: size, position: Vector2(0,0));
-  final effect = GlowEffect(
+    final effect = GlowEffect(
       100.0,
       EffectController(duration: 2),
     );
     //add(effect);
    // add(componentSprite);
+    print("Gamemapsize: X "+size.x.toString() + ", Y "+size.y.toString());
+    MainCell main1_1 = MainCell(size.x / 3.19 , size.y / 3.26, 2, 2, Vector2(5,5));
+    MainCell main2_1 = MainCell(size.x / 3.19 , size.y / 3.26, 2, 2, Vector2(61.5,5));
+    MainCell main3_1 = MainCell(size.x / 3.19 , size.y / 3.26, 2, 2, Vector2(117.5,5));
 
-    MainCell main1_1 = MainCell(107 , 91, 2, 2, Vector2(5,5));
-    MainCell main2_1 = MainCell(107 , 91, 2, 2, Vector2(61.5,5));
-    MainCell main3_1 = MainCell(107 , 91, 2, 2, Vector2(117.5,5));
-
-    MainCell main1_2 = MainCell(107 , 138, 2, 3, Vector2(5,53));
-    MainCell main2_2 = MainCell(107 , 138, 2, 3, Vector2(61.5,53));
-    MainCell main3_2 = MainCell(107 , 138, 2, 3, Vector2(117.5,53));
+    MainCell main1_2 = MainCell(size.x / 3.19 , size.y / 2.15, 2, 3, Vector2(5,53));
+    MainCell main2_2 = MainCell(size.x / 3.19 , size.y / 2.15, 2, 3, Vector2(61.5,53));
+    MainCell main3_2 = MainCell(size.x / 3.19 , size.y / 2.15, 2, 3, Vector2(117.5,53));
     //SpriteComponent sp = SpriteComponent(
     //sprite: ImageLoader.sprites[EnumImages.UICardOne], size: Vector2(200, 200), position: Vector2(0,0));
    // add(sp);
