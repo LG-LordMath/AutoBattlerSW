@@ -55,7 +55,10 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     //_mainMenue.destroy();
     Player enemyplayer = searchEnemyPlayer();
     EnumPlayerImages image = EnumPlayerImages.image1;
-    _gameAutoBattle = GameAutoBattle(Player("Gast", 8, image), enemyplayer);
+    Player player = Player("Gast", 8, image);
+    player.currentcredits = 12;
+    enemyplayer.currentcredits = 12;
+    _gameAutoBattle = GameAutoBattle(player, enemyplayer);
     add(_gameAutoBattle);
   }
 

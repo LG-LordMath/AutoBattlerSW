@@ -40,16 +40,16 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
       ..style = PaintingStyle.fill;
 
     rec = RectangleComponent()
-      ..position = Vector2(-25, 25)
-      ..size = Vector2(20, 50)
+      ..position = Vector2(-25, 0)
+      ..size = Vector2(20, 30)
       ..paint = paintbar;
     rechealth = RectangleComponent()
-      ..position = Vector2(-15, 25)
-      ..size = Vector2(10, 50)
+      ..position = Vector2(-15, 0)
+      ..size = Vector2(10, 30)
       ..paint = healthbar;
     recshield = RectangleComponent()
-      ..position = Vector2(-25, 25)
-      ..size = Vector2(10, 50)
+      ..position = Vector2(-25, 0)
+      ..size = Vector2(10, 30)
       ..paint = shieldbar;
 
 
@@ -68,11 +68,11 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
   void updateHealBar(double hp, double shield)
   {
     if(_hpFromShip != 0){
-      _healtbarlength = ((hp / _hpFromShip) * 50) ;
+      _healtbarlength = ((hp / _hpFromShip) * 30) ;
     }
     if(_shielfFromShip != 0)
     {
-      _shieldbarlength = ((shield / _shielfFromShip) * 50);
+      _shieldbarlength = ((shield / _shielfFromShip) * 30);
     }
 
   }

@@ -22,6 +22,10 @@ class GameUpperBarAccountUI extends SpriteComponent
   late double positionX;
   late ColorEffect effect;
 
+  late int _currenthp;
+  late int _currentcredits;
+  late MyTextField textField;
+  late  MyTextField textField1;
 
   GameUpperBarAccountUI(this.player, this.sizeX, this.positionX, this.effect);
 
@@ -37,15 +41,34 @@ class GameUpperBarAccountUI extends SpriteComponent
     SpriteComponent spriteComponent = SpriteComponent(sprite: sp, position: Vector2(10, 10), size: Vector2(sizeX / 3, 50) );
     add(spriteComponent);
 
-    MyTextField textField = MyTextField(positionX + sizeX /  2, 20, "Hp: "+player.hp.toString(), Colors.white);
+    _currenthp = player.hp;
+    _currentcredits = player.currentcredits;
+
+    textField = MyTextField(positionX + sizeX /  2, 20, "Hp: "+ _currenthp.toString(), Colors.white);
   //  textField.style = TextStyle(color:  Colors.white, fontSize: 20);
-    MyTextField textField1= MyTextField(positionX + sizeX /  2, 50, "[R]: "+player.currentcredits.toString(), Colors.white);
+    textField1 = MyTextField(positionX + sizeX /  2, 50, "[R]: "+ _currentcredits.toString(), Colors.white);
    // textField1.style = TextStyle(color:  Colors.white, fontSize: 20);
     add(textField);
     add(textField1);
     add(effect);
   }
 
+  @override
+  void update(double dt){
+    super.update(dt);
+    if(_currenthp != player.hp)
+    {
+      _currenthp = player.hp;
+      textField.text = "Hp: "+ _currenthp.toString();
+
+    }
+    if(_currentcredits != player.currentcredits)
+    {
+      _currentcredits = player.currentcredits;
+      textField1.text =  "[R]: "+ _currentcredits.toString();
+
+    }
+  }
 
 
 }

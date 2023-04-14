@@ -128,14 +128,14 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           if(!_isactivestate)
           {
             _isactivestate = true;
-            _timer.destroy();
-            _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
+        //    _timer.destroy();
+           // _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
             beginnFight();
-            add(_timer);
+         //   add(_timer);
 
           }
           if(_isactivestate){
-            if(_timer.timer.finished){
+            if(checkFightending()){
               _isactivestate = false;
               endFight();
               _gameState = EnumGameState.ENDPHASE;
@@ -150,6 +150,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  0);
             add(_timer);
+            player1.currentcredits += 6;
+            player2.currentcredits += 6;
           }
           if(_isactivestate){
             if(_timer.timer.finished){
@@ -168,32 +170,53 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
               // remove all Components -> MySpaceGame.losingscreen
             }
           } else {
+
           }
           break;
       }
     }
   }
 
-
-
-  void fighting()
+  bool checkFightending()
   {
-    /*
-    if(team1.isEmpty || team2.isEmpty)
-    {
-      if(team2.isNotEmpty)
-      {
-        team2.forEach((BasicShip ship) { ship.fighting(false);  ship.removeFromParent();});
-        _fight = false; _hpPlayer1-=1;timer.timer.start();
-      }
-      if(team1.isNotEmpty)
-      {
-        team1.forEach((BasicShip ship) { ship.fighting(false); ship.removeFromParent();});
-        _fight = false; _hpPlayer2-=1;timer.timer.start();
-      }
+    bool playertwowon = true;
+    bool playeronewon = true;
+
+   if(player1.team.isNotEmpty)
+   {
+
+     player1.team.forEach((element) {
+       if(element.hp > 0 && playertwowon){
+         playertwowon = false;
+       }
+     });
+   }
+
+   if(player2.team.isNotEmpty)
+   {
+
+      player2.team.forEach((element) {
+        if(element.hp > 0 && playeronewon){
+          playeronewon = false;
+        }
+      });
+   }
+
+   if(playeronewon){
+     player2.hp--;
+     return true;
+   }
+    if(playertwowon){
+      player1.hp--;
+      return true;
     }
-*/
+
+
+
+    return false;
   }
+
+
 
   void beginnFight()
   {
@@ -202,32 +225,28 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   }
 
   void endFight() {
-    player1.team.forEach((BasicShip ship) {ship.fighting(false);});
-    player2.team.forEach((BasicShip ship) {ship.fighting(false);});
+    player1.team.forEach((BasicShip ship) {
+      ship.fighting(false);
+      for (int i = 0; i < map.maincells.length; i++) {
+        if(ship.mainfieldis==i)
+        {
+         map.maincells[i].cells[ship.cellfields.first].setShipPosition(ship);
+        }
+      }
+
+    });
+    player2.team.forEach((BasicShip ship) {
+      ship.fighting(false);
+      for (int i = 0; i < map.maincells.length; i++) {
+        if(ship.mainfieldis==i)
+        {
+          ennemymap.maincells[i].cells[ship.cellfields.first].setShipPosition(ship);
+        }
+      }
+    });
+
   }
 
-
-  void loadShips()
-  {
-/*
-    if(!_fight){
-      base = BasicShip(0, 'ships/normal/other/AlienShip1.png', 200, 10, 50, 50, 200, 0, 1);
-      base1 = BasicShip(0, 'ships/normal/other/AlienShip1.png', 200, 400, 100, 100, 800, 200, 2);
-      base2 = BasicShip(1, 'ships/normal/other/AlienShip1.png', 50, 400, 100, 100, 100, 100, 2);
-      base4 = BasicShip(1, 'ships/normal/other/AlienShip1.png', 50, 10, 50, 50, 200, 00, 1);
-      team1.add(base);
-      team1.add(base4);
-      team2.add(base1);
-      team2.add(base2);
-
-      add(base);
-      add(base1);
-      add(base2);
-      add(base4);
-      beginnfight();
-    }
-*/
-  }
 
 
   void openOrcloseShop(){

@@ -58,7 +58,13 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   }
 
 
+  bool isFull(){
 
+    if(fieldOneismanned && fieldTwoismanned &&  fieldThreeismanned && fieldFourismanned && fieldFiveismanned) {
+      return true;
+    }
+    return false;
+  }
 
 
   bool addShipToBar(BasicShip pship)

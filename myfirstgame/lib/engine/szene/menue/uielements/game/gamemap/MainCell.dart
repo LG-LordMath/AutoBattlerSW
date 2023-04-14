@@ -75,10 +75,15 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
       for (int i = 0; i < cells.length; i++) {
         if (!cells[i].isOccupied) {
           bool hasEnoughFreeCells = true;
-          for (int y = i; y < i + cellSizeX * cellSizeY; y++) {
-            if (y >= cells.length || cells[y].isOccupied) {
-              hasEnoughFreeCells = false;
-              break;
+          if (cellSizeX == 2 && i % numOfCellsHorizontal == numOfCellsHorizontal - 1) {
+            // For ships with size 2 in X direction, check if the current cell is the last cell in a row
+            hasEnoughFreeCells = false;
+          } else {
+            for (int y = i; y < i + cellSizeX * cellSizeY; y++) {
+              if (y >= cells.length || cells[y].isOccupied) {
+                hasEnoughFreeCells = false;
+                break;
+              }
             }
           }
 
@@ -99,17 +104,28 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
 
         shipPositions[ship] = ship.cellfields;
         cells[firstCell].setShipPosition(ship);
+        if(ship.currentteam == 1){
+          gameRef.gameAutoBattle.player1.team.add(ship);
+        }else {
+          gameRef.gameAutoBattle.player2.team.add(ship);
+        }
       } else {
-       // print("Keine ausreichend großen freien Zellen gefunden");
+        // print("Keine ausreichend großen freien Zellen gefunden");
         // Handle, wenn nicht genügend freie Zellen vorhanden sind
+          gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
+          ship.scale = Vector2(1, 1);
+      }
+    } else {
+      // print("Ungültige Schiffgröße");
+      // Handle, wenn die Schiffgröße ungültig ist
+      if (gameRef.gameAutoBattle.bottomBar.isFull()) {
+        // Check if bottomBar is full
+        gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
+      } else {
+        // Add ship back to bottomBar if it's not full
         gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
         ship.scale = Vector2(1, 1);
       }
-    } else {
-   // print("Ungültige Schiffgröße");
-      // Handle, wenn die Schiffgröße ungültig ist
-      gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-      ship.scale = Vector2(1, 1);
     }
   }
 

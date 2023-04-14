@@ -75,39 +75,44 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 
 void reroll()
 {
-
- if(btnOne!=null){
-  if(!btnOne.isRemoved)
-  {
-   btnOne.destroy();
+ int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - 1;
+ if(tempcredits > 0)
+ {
+  if(btnOne!=null){
+   if(!btnOne.isRemoved)
+   {
+    btnOne.destroy();
+   }
   }
- }
- if(btnTwo!=null) {
-  if (!btnTwo.isRemoved) {
-   btnTwo.destroy();
+  if(btnTwo!=null) {
+   if (!btnTwo.isRemoved) {
+    btnTwo.destroy();
+   }
   }
+  if(btnThree!=null) {
+   if (!btnThree.isRemoved) {
+    btnThree.destroy();
+   }
  }
- if(btnThree!=null) {
-  if (!btnThree.isRemoved) {
-   btnThree.destroy();
-  }
+  gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
+  gameRef.gameAutoBattle.tempshipshopbuyed[1] = true;
+  gameRef.gameAutoBattle.tempshipshopbuyed[2] = true;
+  btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 0));
+  btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 1));
+  btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
+
+
+  add(btnOne);
+  add(btnTwo);
+  add(btnThree);
+  gameRef.gameAutoBattle.tempshipsshop[0] = btnOne.tempbasicShip;
+  gameRef.gameAutoBattle.tempshipsshop[1] = btnTwo.tempbasicShip;
+  gameRef.gameAutoBattle.tempshipsshop[2] = btnThree.tempbasicShip;
+  gameRef.gameAutoBattle.player1.currentcredits--;
  }
 
 
- gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
- gameRef.gameAutoBattle.tempshipshopbuyed[1] = true;
- gameRef.gameAutoBattle.tempshipshopbuyed[2] = true;
- btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 0));
- btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 1));
- btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
 
-
- add(btnOne);
- add(btnTwo);
- add(btnThree);
- gameRef.gameAutoBattle.tempshipsshop[0] = btnOne.tempbasicShip;
- gameRef.gameAutoBattle.tempshipsshop[1] = btnTwo.tempbasicShip;
- gameRef.gameAutoBattle.tempshipsshop[2] = btnThree.tempbasicShip;
 
 
 }

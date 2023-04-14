@@ -44,11 +44,16 @@ class ShopButton extends Button
   {
     try {
       print("Button tapped"); // Add this line
-      if(gameRef.gameAutoBattle.bottomBar.addShipToBar(tempbasicShip)){
-        gameRef.gameAutoBattle.tempshipshopbuyed[number] = false;
-        destroy();
-
+      int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - tempbasicShip.creditcost;
+      if(tempcredits > 0)
+      {
+        if(gameRef.gameAutoBattle.bottomBar.addShipToBar(tempbasicShip)){
+          gameRef.gameAutoBattle.player1.currentcredits = tempcredits;
+          gameRef.gameAutoBattle.tempshipshopbuyed[number] = false;
+          destroy();
+        }
       }
+
       return true;
     } catch (error) {
       print(error);
