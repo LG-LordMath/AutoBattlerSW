@@ -80,24 +80,24 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
 
 
     if (randomNumber < republic) {
-      print("Republic hat gewonnen!");
+    //  print("Republic hat gewonnen!");
       randomNumberShip = random.nextInt(RepublicShipsLoader.republicships.length );
       tempbasicShip =  RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]!;
       RepublicShipsLoader rep = RepublicShipsLoader();
       rep.reloadObject(EnumRepublicShips.values.elementAt(randomNumberShip));
       return tempbasicShip;
     } else if (randomNumber < republic + imperium) {
-      print("Imperium hat gewonnen!");
+   //   print("Imperium hat gewonnen!");
       randomNumberShip = random.nextInt(GalaticEmpireShipsLoader.empireships.length );
       tempbasicShip =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]!;
       GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
       rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(randomNumberShip));
       return tempbasicShip;
     } else if (randomNumber < republic + imperium + rebell) {
-      print("Rebell hat gewonnen!");
+   //   print("Rebell hat gewonnen!");
       tempbasicShip = Acclamator(0, 0, 50, 50, 0);
     } else {
-      print("CIS hat gewonnen!");
+   //   print("CIS hat gewonnen!");
       randomNumberShip = random.nextInt(SeperatistCISShipLoader.cisships.length );
       tempbasicShip =  SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]!;
       SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();

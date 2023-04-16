@@ -40,12 +40,17 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
     numOfCellsVertical = (height / sizeofCell.y).ceil();
     size = Vector2(width, height);
 
+    /*
+
+
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
     hitbox = RectangleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
+
+     */
   // add(hitbox);
     _createCells();
   }
@@ -160,7 +165,13 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
 
 
   List<Cell> getFreeCells() {
-    return cells.where((cell) => !cell.isOccupied).toList();
+    return
+        cells.where((cell) => !cell.isOccupied).toList();
+  }
+
+  int getNumberOfFreeCells() {
+    List<Cell> freeCells = cells.where((cell) => !cell.isOccupied).toList();
+    return freeCells.length;
   }
 
   List<Cell> getOccupiedCells() {

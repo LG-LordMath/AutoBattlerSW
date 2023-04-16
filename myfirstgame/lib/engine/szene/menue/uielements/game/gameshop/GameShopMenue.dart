@@ -76,7 +76,7 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 void reroll()
 {
  int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - 1;
- if(tempcredits > 0)
+ if(tempcredits >= 0)
  {
   if(btnOne!=null){
    if(!btnOne.isRemoved)

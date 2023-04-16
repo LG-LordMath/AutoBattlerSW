@@ -44,9 +44,9 @@ class GameUpperBarAccountUI extends SpriteComponent
     _currenthp = player.hp;
     _currentcredits = player.currentcredits;
 
-    textField = MyTextField(positionX + sizeX /  2, 20, "Hp: "+ _currenthp.toString(), Colors.white);
+    textField = MyTextField(positionX + sizeX /  2.3, 20, "Hp: "+ _currenthp.toString(), Colors.white);
   //  textField.style = TextStyle(color:  Colors.white, fontSize: 20);
-    textField1 = MyTextField(positionX + sizeX /  2, 50, "[R]: "+ _currentcredits.toString(), Colors.white);
+    textField1 = MyTextField(positionX + sizeX /  2.3, 50, "[R]: "+ _currentcredits.toString(), Colors.white);
    // textField1.style = TextStyle(color:  Colors.white, fontSize: 20);
     add(textField);
     add(textField1);

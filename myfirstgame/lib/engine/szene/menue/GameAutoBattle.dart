@@ -3,6 +3,8 @@
 
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
+import 'package:flame/geometry.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameBottomBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameUpperBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gamemap/GamePlayFieldMap.dart';
@@ -31,7 +33,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   late GameBottomBar bottomBar;
   late GameTimer _timer;
   late Background _background;
-  late EnumGameState _gameState;
+  late EnumGameState gameState;
   late String _winner;
   late List<BasicShip> tempshipsshop;
   late List<bool> tempshipshopbuyed =  List.from([true, true, true], growable:  false);
@@ -67,11 +69,11 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   void update(double dt) {
     super.update(dt);
 
-
+    print("State: " +gameState.name.toString());
     if(!_isgameloaded){
 
     }else {
-      switch (_gameState) {
+      switch (gameState) {
         case EnumGameState.BEGINPHASE:
 
           print("Phase: Begin");
@@ -83,7 +85,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           {
             _round ++;
             _isactivestate = false;
-            _gameState = EnumGameState.BUYPHASE;
+            gameState = EnumGameState.BUYPHASE;
           }
 
           break;
@@ -91,6 +93,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
          // print("Phase: Buy");
           if(!_isactivestate){
             _isactivestate = true;
+            map.setVisibale(true);
+            ennemymap.setVisibale(true);
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  10);
 
@@ -118,7 +122,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
                   isShopopen = false;
                 }
                 _isactivestate = false;
-                _gameState = EnumGameState.FIGHTPHASE;
+                gameState = EnumGameState.FIGHTPHASE;
               }
           }
 
@@ -131,14 +135,18 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         //    _timer.destroy();
            // _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
             beginnFight();
+            map.setVisibale(false);
+            ennemymap.setVisibale(false);
          //   add(_timer);
 
           }
           if(_isactivestate){
             if(checkFightending()){
               _isactivestate = false;
+              map.setVisibale(true);
+              ennemymap.setVisibale(true);
               endFight();
-              _gameState = EnumGameState.ENDPHASE;
+              gameState = EnumGameState.ENDPHASE;
             }
           }
 
@@ -146,17 +154,27 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         case EnumGameState.ENDPHASE:
         //  print("Phase: End");
           if(!_isactivestate){
+
             _isactivestate = true;
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  0);
             add(_timer);
+            map.setVisibale(true);
+            ennemymap.setVisibale(true);
             player1.currentcredits += 6;
             player2.currentcredits += 6;
+            if(player1.currentcredits > 99){
+              player1.currentcredits = 99;
+            }
+            if(player2.currentcredits > 99){
+              player2.currentcredits = 99;
+            }
+
           }
           if(_isactivestate){
             if(_timer.timer.finished){
               _isactivestate = false;
-              _gameState = EnumGameState.BEGINPHASE;
+              gameState = EnumGameState.BEGINPHASE;
             }
           }
 
@@ -179,40 +197,56 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
   bool checkFightending()
   {
+    print("Check if won ");
     bool playertwowon = true;
     bool playeronewon = true;
-
-   if(player1.team.isNotEmpty)
-   {
-
-     player1.team.forEach((element) {
-       if(element.hp > 0 && playertwowon){
-         playertwowon = false;
-       }
-     });
-   }
-
-   if(player2.team.isNotEmpty)
-   {
-
-      player2.team.forEach((element) {
-        if(element.hp > 0 && playeronewon){
-          playeronewon = false;
-        }
-      });
-   }
-
-   if(playeronewon){
-     player2.hp--;
-     return true;
-   }
-    if(playertwowon){
+    if(player1.team.isEmpty && player2.team.isEmpty){
       player1.hp--;
+      player2.hp--;
       return true;
     }
+    else if(player1.team.isEmpty && player2.team.isNotEmpty){
+      player1.hp--;
+      return true;
+    } else if(player2.team.isEmpty && player1.team.isNotEmpty){
+      player2.hp--;
+      return true;
+    }
+    else
+    {
+      if(player1.team.isNotEmpty)
+      {
+        player1.team.forEach((element) {
+          if(element.hp > 0 && playertwowon){
+            print("team 1: " + element.toString());;
+            playertwowon = false;
+          }
+        });
+      }
+
+      if(player2.team.isNotEmpty)
+      {
+
+        player2.team.forEach((element) {
+          if(element.hp > 0 && playeronewon){
+            print("team 2: " + element.toString());
+            playeronewon = false;
+          }
+        });
+      }
 
 
 
+      if(playeronewon){
+        print("player one won");
+        player2.hp--;
+        return true;
+      }
+      if(playertwowon){
+        player1.hp--;
+        return true;
+      }
+    }
     return false;
   }
 
@@ -235,15 +269,18 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       }
 
     });
+    /*
     player2.team.forEach((BasicShip ship) {
       ship.fighting(false);
-      for (int i = 0; i < map.maincells.length; i++) {
+      for (int i = 0; i < ennemymap.maincells.length; i++) {
         if(ship.mainfieldis==i)
         {
           ennemymap.maincells[i].cells[ship.cellfields.first].setShipPosition(ship);
         }
       }
     });
+
+     */
 
   }
 
@@ -278,7 +315,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         (EnumGlobalsBackgroundElements.AnimatedElementBlackHole1);
       _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  1);
 
-      _gameState = EnumGameState.BEGINPHASE;
+      gameState = EnumGameState.BEGINPHASE;
       _isactivestate = false;
       bottomBar = GameBottomBar();
       shopLogic = ShopLogic();
@@ -291,8 +328,14 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       add(bottomBar);
 
       add(map);
+      final effect = RotateEffect.to(
+        tau/2,
+        EffectController(duration: 0), );
       add(ennemymap);
+      ennemymap.add(effect);
+      ennemymap.position = Vector2(30+ gameRef.size[0] / 1.2, 100 + gameRef.size[1]/ 3.0);
       add(upperBar);
+
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());
@@ -312,11 +355,11 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     if(_player1.hp <= 0 || _player2.hp <= 0){
       if(_player1.hp <= 0){
         _winner = _player2.nickname;
-        _gameState = EnumGameState.ENDGAME;
+        gameState = EnumGameState.ENDGAME;
       }
       if(_player2.hp <= 0){
         _winner = _player1.nickname;
-          _gameState = EnumGameState.ENDGAME;
+          gameState = EnumGameState.ENDGAME;
       }
       return true;
     }
@@ -335,7 +378,4 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   set player1(Player value) {
     _player1 = value;
   }
-
-
-
 }

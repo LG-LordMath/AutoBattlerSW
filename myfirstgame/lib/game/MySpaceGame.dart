@@ -25,7 +25,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
 
   late LoadingScreen _loadingScreen;
-  late GameAutoBattle _gameAutoBattle;
+  late GameAutoBattle gameAutoBattle;
   late MainMenue _mainMenue;
 
 
@@ -58,8 +58,8 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     Player player = Player("Gast", 8, image);
     player.currentcredits = 12;
     enemyplayer.currentcredits = 12;
-    _gameAutoBattle = GameAutoBattle(player, enemyplayer);
-    add(_gameAutoBattle);
+    gameAutoBattle = GameAutoBattle(player, enemyplayer);
+    add(gameAutoBattle);
   }
 
   void startGameAutoBattleOnline()
@@ -102,13 +102,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     }
 
 
-    return PlayerAi(8, image);
-  }
-
-  GameAutoBattle get gameAutoBattle => _gameAutoBattle;
-
-  set gameAutoBattle(GameAutoBattle value) {
-    _gameAutoBattle = value;
+    return PlayerAi(8, image, this);
   }
 
   MainMenue get mainMenue => _mainMenue;

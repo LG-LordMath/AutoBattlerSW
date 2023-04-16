@@ -10,11 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/nations/EnumNation.dart';
-import 'package:myfirstgame/engine/ships/galacticempireships/EnumGalaticEmpireShips.dart';
-import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
-import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
-import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
-import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -43,7 +38,7 @@ class ShopButton extends Button
   bool onTapDown(TapDownInfo event)
   {
     try {
-      print("Button tapped"); // Add this line
+     // print("Button tapped"); // Add this line
       int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - tempbasicShip.creditcost;
       if(tempcredits > 0)
       {
