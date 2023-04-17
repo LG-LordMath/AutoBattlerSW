@@ -40,7 +40,7 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
     numOfCellsVertical = (height / sizeofCell.y).ceil();
     size = Vector2(width, height);
 
-    /*
+
 
 
     final defaultPaint = Paint()
@@ -50,8 +50,8 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
       ..paint = defaultPaint
       ..renderShape = true;
 
-     */
-  // add(hitbox);
+
+   // add(hitbox);
     _createCells();
   }
 
@@ -115,21 +115,24 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
           gameRef.gameAutoBattle.player2.team.add(ship);
         }
       } else {
-        // print("Keine ausreichend großen freien Zellen gefunden");
-        // Handle, wenn nicht genügend freie Zellen vorhanden sind
-          gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-          ship.scale = Vector2(1, 1);
+          if(ship.currentteam == 1){
+            gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
+            ship.scale = Vector2(1, 1);
+          }
+
       }
     } else {
       // print("Ungültige Schiffgröße");
       // Handle, wenn die Schiffgröße ungültig ist
-      if (gameRef.gameAutoBattle.bottomBar.isFull()) {
-        // Check if bottomBar is full
-        gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-      } else {
-        // Add ship back to bottomBar if it's not full
-        gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-        ship.scale = Vector2(1, 1);
+      if(ship.currentteam == 1) {
+        if (gameRef.gameAutoBattle.bottomBar.isFull()) {
+          // Check if bottomBar is full
+          gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
+        } else {
+          // Add ship back to bottomBar if it's not full
+          gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
+          ship.scale = Vector2(1, 1);
+        }
       }
     }
   }

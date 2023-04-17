@@ -359,15 +359,16 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       // print(""+position.x.toString()+", "+ position.y.toString());
       // position = Vector2(position.x+50, position.y);
       spaceshipimage.add(effect);
-      print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
+     // print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
       spaceshipimage.position = Vector2(spaceshipimage.position.x+50, spaceshipimage.position.y);
     }else {
-      final effect = RotateEffect.by(
-        4.7,
+      final effect = RotateEffect.to(
+        tau/4,
         EffectController(duration: 0), );
       spaceshipimage.add(effect);
-      print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
-      spaceshipimage.position = Vector2(spaceshipimage.position.x  , spaceshipimage.position.y+ 50);
+      //print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
+      spaceshipimage.position = Vector2(spaceshipimage.position.x+50  , spaceshipimage.position.y);
+      scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
     }
   }
 

@@ -70,7 +70,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   void update(double dt) {
     super.update(dt);
 
-    print("State: " +gameState.name.toString());
+    //print("State: " +gameState.name.toString());
     if(!_isgameloaded){
 
     }else {
@@ -99,6 +99,11 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  10);
 
+            if(player2 is PlayerAi)
+            {
+              PlayerAi   player =  player2 as PlayerAi;
+              player.buyphase();
+            }
             if(!isShopopen){
               gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
               gameRef.gameAutoBattle.tempshipshopbuyed[1] = true;
@@ -117,11 +122,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             add(_timer);
           }
           if(_isactivestate){
-              if(player2 is PlayerAi)
-              {
-               PlayerAi   player =  player2 as PlayerAi;
-               player.buyphase();
-              }
+
               if(_timer.timer.current > 9){
                 if(isShopopen){
                   shopMenue.destroy();
@@ -276,15 +277,23 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
     });
 
+  //
     player2.team.forEach((BasicShip ship) {
       ship.fighting(false);
+/*
       for (int i = 0; i < ennemymap.maincells.length; i++) {
         if(ship.mainfieldis==i)
         {
           ennemymap.maincells[i].cells[ship.cellfields.first].setShipPosition(ship);
         }
       }
+
+
+ */
+
     });
+//
+
 
 
 

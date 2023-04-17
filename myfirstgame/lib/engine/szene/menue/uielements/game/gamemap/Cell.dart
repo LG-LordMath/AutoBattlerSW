@@ -1,14 +1,17 @@
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../../../../ships/BasicShip.dart';
 
 
 
-class Cell extends PositionComponent{
+class Cell extends PositionComponent with HasGameRef<MySpaceGame>{
   late bool isOccupied;
   late Vector2 psize;
   late Vector2 pposition;
@@ -30,7 +33,7 @@ class Cell extends PositionComponent{
     hitbox = RectangleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
-    add(hitbox);
+   add(hitbox);
 
 
   }
@@ -47,7 +50,20 @@ class Cell extends PositionComponent{
 
   }
   void setShipPosition(BasicShip ship){
-    ship.setPosition(this.absolutePosition);
+
+    if(ship.currentteam == 1){
+      ship.setPosition(absolutePosition);
+    }else {
+      ship.setPosition(absolutePosition);
+      final effect = RotateEffect.to(
+        tau/2,
+        EffectController(duration: 0), );
+      ship.add(effect);
+      //ship.setPosition( Vector2(absolutePosition.x - gameRef.size[0] / 1.2 , absolutePosition.y - gameRef.size[1]/ 3.0));
+
+    }
+
+    print(ship.toString() + "set position to " + absolutePosition.toString());
   }
 
 

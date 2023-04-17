@@ -1,5 +1,7 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
@@ -16,6 +18,10 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
   late double positionY;
   late List<MainCell> maincells = [];
   late SpriteComponent componentSprite;
+
+  final _defaultColor = Colors.red;
+  late ShapeHitbox hitbox;
+
   Effect viseffect = OpacityEffect.to(
     0.1,
     EffectController(duration: 1),
@@ -28,6 +34,16 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
   @override
   Future<void> onLoad() async
   {
+    /*
+    final defaultPaint = Paint()
+      ..color = _defaultColor
+      ..style = PaintingStyle.stroke ;
+    hitbox = RectangleHitbox()
+      ..paint = defaultPaint
+      ..renderShape = true;
+    add(hitbox);
+
+     */
 
     sprite = ImageLoader.sprites[EnumImages.UIGameFieldOne];
     parent = gameRef;

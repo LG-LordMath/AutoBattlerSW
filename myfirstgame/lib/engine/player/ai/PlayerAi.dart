@@ -20,6 +20,13 @@ class PlayerAi extends Player
   late List<BasicShip> tempshipshopbuyed;
   late MySpaceGame game;
 
+  // ship size
+   int _maxshipfighter = 0;
+   int _maxshipbattleship = 0;
+   int _maxshipmothership = 0;
+
+
+
   PlayerAi(int php, EnumPlayerImages pimage, this.game) : super('BOT', php, pimage)
   {
 
@@ -29,6 +36,8 @@ class PlayerAi extends Player
 
      */
     nation = EnumNation.Imperium;
+
+
 
   }
 
@@ -54,10 +63,10 @@ class PlayerAi extends Player
           {
             currentcredits -=  element.creditcost;
             element.currentteam = 2;
-            placeShip(element);
-            game.gameAutoBattle.add(element);
+            game.add(element);
             element.rotateImage();
-            element.position =Vector2(50, 300);
+
+            placeShip(element);
           }
         }
 
@@ -65,7 +74,7 @@ class PlayerAi extends Player
       }
 
     });
-    if(currentcredits > 11 ){
+    if(currentcredits >= 11 ){
       reroll();
     }
 
@@ -92,57 +101,53 @@ class PlayerAi extends Player
   void placeShip(BasicShip ship)
 
   {
-    /*
+
     switch (nation) {
 
       case EnumNation.Imperium:
+
+
+
         switch (ship.shipclass) {
           case EnumShipClass.Fighter:
-            if (game.gameAutoBattle.ennemymap.maincells[1]
-                .getNumberOfFreeCells() >=
-                (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)) {
-              game.gameAutoBattle.ennemymap.maincells[1].addShip(ship);
-            } else {
-              if (game.gameAutoBattle.ennemymap.maincells[2]
-                  .getNumberOfFreeCells() >=
-                  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)) {
+
+            if(game.gameAutoBattle.ennemymap.maincells[0].getNumberOfFreeCells() > 0){
+              game.gameAutoBattle.ennemymap.maincells[0].addShip(ship);
+            }else{
+              if(game.gameAutoBattle.ennemymap.maincells[2].getNumberOfFreeCells() > 0){
                 game.gameAutoBattle.ennemymap.maincells[2].addShip(ship);
-              } else {
+              }else{
+
               }
             }
             break;
           case EnumShipClass.Battleship:
-            if (game.gameAutoBattle.ennemymap.maincells[0]
-                .getNumberOfFreeCells() >=
-                (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)) {
-              game.gameAutoBattle.ennemymap.maincells[0].addShip(ship);
-            } else {
+            if(game.gameAutoBattle.ennemymap.maincells[1].getNumberOfFreeCells() > 0){
+              game.gameAutoBattle.ennemymap.maincells[1].addShip(ship);
             }
+
             break;
           case EnumShipClass.Mothership:
-            if (game.gameAutoBattle.ennemymap.maincells[3]
-                .getNumberOfFreeCells() >=
-                (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)) {
+            if(game.gameAutoBattle.ennemymap.maincells[3].getNumberOfFreeCells() > 0 ){
               game.gameAutoBattle.ennemymap.maincells[3].addShip(ship);
-            } else {
-              if (game.gameAutoBattle.ennemymap.maincells[4]
-                  .getNumberOfFreeCells() >=
-                  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)) {
+            }else{
+              if(game.gameAutoBattle.ennemymap.maincells[4].getNumberOfFreeCells() > 0 ){
                 game.gameAutoBattle.ennemymap.maincells[4].addShip(ship);
-              } else {
-                if (game.gameAutoBattle.ennemymap.maincells[5]
-                    .getNumberOfFreeCells() >=
-                    (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)) {
+              }else{
+                if(game.gameAutoBattle.ennemymap.maincells[5].getNumberOfFreeCells() > 0 ){
                   game.gameAutoBattle.ennemymap.maincells[5].addShip(ship);
-                } else {
+                }else{
+
                 }
               }
             }
+
+            break;
         }
         break;
     }
 
-     */
+
 
 
 
@@ -159,36 +164,30 @@ class PlayerAi extends Player
         switch (ship.shipclass){
           case EnumShipClass.Fighter:
 
-              if(game.gameAutoBattle.ennemymap.maincells[1].getNumberOfFreeCells() >=  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)){
-                return true;
-              }else{
-                if(game.gameAutoBattle.ennemymap.maincells[2].getNumberOfFreeCells() >=  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)){
-                  return true;
-                }else{
-                  return false;
-                }
-              }
-            break;
-          case EnumShipClass.Battleship:
-            if(game.gameAutoBattle.ennemymap.maincells[0].getNumberOfFreeCells() >=  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)){
-              return true;
+            if(_maxshipfighter > 8) {
+
+               return false;
             }else {
-              return false;
-            }
-            break;
-          case EnumShipClass.Mothership:
-            if(game.gameAutoBattle.ennemymap.maincells[3].getNumberOfFreeCells() >=  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)){
+              _maxshipfighter++;
               return true;
-            }else{
-              if(game.gameAutoBattle.ennemymap.maincells[4].getNumberOfFreeCells() >=  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)){
-                return true;
-              }else{
-                if(game.gameAutoBattle.ennemymap.maincells[5].getNumberOfFreeCells() >=  (ship.shipclass.CellsizeX * ship.shipclass.CellsizeY)){
-                  return true;
-                }else{
-                  return false;
-                }
-              }
+            }
+
+          case EnumShipClass.Battleship:
+
+            if(_maxshipbattleship > 0) {
+
+              return false;
+            }else {
+              _maxshipbattleship++;
+              return true;
+            }
+          case EnumShipClass.Mothership:
+            if(_maxshipmothership > 3) {
+
+              return false;
+            }else {
+              _maxshipmothership++;
+              return true;
             }
         }
 
@@ -202,7 +201,7 @@ class PlayerAi extends Player
 
 
 
-    return true;
+    return false;
   }
 
 
