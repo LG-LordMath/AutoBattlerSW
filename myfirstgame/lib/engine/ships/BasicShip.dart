@@ -8,7 +8,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/experimental.dart';
-import 'package:flame/extensions.dart';
 import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
@@ -349,19 +348,27 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void rotateImage(){
    // spaceshipimage.angle -= 90;
     print(""+position.x.toString()+", "+ position.y.toString());
-    final effect = RotateEffect.to(
-    tau/4,
-    EffectController(duration: 0), );
-  //  spaceshipimage.add(effect);
-  //  spaceshipimage.position = Vector2(0, 0);
-  //  print(""+spaceshipimage.x.toString()+", "+ spaceshipimage.y.toString());
-   // add(effect);
-   // print(""+position.x.toString()+", "+ position.y.toString());
-   // position = Vector2(position.x+50, position.y);
-    spaceshipimage.add(effect);
-   print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
-    spaceshipimage.position = Vector2(spaceshipimage.position.x+50, spaceshipimage.position.y);
-
+    if(currentteam == 1){
+      final effect = RotateEffect.to(
+        tau/4,
+        EffectController(duration: 0), );
+      //  spaceshipimage.add(effect);
+      //  spaceshipimage.position = Vector2(0, 0);
+      //  print(""+spaceshipimage.x.toString()+", "+ spaceshipimage.y.toString());
+      // add(effect);
+      // print(""+position.x.toString()+", "+ position.y.toString());
+      // position = Vector2(position.x+50, position.y);
+      spaceshipimage.add(effect);
+      print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
+      spaceshipimage.position = Vector2(spaceshipimage.position.x+50, spaceshipimage.position.y);
+    }else {
+      final effect = RotateEffect.by(
+        4.7,
+        EffectController(duration: 0), );
+      spaceshipimage.add(effect);
+      print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
+      spaceshipimage.position = Vector2(spaceshipimage.position.x  , spaceshipimage.position.y+ 50);
+    }
   }
 
 
@@ -376,13 +383,16 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onDragStart(DragStartEvent event) {
     // Do something in response to a drag event
-    if(_fight){
+    if(_fight)
+    {
 
-    }else{
-      positionx = position.x;
-      positiony  = position.y;
-      _isDragged = true;
+    }
+    else
+    {
       if(_currentteam == 1){
+        positionx = position.x;
+        positiony  = position.y;
+        _isDragged = true;
         gameRef.gameAutoBattle.player1.team.remove(this);
         gameRef.gameAutoBattle.map.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
       }else {
@@ -398,7 +408,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onDragUpdate(DragUpdateEvent event)
   {
-    if(_fight){
+    if(_fight || currentteam != 1){
 
     }else {
       positionx += event.delta.x;
@@ -439,7 +449,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   @override
   void onDragEnd(DragEndEvent event) {
-    if(_fight){
+    if(_fight ||currentteam != 1){
 
     }else {
       _isDragged = false;

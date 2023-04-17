@@ -25,7 +25,7 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
 {
 
 
-   BasicShip getRandomShip()
+   BasicShip getRandomShip(int player)
 
 
   {
@@ -34,45 +34,86 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
     int imperium = 25;
     int rebell = 25;
     int cis = 25;
+    if(player == 1){
+      gameRef.gameAutoBattle.player1.team.forEach((element) {
 
-    gameRef.gameAutoBattle.player1.team.forEach((element) {
+        switch (element.nation) {
+          case EnumNation.Republic:
+            if(republic<=74){
+              republic += 15;
+              imperium -= 5;
+              rebell -= 5;
+              cis -= 5;
+            }
+            break;
+          case EnumNation.Imperium:
+            if(imperium<=74) {
+              imperium += 15;
+              republic -= 5;
+              rebell -= 5;
+              cis -= 5;
+            }
+            break;
+          case EnumNation.Rebellen:
+            if(rebell<=74) {
+              rebell += 15;
+              imperium -= 5;
+              republic -= 5;
+              cis -= 5;
+            }
+            break;
+          case EnumNation.CIS:
+            if(cis<=74) {
+              cis += 15;
+              imperium -= 5;
+              rebell -= 5;
+              republic -= 5;
+            }
+            break;
+        }
 
-      switch (element.nation) {
-        case EnumNation.Republic:
-          if(republic<=74){
-            republic += 15;
-            imperium -= 5;
-            rebell -= 5;
-            cis -= 5;
-          }
-          break;
-        case EnumNation.Imperium:
-          if(imperium<=74) {
-            imperium += 15;
-            republic -= 5;
-            rebell -= 5;
-            cis -= 5;
-          }
-          break;
-        case EnumNation.Rebellen:
-          if(rebell<=74) {
-            rebell += 15;
-            imperium -= 5;
-            republic -= 5;
-            cis -= 5;
-          }
-          break;
-        case EnumNation.CIS:
-          if(cis<=74) {
-            cis += 15;
-            imperium -= 5;
-            rebell -= 5;
-            republic -= 5;
-          }
-          break;
-      }
+      });
+    }else {
+      gameRef.gameAutoBattle.player2.team.forEach((element) {
 
-    });
+        switch (element.nation) {
+          case EnumNation.Republic:
+            if(republic<=74){
+              republic += 15;
+              imperium -= 5;
+              rebell -= 5;
+              cis -= 5;
+            }
+            break;
+          case EnumNation.Imperium:
+            if(imperium<=74) {
+              imperium += 15;
+              republic -= 5;
+              rebell -= 5;
+              cis -= 5;
+            }
+            break;
+          case EnumNation.Rebellen:
+            if(rebell<=74) {
+              rebell += 15;
+              imperium -= 5;
+              republic -= 5;
+              cis -= 5;
+            }
+            break;
+          case EnumNation.CIS:
+            if(cis<=74) {
+              cis += 15;
+              imperium -= 5;
+              rebell -= 5;
+              republic -= 5;
+            }
+            break;
+        }
+
+      });
+    }
+
     var random = Random();
     var randomNumber = random.nextInt(100);
     var randomNumberShip;

@@ -164,9 +164,9 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
   }
 
 
-  List<Cell> getFreeCells() {
-    return
-        cells.where((cell) => !cell.isOccupied).toList();
+  List<Cell> getFreeCells()
+  {
+    return cells.where((cell) => !cell.isOccupied).toList();
   }
 
   int getNumberOfFreeCells() {

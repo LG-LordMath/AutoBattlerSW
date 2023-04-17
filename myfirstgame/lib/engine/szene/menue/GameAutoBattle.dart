@@ -5,6 +5,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
+import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameBottomBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameUpperBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gamemap/GamePlayFieldMap.dart';
@@ -102,9 +103,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
               gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
               gameRef.gameAutoBattle.tempshipshopbuyed[1] = true;
               gameRef.gameAutoBattle.tempshipshopbuyed[2] = true;
-              tempshipsshop = List.from([shopLogic.getRandomShip(),
-                shopLogic.getRandomShip(),
-                shopLogic.getRandomShip()]);
+              tempshipsshop = List.from([shopLogic.getRandomShip(1),
+                shopLogic.getRandomShip(1),
+                shopLogic.getRandomShip(1)]);
               shopMenue=  GameShopMenue();
               add(shopMenue);
 
@@ -116,6 +117,11 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             add(_timer);
           }
           if(_isactivestate){
+              if(player2 is PlayerAi)
+              {
+               PlayerAi   player =  player2 as PlayerAi;
+               player.buyphase();
+              }
               if(_timer.timer.current > 9){
                 if(isShopopen){
                   shopMenue.destroy();
@@ -269,7 +275,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       }
 
     });
-    /*
+
     player2.team.forEach((BasicShip ship) {
       ship.fighting(false);
       for (int i = 0; i < ennemymap.maincells.length; i++) {
@@ -280,7 +286,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       }
     });
 
-     */
+
 
   }
 
@@ -335,7 +341,11 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       ennemymap.add(effect);
       ennemymap.position = Vector2(30+ gameRef.size[0] / 1.2, 100 + gameRef.size[1]/ 3.0);
       add(upperBar);
-
+      if(player2 is PlayerAi)
+      {
+        PlayerAi   player =  player2 as PlayerAi;
+        player.game = gameRef;
+      }
     return true;
     }catch(exeption){
       print("Fehler beim Laden: " + exeption.toString());

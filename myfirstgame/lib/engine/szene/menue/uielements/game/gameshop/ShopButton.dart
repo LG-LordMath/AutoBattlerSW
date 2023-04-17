@@ -42,6 +42,7 @@ class ShopButton extends Button
       int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - tempbasicShip.creditcost;
       if(tempcredits > 0)
       {
+        tempbasicShip.currentteam= 1;
         if(gameRef.gameAutoBattle.bottomBar.addShipToBar(tempbasicShip)){
           gameRef.gameAutoBattle.player1.currentcredits = tempcredits;
           gameRef.gameAutoBattle.tempshipshopbuyed[number] = false;
@@ -88,7 +89,7 @@ class ShopButton extends Button
   void getShip()
   {
 
-    tempbasicShip = gameRef.gameAutoBattle.shopLogic.getRandomShip();
+    tempbasicShip = gameRef.gameAutoBattle.shopLogic.getRandomShip(1);
 
     setShipinShop();
 

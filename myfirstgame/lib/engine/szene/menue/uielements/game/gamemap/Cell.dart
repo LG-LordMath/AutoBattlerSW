@@ -23,7 +23,7 @@ class Cell extends PositionComponent{
     size = psize;
     position  = pposition;
 
-/*
+
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
@@ -32,7 +32,7 @@ class Cell extends PositionComponent{
       ..renderShape = true;
     add(hitbox);
 
- */
+
   }
 
 
