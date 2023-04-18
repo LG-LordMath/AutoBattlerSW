@@ -65,7 +65,7 @@ class PlayerAi extends Player
             element.currentteam = 2;
             game.add(element);
             element.rotateImage();
-
+            print("Ai kauft: " + element.toString());
             placeShip(element);
           }
         }
@@ -158,36 +158,40 @@ class PlayerAi extends Player
 
   bool lookifneeded(BasicShip ship)
   {
+    print( _maxshipfighter.toString() + ", " + _maxshipbattleship.toString() + ", " + _maxshipmothership.toString() + ", "+ ship.toString());
+
     switch (nation)
     {
+
+
       case EnumNation.Imperium:
+        print(ship.shipclass);
         switch (ship.shipclass){
+
           case EnumShipClass.Fighter:
 
-            if(_maxshipfighter > 8) {
+            if(_maxshipfighter < 8) {
 
-               return false;
-            }else {
               _maxshipfighter++;
               return true;
+            }else {
+             return false;
             }
 
           case EnumShipClass.Battleship:
 
-            if(_maxshipbattleship > 0) {
-
-              return false;
-            }else {
+            if(_maxshipbattleship < 1) {
               _maxshipbattleship++;
               return true;
+            }else {
+              return false;
             }
           case EnumShipClass.Mothership:
-            if(_maxshipmothership > 3) {
-
-              return false;
-            }else {
+            if(_maxshipmothership < 3) {
               _maxshipmothership++;
               return true;
+            }else {
+              return false;
             }
         }
 
@@ -201,7 +205,7 @@ class PlayerAi extends Player
 
 
 
-    return false;
+    return true;
   }
 
 

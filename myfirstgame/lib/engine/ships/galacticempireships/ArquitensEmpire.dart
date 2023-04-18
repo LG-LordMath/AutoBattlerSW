@@ -18,14 +18,13 @@ class ArquitensEmpire extends BasicShip
 
 
   ArquitensEmpire(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-    : super(ImageLoader.sprites[EnumImages.ShipEmpireArquitens]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Imperium, 3);
+    : super(ImageLoader.sprites[EnumImages.ShipEmpireArquitens]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Imperium, 3, EnumShipClass.Battleship);
 
 
 @override
 Future<void> onLoad() async
 {
   super.onLoad();
-  super.shipclass = EnumShipClass.Battleship;
   LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
   super.weapons.add(laserCannon);
 }

@@ -47,7 +47,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   late Healthbar healbar;
   late Vector2 positionEnemy = Vector2(0, 0);
   late  EnumNation nation;
-  late EnumShipClass shipclass = EnumShipClass.Battleship;
+  late EnumShipClass shipclass;
   late int creditcost = 0;
   // checking
   bool _ishittingwall = false;
@@ -68,7 +68,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
 
 
-  BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost)
+  BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
 
   BasicShip.from(BasicShip basicShip);
@@ -193,23 +193,34 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     // print("move: "+_movment.toString() + ", "+(positionEnemy.x - positionx).toString()
     //     + ", "+(positionEnemy.y - positiony).toString());
 
-       if(positionEnemy.y <= positiony && (positionEnemy.y - positiony).toInt() < 0 ){
+       if(positionEnemy.y <= positiony && (positionEnemy.y - positiony).toInt() < 0 )
+       {
          _movment  = MovementDirection.moveright;
        }
 
-        if(positionEnemy.x >= positionx && (positionEnemy.x - positionx).toInt() > 0 ){
+        if(positionEnemy.x >= positionx && (positionEnemy.x - positionx).toInt() > 0 )
+        {
            _movment  = MovementDirection.movedown;
          }
-       if(positionEnemy.y >= positiony && (positionEnemy.y - positiony).toInt() > 0  ){
+       if(positionEnemy.y >= positiony && (positionEnemy.y - positiony).toInt() > 0  )
+       {
          _movment  = MovementDirection.moveleft;
        }
 
-        if(positionEnemy.x <= positionx && (positionEnemy.x - positionx).toInt() < 0){
+        if(positionEnemy.x <= positionx && (positionEnemy.x - positionx).toInt() < 0)
+        {
           _movment  = MovementDirection.moveup;
         }
-    }else if(temp < _weaponrange  && !_ishittingwall){
+    }else if(temp < _weaponrange  && !_ishittingwall)
+    {
        //shootEnemy();
-       _weapons.forEach((element) {element.fire(true, positionEnemy); });
+
+       _weapons.forEach((element)
+       {
+         element.fire(true, positionEnemy);
+       //  print(" Try fire " + element.toString());
+
+       });
         _movment  = MovementDirection.no;
 
      }

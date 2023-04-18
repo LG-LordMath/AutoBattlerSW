@@ -19,6 +19,7 @@ class LaserCannon extends BasicWeaponCanon
   Future<void> onLoad() async
   {
     super.onLoad();
+    addGreenLaser(300, 50, _team);
 
 
   }
@@ -29,6 +30,7 @@ class LaserCannon extends BasicWeaponCanon
   {
     Laser laser = Laser(ImageLoader.sprites[EnumImages.LaserOne]!,
         30, 10, damage, lifetime, team, EnumMusic.LaserOne);
+    super.bulletlist.add(laser);
   }
 
 

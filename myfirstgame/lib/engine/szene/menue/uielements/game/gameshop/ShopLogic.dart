@@ -87,10 +87,10 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
                cis -= 10;
                break;
              case EnumNation.Imperium:
-                 imperium += 45;
-                 republic -= 15;
-                 rebell -= 15;
-                 cis -= 15;
+                 imperium += 30;
+                 republic -= 10;
+                 rebell -= 10;
+                 cis -= 10;
                break;
              case EnumNation.Rebellen:
                  rebell += 30;
@@ -121,28 +121,33 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
 
 
     if (randomNumber < republic) {
-      print("Republic hat gewonnen!");
+
       randomNumberShip = random.nextInt(RepublicShipsLoader.republicships.length );
       tempbasicShip =  RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]!;
       RepublicShipsLoader rep = RepublicShipsLoader();
       rep.reloadObject(EnumRepublicShips.values.elementAt(randomNumberShip));
+      print("Republic hat gewonnen! "+tempbasicShip.toString());
       return tempbasicShip;
+
     } else if (randomNumber < republic + imperium) {
-      print("Imperium hat gewonnen!");
+
       randomNumberShip = random.nextInt(GalaticEmpireShipsLoader.empireships.length );
       tempbasicShip =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]!;
       GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
       rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(randomNumberShip));
+      print("Imperium hat gewonnen! "+ tempbasicShip.toString());
       return tempbasicShip;
+
     } else if (randomNumber < republic + imperium + rebell) {
-     print("Rebell hat gewonnen!");
+     print("Rebell hat gewonnen! ");
       tempbasicShip = Acclamator(0, 0, 50, 50, 0);
     } else {
-      print("CIS hat gewonnen!");
+
       randomNumberShip = random.nextInt(SeperatistCISShipLoader.cisships.length );
       tempbasicShip =  SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]!;
       SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();
       cisShipLoader.reloadObject(EnumCISShips.values.elementAt(randomNumberShip));
+      print("CIS hat gewonnen! "+ tempbasicShip.toString());
       return tempbasicShip;
     }
     return tempbasicShip;

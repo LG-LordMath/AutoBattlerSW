@@ -4,8 +4,9 @@
 
 import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
+import 'package:myfirstgame/game/MySpaceGame.dart';
 
-class BasicWeaponCanon extends PositionComponent
+class BasicWeaponCanon extends PositionComponent with HasGameRef<MySpaceGame>
 
 {
   late List<IBasicBullet> bulletlist = [];
@@ -26,27 +27,34 @@ class BasicWeaponCanon extends PositionComponent
   Future<void> onLoad() async {
     position = Vector2((_currentshipsize.x / 2) ,  (_currentshipsize.y / 2));
   }
+
   @override
-  void update(double dt)
-  {
+  void update(double dt) {
     // TODO: implement update
     super.update(dt);
 
     if(_isfiring){
+    //  print(" try Fire");
+
       if(_hasshooted == true){
         _currentreloadtime--;
+        print(_currentreloadtime);
       }
       if(_currentreloadtime == 0){
         _currentreloadtime = _maxreloadtime;
+        _hasshooted = false;
       }
-      if(_hasshooted == false){
-        //print("Ship position: " + position.toString());
+      if(_hasshooted == false)
+      {
+        print("Ship position: " + position.toString());
         if (_positionEnemy.x != 0 && _positionEnemy.y != 0) {
-          //print("fire");
+          print("fire:  " + bulletlist.length.toString());
           bulletlist.forEach((IBasicBullet bullet)
           {
-            add(bullet);
+            gameRef.add(bullet);
+            print("fire bullet: "+bullet.toString());
             bullet.attackTarget(position, _positionEnemy);
+
           });
           _hasshooted = true;
         }

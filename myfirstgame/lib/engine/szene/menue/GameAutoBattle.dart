@@ -204,7 +204,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
   bool checkFightending()
   {
-    print("Check if won ");
+  //  print("Check if won ");
     bool playertwowon = true;
     bool playeronewon = true;
     if(player1.team.isEmpty && player2.team.isEmpty){
@@ -225,7 +225,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       {
         player1.team.forEach((element) {
           if(element.hp > 0 && playertwowon){
-            print("team 1: " + element.toString());;
+           // print("team 1: " + element.toString());;
             playertwowon = false;
           }
         });
@@ -236,7 +236,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
         player2.team.forEach((element) {
           if(element.hp > 0 && playeronewon){
-            print("team 2: " + element.toString());
+           // print("team 2: " + element.toString());
             playeronewon = false;
           }
         });
@@ -245,7 +245,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
 
       if(playeronewon){
-        print("player one won");
+     //   print("player one won");
         player2.hp--;
         return true;
       }
