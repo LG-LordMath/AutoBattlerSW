@@ -1,9 +1,7 @@
-import 'package:flame/components.dart';
 
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
-import '../../turrets/LaserCannon.dart';
 import '../BasicShip.dart';
 import '../EnumShipClass.dart';
 
@@ -25,8 +23,6 @@ class DeltaClass extends BasicShip
   {
     super.onLoad();
 
-    LaserCannon laserCannon = LaserCannon(Vector2(super.positionx, super.positiony), 80, super.currentteam);
-    super.weapons.add(laserCannon);
 
 
   }

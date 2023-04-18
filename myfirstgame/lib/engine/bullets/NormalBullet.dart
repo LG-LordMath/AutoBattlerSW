@@ -7,6 +7,8 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/loader/EnumImages.dart';
+import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
@@ -18,7 +20,7 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
   Vector2 _enemy = Vector2(0, 0);
   Vector2 _currentship = Vector2(0, 0);
   late int _team;
-  final String _imagepath = 'laser.png';
+
   final double _imagesizex = 10;
   final double _imagesizey = 30;
   final int movementspeed = 2;
@@ -32,11 +34,10 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
   Future<void> onLoad() async
   {
     super.onLoad();
-    if(_imagepath.isNotEmpty){
-      sprite = await gameRef.loadSprite(_imagepath);
-    }
+      sprite = ImageLoader.sprites[EnumImages.LaserOne];
+      parent = gameRef;
       size = Vector2(_imagesizex, _imagesizey);
-      position = Vector2(50, 0);
+      position = _currentship;
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
@@ -46,7 +47,7 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
       add(hitbox);
     if(!_isplayingmusic)
     {
-      FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
+    //  FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
       _isplayingmusic = true;
 
     }
@@ -55,7 +56,7 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
 
 
 
-    final effect = MoveEffect.to(_enemy - _currentship, EffectController(duration: 5));
+    final effect = MoveEffect.to( _enemy, EffectController(duration: 5));
     add(effect);
   }
 

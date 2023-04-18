@@ -12,7 +12,6 @@ class ImageLoader
 {
   static Map<EnumImages, Sprite> sprites  = {};
 
-
   @override
   Future<void> load() async {
     print("Beginne mit dem Laden der Images");

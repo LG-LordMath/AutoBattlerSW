@@ -18,9 +18,9 @@ import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
+import '../bullets/NormalBullet.dart';
 import '../loader/ImageLoader.dart';
 import '../nations/EnumNation.dart';
-import '../turrets/weaponturret/BasicWeaponCanon.dart';
 
 class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
 {
@@ -61,11 +61,14 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   int mainfieldis = 0;
   late List<int> cellfields = [];
 
+  // weapon
+  int _maxammonition = 1;
+  int _maxreloadtime  = 30;
+  int _currentreloadtime  = 30;
+  int _currentamonition =0;
 
 
-
-  late List<BasicWeaponCanon> _weapons = [];
-
+  //late List<BasicWeaponCanon> _weapons = [];
 
 
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
@@ -130,6 +133,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
     }
 
+
   }
 
 
@@ -151,7 +155,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           checkifEnemyisinrange();
         }else{
           //healbar.removeFromParent();
-          _weapons.forEach((element) {element.stopfireing();});
+          //   _weapons.forEach((element) {element.stopfireing();});
         }
 
       }
@@ -161,8 +165,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           EffectController(duration: 1.00),
         );
         add(effect);
-        /*
-        //super.removeFromParent();
+
+        super.removeFromParent();
         if (_currentteam == 1)
         {
           gameRef.gameAutoBattle.player1.team.remove(this);
@@ -172,7 +176,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           gameRef.gameAutoBattle.player2.team.remove(this);
         }
 
-         */
+
 
       }
     }
@@ -213,19 +217,33 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         }
     }else if(temp < _weaponrange  && !_ishittingwall)
     {
-       //shootEnemy();
-
-       _weapons.forEach((element)
-       {
-         element.fire(true, positionEnemy);
-       //  print(" Try fire " + element.toString());
-
-       });
-        _movment  = MovementDirection.no;
+       shootEnemy();
+       _movment  = MovementDirection.no;
 
      }
   }
 
+
+  void shootEnemy()
+  {
+    if(_currentamonition == 0 ){
+      _currentreloadtime--;
+    }
+    if(_currentreloadtime == 0){
+      _currentamonition = _maxammonition;
+      _currentreloadtime = _maxreloadtime;
+    }
+    if(_currentamonition > 0 ){
+      //print("Ship position: " + position.toString());
+      if (positionEnemy.x != 0 && positionEnemy.y != 0) {
+        add(NormalBullet(absolutePosition , positionEnemy, _currentteam));
+        _currentamonition--;
+
+      }
+
+    }
+
+  }
 
   int checknearenemy()
   {
@@ -237,7 +255,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       if(gameRef.gameAutoBattle.player2.team.isNotEmpty){
         for(int i = 0; i <gameRef.gameAutoBattle.player2.team.length ; i++)
         {
-          if( gameRef.gameAutoBattle.player2.team.elementAt(i).hp > 0){
+        //  if( gameRef.gameAutoBattle.player2.team.elementAt(i).hp > 0){
             Vector2 temp =  gameRef.gameAutoBattle.player2.team.elementAt(i).position;
             var resges =  distanceTo(temp);
 
@@ -249,7 +267,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
               enemyrange = resges.toInt();
               enemycounter = i;
             }
-          }
+         // }
 
         }
         positionEnemy = gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).position;
@@ -265,7 +283,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       if(gameRef.gameAutoBattle.player1.team.isNotEmpty){
         for(int i = 0; i <gameRef.gameAutoBattle.player1.team.length ; i++)
         {
-          if( gameRef.gameAutoBattle.player1.team.elementAt(i).hp > 0) {
+          //if( gameRef.gameAutoBattle.player1.team.elementAt(i).hp > 0) {
             Vector2 temp = gameRef.gameAutoBattle.player1.team
                 .elementAt(i)
                 .position;
@@ -279,7 +297,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
               enemyrange = resges.toInt();
               enemycounter = i;
             }
-          }
+         // }
         }
         positionEnemy = gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).position;
 
@@ -295,6 +313,9 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     }
     return (enemyrange);
   }
+
+
+
   double distanceTo(Vector2 vec) {
     double dx = positionx - vec.x;               //calculate the diffrence in x-coordinate
     double dy = positiony - vec.y;               //calculate the diffrence in y-coordinate
@@ -363,21 +384,13 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       final effect = RotateEffect.to(
         tau/4,
         EffectController(duration: 0), );
-      //  spaceshipimage.add(effect);
-      //  spaceshipimage.position = Vector2(0, 0);
-      //  print(""+spaceshipimage.x.toString()+", "+ spaceshipimage.y.toString());
-      // add(effect);
-      // print(""+position.x.toString()+", "+ position.y.toString());
-      // position = Vector2(position.x+50, position.y);
       spaceshipimage.add(effect);
-     // print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
       spaceshipimage.position = Vector2(spaceshipimage.position.x+50, spaceshipimage.position.y);
     }else {
       final effect = RotateEffect.to(
         tau/4,
         EffectController(duration: 0), );
       spaceshipimage.add(effect);
-      //print(""+spaceshipimage.position.x.toString()+", "+ spaceshipimage.position.y.toString());
       spaceshipimage.position = Vector2(spaceshipimage.position.x+50  , spaceshipimage.position.y);
       scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
     }
@@ -521,19 +534,14 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
       }
     }
-    else if(other is IBasicBullet)
-    {
-      if(other.team == _currentteam){
+    else if(other is NormalBullet){
+      //if(other.team == _currentteam){
 
-      }else{
-        _currenthp -= other.damage;
-      }
-    }else if(other is IBasicBullet){
-      if(other.team == _currentteam){
+  //    }else{
 
-      }else{
-        damage(other.damage, other.goodAginst);
-      }
+       // damage(other.damage, other.goodAginst);
+        damage(other.damage, EnumGoodAginst.hp);
+      //}
     }
 
 
@@ -560,10 +568,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   }
 
 
-  void addTurretWeapon(BasicWeaponCanon turret)
-  {
-    _weapons.add(turret);
-  }
 
   void positionship(double x, double y){
     _positionx = x;
@@ -636,11 +640,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     _currentteam = value;
   }
 
-  List<BasicWeaponCanon> get weapons => _weapons;
+  //List<BasicWeaponCanon> get weapons => _weapons;
 
-  set weapons(List<BasicWeaponCanon> value) {
-    _weapons = value;
-  }
 
   Sprite get getimage => _image;
 
