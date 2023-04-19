@@ -75,7 +75,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
   {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
 
-  BasicShip.from(BasicShip basicShip);
+ // BasicShip.from(BasicShip basicShip);
 
 
 
@@ -94,9 +94,12 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     }else if (_currentteam == 2){
       angle =  angle - _rotation;
     }
-
+    final defaultPaint = Paint()
+      ..color = _defaultColor
+      ..style = PaintingStyle.stroke ;
     hitbox = RectangleHitbox()
-      ..renderShape = false;
+      ..paint = defaultPaint
+      ..renderShape = true;
 
     add(hitbox);
     healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble());
@@ -152,7 +155,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       else {
 
 
-        this.removeFromParent();
+        removeFromParent();
         if (_currentteam == 1)
         {
           gameRef.gameAutoBattle.player1.team.remove(this);
@@ -379,26 +382,28 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   void rotateImage()
   {
-   // spaceshipimage.angle -= 90;
-     /*
-    print(""+position.x.toString()+", "+ position.y.toString());
+    spaceshipimage.rotateImage();
+    /*
     if(currentteam == 1){
       final effect = RotateEffect.to(
         tau/4,
         EffectController(duration: 0), );
-      spaceshipimage.add(effect);
-      spaceshipimage.position = Vector2(spaceshipimage.position.x+50, spaceshipimage.position.y);
+      add(effect);
+      position = Vector2(position.x+50, position.y);
     }else {
       final effect = RotateEffect.to(
         tau/4,
         EffectController(duration: 0), );
-      spaceshipimage.add(effect);
-      spaceshipimage.position = Vector2(spaceshipimage.position.x+50  , spaceshipimage.position.y);
+      add(effect);
+      position = Vector2(position.x+50  , position.y);
       scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
+      //scale = Vector2(ship.shipclass.CellsizeX.toDouble(), ship.shipclass.CellsizeY.toDouble());
     }
 
-      */
-    spaceshipimage.rotateImage();
+     */
+
+
+
   }
 
 
@@ -555,7 +560,17 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         _ishittingwall = false;
       }
     }
-
+    if (other is NormalBullet) {
+      print("collosion with bullet");
+      if (other.team == currentteam) {
+        print("same team");
+      } else {
+        print(" hit ");
+        // damage(other.damage, other.goodAginst);
+        damage(other.damage, EnumGoodAginst.hp);
+        other.removeFromParent();
+      }
+    }
 
 
   }

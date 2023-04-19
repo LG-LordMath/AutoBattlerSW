@@ -126,7 +126,7 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
       tempbasicShip =  RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(randomNumberShip)]!;
       RepublicShipsLoader rep = RepublicShipsLoader();
       rep.reloadObject(EnumRepublicShips.values.elementAt(randomNumberShip));
-      print("Republic hat gewonnen! "+tempbasicShip.toString());
+     // print("Republic hat gewonnen! "+tempbasicShip.toString());
       return tempbasicShip;
 
     } else if (randomNumber < republic + imperium) {
@@ -135,7 +135,7 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
       tempbasicShip =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]!;
       GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
       rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(randomNumberShip));
-      print("Imperium hat gewonnen! "+ tempbasicShip.toString());
+  //    print("Imperium hat gewonnen! "+ tempbasicShip.toString());
       return tempbasicShip;
 
     } else if (randomNumber < republic + imperium + rebell) {
@@ -147,7 +147,7 @@ class ShopLogic extends Component with HasGameRef<MySpaceGame>
       tempbasicShip =  SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(randomNumberShip)]!;
       SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();
       cisShipLoader.reloadObject(EnumCISShips.values.elementAt(randomNumberShip));
-      print("CIS hat gewonnen! "+ tempbasicShip.toString());
+   //   print("CIS hat gewonnen! "+ tempbasicShip.toString());
       return tempbasicShip;
     }
     return tempbasicShip;

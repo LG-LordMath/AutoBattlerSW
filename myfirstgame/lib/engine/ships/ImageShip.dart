@@ -6,6 +6,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 
@@ -25,17 +26,18 @@ class ImageShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
 
  @override
   FutureOr<void> onLoad() {
-    // TODO: implement onLoad
-     super.onLoad();
-     parent = ship;
-     sprite = ship.getimage;
-     size = Vector2(ship.imagesizex, ship.imagesizey);
-  }
+   // TODO: implement onLoad
+   super.onLoad();
+   parent = ship;
+   sprite = ship.getimage;
+   size = Vector2(ship.imagesizex, ship.imagesizey);
+ }
 
 
   void rotateImage(){
-    // spaceshipimage.angle -= 90;
-    print(""+position.x.toString()+", "+ position.y.toString());
+    if (kDebugMode) {
+      print("${position.x}, ${position.y}");
+    }
     if(ship.currentteam == 1){
       final effect = RotateEffect.to(
         tau/4,
@@ -51,13 +53,7 @@ class ImageShip extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionC
       ship.scale = Vector2(ship.shipclass.CellsizeX.toDouble(), ship.shipclass.CellsizeY.toDouble());
     }
 
-    final defaultPaint = Paint()
-      ..color = _defaultColor
-      ..style = PaintingStyle.stroke ;
-    hitbox = RectangleHitbox()
-      ..paint = defaultPaint
-      ..renderShape = true;
-    add(hitbox);
+
   }
 
 
