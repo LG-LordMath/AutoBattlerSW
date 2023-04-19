@@ -16,6 +16,7 @@ import '../../game/MySpaceGame.dart';
 import '../music/EnumMusic.dart';
 import '../music/MyMusicPlayer.dart';
 import '../ships/BasicShip.dart';
+import '../szene/menue/enums/EnumGameState.dart';
 import 'EnumGoodAginst.dart';
 
 abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionCallbacks
@@ -40,25 +41,11 @@ abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>
   late EnumGoodAginst goodAginst;
   late EnumMusic sound;
 
+  late  ShapeHitbox hitbox;
+
 
   IBasicBullet(this._image, this._imagesizex, this._imagesizey,
       this._damage, this._lifetime, this._team, this.goodAginst, this.sound);
-
-
-
-
-  void ttackTarget(Vector2 currentship, Vector2 enemyposition)
-  {
-    size = Vector2(_imagesizex, _imagesizey);
-    position = Vector2(currentship.x, currentship.y);
-    final effect = MoveEffect.to(enemyposition, EffectController(duration: 3));
-    add(effect);
-    playSound();
-  }
-
-
-
-
 
   @override
   Future<void> onLoad() async
@@ -69,22 +56,43 @@ abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
-    ShapeHitbox hitbox = CircleHitbox()
+    hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
-    add(hitbox);
 
 
 
 
   }
+
+
+  void attackTarget(Vector2 currentship, Vector2 enemyposition)
+  {
+    size = Vector2(_imagesizex, _imagesizey);
+    position = Vector2(currentship.x, currentship.y);
+    add(hitbox);
+    final effect = MoveEffect.to(enemyposition, EffectController(duration: 3));
+    add(effect);
+    playSound();
+  }
+
+
+
+
+
+
   @override
   void update(double dt){
     super.update(dt);
 
 
-    _lifetime--;
-    if(_lifetime <=  0){
+    if(gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE){
+      _lifetime--;
+      if(_lifetime <=  0){
+        removeFromParent();
+        print("remove from parent");
+      }
+    }else{
       removeFromParent();
     }
 
@@ -102,7 +110,9 @@ abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>
     }else if(other is BasicShip)
     {
       if(other.currentteam != _team){
-        removeFromParent();
+       // removeFromParent();
+        print("collisio with enemy: bullet: "+_team.toString() + ", ship: "+other.toString());
+
       }
     }
   }
