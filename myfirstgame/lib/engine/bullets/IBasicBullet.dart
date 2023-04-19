@@ -47,7 +47,7 @@ abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>
 
 
 
-  void attackTarget(Vector2 currentship, Vector2 enemyposition)
+  void ttackTarget(Vector2 currentship, Vector2 enemyposition)
   {
     size = Vector2(_imagesizex, _imagesizey);
     position = Vector2(currentship.x, currentship.y);

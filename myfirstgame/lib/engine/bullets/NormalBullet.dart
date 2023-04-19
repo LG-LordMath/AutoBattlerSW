@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/szene/menue/enums/EnumGameState.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
+import '../szene/menue/enums/EnumGameState.dart';
 
 class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<MySpaceGame>
 {
@@ -24,7 +26,7 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
   final double _imagesizex = 10;
   final double _imagesizey = 30;
   final int movementspeed = 2;
-  int lifetime = 300;
+  int lifetime = 400;
   final int damage = 100;
   bool _isplayingmusic = false;
 
@@ -63,12 +65,18 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
   @override
   void update(double dt){
     super.update(dt);
-
-
-    lifetime--;
-    if(lifetime <=  0){
+    if(gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE){
+      lifetime--;
+      if(lifetime <=  0){
+        removeFromParent();
+        print("remove from parent");
+      }
+    }else{
       removeFromParent();
     }
+
+
+
 
 
   }
@@ -83,7 +91,8 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
     }else if(other is BasicShip)
     {
       if(other.currentteam != _team){
-        removeFromParent();
+ //       print("collisio with enemy: bullet: "+_team.toString() + ", ship: "+other.toString());
+       //removeFromParent();
       }
     }
   }

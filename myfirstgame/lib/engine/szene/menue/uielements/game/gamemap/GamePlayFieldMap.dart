@@ -114,16 +114,18 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
 
   void setVisibale(bool vis)
   {
+    Effect vieffect = OpacityEffect.to(
+      1,
+      EffectController(duration: 2),
+    );
     if(vis)
     {
-       viseffect = OpacityEffect.to(
-        1,
-        EffectController(duration: 2),
-      );
-      componentSprite.add(viseffect);
+
+      componentSprite.add(vieffect);
+
     }else
     {
-        componentSprite.add(viseffect);
+      vieffect.removeOnFinish;
     }
   }
 }

@@ -19,15 +19,15 @@ class GalaticEmpireShipsLoader{
   static Map<EnumGalaticEmpireShips, BasicShip> empireships  = {};
 
   void load()  {
-    empireships[EnumGalaticEmpireShips.Tie] = Tie(0, 0, 40, 50, 1);
-    empireships[EnumGalaticEmpireShips.TieBomber] = TieBomber(0, 0, 40, 50, 1);
-    empireships[EnumGalaticEmpireShips.TieIntercepter] = TieIntercepter(0, 0, 40, 50, 1);
-    empireships[EnumGalaticEmpireShips.DeltaClass] = DeltaClass(0, 0, 40, 50, 1);
+    empireships[EnumGalaticEmpireShips.Tie] = Tie(0, 0, 40, 50, 0);
+    empireships[EnumGalaticEmpireShips.TieBomber] = TieBomber(0, 0, 40, 50, 0);
+    empireships[EnumGalaticEmpireShips.TieIntercepter] = TieIntercepter(0, 0, 40, 50, 0);
+    empireships[EnumGalaticEmpireShips.DeltaClass] = DeltaClass(0, 0, 40, 50, 0);
 
-    empireships[EnumGalaticEmpireShips.Arquitens] = ArquitensEmpire(0, 0, 40, 50, 1);
-    empireships[EnumGalaticEmpireShips.Acclamator] = AcclamatorEmpire(0, 0, 40, 50, 1);
-    empireships[EnumGalaticEmpireShips.ImperialClass] = ImperialClass(0, 0, 40, 50, 1);
-    empireships[EnumGalaticEmpireShips.Victory] = Victory(0, 0, 40, 50, 1);
+    empireships[EnumGalaticEmpireShips.Arquitens] = ArquitensEmpire(0, 0, 40, 50, 0);
+    empireships[EnumGalaticEmpireShips.Acclamator] = AcclamatorEmpire(0, 0, 40, 50, 0);
+    empireships[EnumGalaticEmpireShips.ImperialClass] = ImperialClass(0, 0, 40, 50, 0);
+    empireships[EnumGalaticEmpireShips.Victory] = Victory(0, 0, 40, 50, 0);
   }
 
   void reloadObject(EnumGalaticEmpireShips ship)

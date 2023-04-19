@@ -33,7 +33,7 @@ class Cell extends PositionComponent with HasGameRef<MySpaceGame>{
     hitbox = RectangleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
-   add(hitbox);
+   //add(hitbox);
 
 
   }
