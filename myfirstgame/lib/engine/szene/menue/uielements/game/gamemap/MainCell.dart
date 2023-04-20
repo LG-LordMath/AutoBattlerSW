@@ -154,8 +154,27 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
     shipPositions.keys.forEach((ship) => print(ship.toString()));
   }
 
+  void clearShipsAndMap() {
+    for (BasicShip ship in shipPositions.keys) {
+      List<int> cellfields = shipPositions[ship]!;
+      for (int cellIndex in cellfields) {
+        if (cellIndex >= 0 && cellIndex < cells.length) {
+          cells[cellIndex].deoccupyCell();
+        }
+      }
+      ship.cellfields.clear();
+      if (ship.currentteam == 1) {
+        gameRef.gameAutoBattle.player1.team.remove(ship);
+      } else {
+        gameRef.gameAutoBattle.player2.team.remove(ship);
+      }
+    }
+    shipPositions.clear();
+  }
 
-@override
+
+
+  @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints,
       PositionComponent other) {
@@ -163,6 +182,45 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
     if (other is BasicShip)
     {
 
+    }
+  }
+  void addShipToCell(BasicShip ship, int cellIndex) {
+    if (cellIndex >= 0 && cellIndex < cells.length && !cells[cellIndex].isOccupied) {
+      // Check if the cell index is valid and not occupied
+
+      int cellSizeX = EnumShipClass.values[ship.shipclass.index].CellsizeX;
+      int cellSizeY = EnumShipClass.values[ship.shipclass.index].CellsizeY;
+
+      bool hasEnoughFreeCells = true;
+      if (cellSizeX == 2 && cellIndex % numOfCellsHorizontal == numOfCellsHorizontal - 1) {
+        // For ships with size 2 in X direction, check if the current cell is the last cell in a row
+        hasEnoughFreeCells = false;
+      } else {
+        for (int y = cellIndex; y < cellIndex + cellSizeX * cellSizeY; y++) {
+          if (y >= cells.length || cells[y].isOccupied) {
+            hasEnoughFreeCells = false;
+            break;
+          }
+        }
+      }
+
+      if (hasEnoughFreeCells) {
+        // If there are enough free cells, occupy the cells with the ship
+        cells[cellIndex].isOccupied = true;
+        ship.cellfields.add(cellIndex);
+        for (int y = cellIndex + 1; y < cellIndex + cellSizeX * cellSizeY; y++) {
+          cells[y].isOccupied = true;
+          ship.cellfields.add(y);
+        }
+
+        shipPositions[ship] = ship.cellfields;
+        cells[cellIndex].setShipPosition(ship);
+        if (ship.currentteam == 1) {
+          gameRef.gameAutoBattle.player1.team.add(ship);
+        } else {
+          gameRef.gameAutoBattle.player2.team.add(ship);
+        }
+      }
     }
   }
 

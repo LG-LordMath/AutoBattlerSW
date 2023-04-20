@@ -64,20 +64,18 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   // weapon
   int _maxammonition = 1;
-  int _maxreloadtime  = 30;
+  int _maxreloadtime  = 100;
   int _currentreloadtime  = 30;
-  int _currentamonition =0;
+  int _currentamonition = 0;
 
 
   //late List<BasicWeaponCanon> _weapons = [];
 
 
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
-  {_currenthp = _maxhp; _currentshieldhp = _maxshieldhp;}
-
- // BasicShip.from(BasicShip basicShip);
-
-
+  {
+    _currenthp = _maxhp; _currentshieldhp = _maxshieldhp;
+  }
 
   @override
   Future<void> onLoad() async
@@ -88,10 +86,12 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     parent = gameRef;
     size = Vector2(_imagesizex, _imagesizey);
     position = Vector2(_positionx, _positiony);
-    if(_currentteam == 1){
-
+    if(_currentteam == 1)
+    {
       angle =  angle + _rotation;
-    }else if (_currentteam == 2){
+    }
+    else if (_currentteam == 2)
+    {
       angle =  angle - _rotation;
     }
     final defaultPaint = Paint()
@@ -99,31 +99,26 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       ..style = PaintingStyle.stroke ;
     hitbox = RectangleHitbox()
       ..paint = defaultPaint
-      ..renderShape = true;
-
+      ..renderShape = false;
     add(hitbox);
     healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble());
     add(healbar);
+
     switch(nation){
       case EnumNation.Republic:
         add(SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconRepublic]));
-
         break;
       case EnumNation.Rebellen:
         add(SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconRebellen]));
-
         break;
       case EnumNation.Imperium:
         add( SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconImperium]));
-
         break;
       case EnumNation.CIS:
         add(SpriteComponent(size: Vector2(10, 10), position: Vector2(0, imagesizey), sprite: ImageLoader.sprites[EnumImages.IconSeperatisten]));
-
         break;
       default:
         break;
-
     }
 
 
@@ -131,22 +126,25 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
 
   @override
-  void update(double dt) {
-    // TODO: implement update
+  void update(double dt)
+  {
     super.update(dt);
-
-    if(_isDragged){
+    if(_isDragged)
+    {
       position = Vector2(positionx, positiony);
-
-    }else {
+    }
+    else {
       if (_currenthp > 0)
       {
+
+
         if(_fight){
           healbar.init();
           healbar.updateHealBar(_currenthp.toDouble(), _currentshieldhp.toDouble());
           moveShip();
           checkifEnemyisinrange();
-        }else{
+        }else
+        {
           //healbar.removeFromParent();
           //   _weapons.forEach((element) {element.stopfireing();});
         }

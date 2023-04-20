@@ -4,6 +4,7 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 

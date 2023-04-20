@@ -2,10 +2,13 @@
 
 
 
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+import '../../nations/EnumNation.dart';
 import '../../nations/EnumNation.dart';
 import '../../szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import '../EnumPlayerImages.dart';
@@ -30,12 +33,14 @@ class PlayerAi extends Player
   PlayerAi(int php, EnumPlayerImages pimage, this.game) : super('BOT', php, pimage)
   {
 
-    /*
+
     var intValue = Random().nextInt(EnumNation.values.length);
     nation = EnumNation.values[intValue];
 
-     */
-    nation = EnumNation.Imperium;
+    if(nation == EnumNation.Rebellen){
+      nation = EnumNation.Imperium;
+    }
+    print("Nation: " + nation.toString());
 
 
 
@@ -105,9 +110,6 @@ class PlayerAi extends Player
     switch (nation) {
 
       case EnumNation.Imperium:
-
-
-
         switch (ship.shipclass) {
           case EnumShipClass.Fighter:
 
@@ -145,6 +147,89 @@ class PlayerAi extends Player
             break;
         }
         break;
+
+      case EnumNation.Republic:
+        switch (ship.shipclass) {
+          case EnumShipClass.Fighter:
+
+            if(game.gameAutoBattle.ennemymap.maincells[1].getNumberOfFreeCells() > 0)
+            {
+              game.gameAutoBattle.ennemymap.maincells[1].addShip(ship);
+            }else{
+              if(game.gameAutoBattle.ennemymap.maincells[3].getNumberOfFreeCells() > 0 )
+              {
+                game.gameAutoBattle.ennemymap.maincells[3].addShip(ship);
+              }else{
+                if(game.gameAutoBattle.ennemymap.maincells[5].getNumberOfFreeCells() > 0 ){
+                  game.gameAutoBattle.ennemymap.maincells[5].addShip(ship);
+                }else{
+                }
+              }
+            }
+            break;
+          case EnumShipClass.Battleship:
+            if(game.gameAutoBattle.ennemymap.maincells[0].getNumberOfFreeCells() > 0){
+              game.gameAutoBattle.ennemymap.maincells[0].addShip(ship);
+            }else{
+              if(game.gameAutoBattle.ennemymap.maincells[2].getNumberOfFreeCells() > 0){
+                game.gameAutoBattle.ennemymap.maincells[2].addShip(ship);
+              }else{
+
+              }
+            }
+            break;
+          case EnumShipClass.Mothership:
+
+              if(game.gameAutoBattle.ennemymap.maincells[4].getNumberOfFreeCells() > 0 ){
+                game.gameAutoBattle.ennemymap.maincells[4].addShip(ship);
+              }else{
+
+              }
+
+
+            break;
+        }
+        break;
+      case EnumNation.CIS:
+        switch (ship.shipclass) {
+          case EnumShipClass.Fighter:
+            if(game.gameAutoBattle.ennemymap.maincells[4].getNumberOfFreeCells() > 0 ){
+              game.gameAutoBattle.ennemymap.maincells[4].addShip(ship);
+            }else{
+
+            }
+            if(game.gameAutoBattle.ennemymap.maincells[1].getNumberOfFreeCells() > 0)
+            {
+              game.gameAutoBattle.ennemymap.maincells[1].addShip(ship);
+            }else{
+
+            }
+            break;
+          case EnumShipClass.Battleship:
+            if(game.gameAutoBattle.ennemymap.maincells[0].getNumberOfFreeCells() > 0){
+              game.gameAutoBattle.ennemymap.maincells[0].addShip(ship);
+            }else{
+              if(game.gameAutoBattle.ennemymap.maincells[2].getNumberOfFreeCells() > 0){
+                game.gameAutoBattle.ennemymap.maincells[2].addShip(ship);
+              }else{
+
+              }
+            }
+            break;
+          case EnumShipClass.Mothership:
+            if(game.gameAutoBattle.ennemymap.maincells[3].getNumberOfFreeCells() > 0 )
+            {
+              game.gameAutoBattle.ennemymap.maincells[3].addShip(ship);
+            }else{
+              if(game.gameAutoBattle.ennemymap.maincells[5].getNumberOfFreeCells() > 0 ){
+                game.gameAutoBattle.ennemymap.maincells[5].addShip(ship);
+              }else{
+              }
+            }
+
+            break;
+        }
+        break;
     }
 
 
@@ -162,24 +247,17 @@ class PlayerAi extends Player
 
     switch (nation)
     {
-
-
       case EnumNation.Imperium:
         print(ship.shipclass);
         switch (ship.shipclass){
-
           case EnumShipClass.Fighter:
-
             if(_maxshipfighter < 8) {
-
               _maxshipfighter++;
               return true;
             }else {
              return false;
             }
-
           case EnumShipClass.Battleship:
-
             if(_maxshipbattleship < 1) {
               _maxshipbattleship++;
               return true;
@@ -194,17 +272,58 @@ class PlayerAi extends Player
               return false;
             }
         }
-
-
         break;
       case EnumNation.CIS:
+        switch (ship.shipclass){
+          case EnumShipClass.Fighter:
+            if(_maxshipfighter < 10) {
+              _maxshipfighter++;
+              return true;
+            }else {
+              return false;
+            }
+          case EnumShipClass.Battleship:
+            if(_maxshipbattleship < 2) {
+              _maxshipbattleship++;
+              return true;
+            }else {
+              return false;
+            }
+          case EnumShipClass.Mothership:
+            if(_maxshipmothership < 2) {
+              _maxshipmothership++;
+              return true;
+            }else {
+              return false;
+            }
+        }
         break;
       case EnumNation.Republic:
+        switch (ship.shipclass){
+          case EnumShipClass.Fighter:
+            if(_maxshipfighter < 16) {
+              _maxshipfighter++;
+              return true;
+            }else {
+              return false;
+            }
+          case EnumShipClass.Battleship:
+            if(_maxshipbattleship < 2) {
+              _maxshipbattleship++;
+              return true;
+            }else {
+              return false;
+            }
+          case EnumShipClass.Mothership:
+            if(_maxshipmothership < 1) {
+              _maxshipmothership++;
+              return true;
+            }else {
+              return false;
+            }
+        }
         break;
     }
-
-
-
     return true;
   }
 

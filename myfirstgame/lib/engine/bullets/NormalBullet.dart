@@ -69,7 +69,7 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
       lifetime--;
       if(lifetime <=  0){
         removeFromParent();
-        print("remove from parent");
+       // print("remove from parent");
       }
     }else{
       removeFromParent();

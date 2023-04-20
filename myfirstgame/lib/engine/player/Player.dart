@@ -12,10 +12,17 @@ class Player
   late int _hp;
   late EnumPlayerImages _image;
   List<BasicShip> _team = [];
+  late List<BasicShip> _tempsaveteam = [];
   late int _currentcredits = 0;
 
+  void addAllToTeam() {
+    team.addAll(tempsaveteam);
+  }
+  void addAllToTempList() {
+    tempsaveteam.addAll(team);
+  }
 
-  Player(this.nickname, this._hp, this._image);
+    Player(this.nickname, this._hp, this._image);
 
   void lostround(){
     _hp--;
@@ -43,5 +50,11 @@ class Player
 
   set currentcredits(int value) {
     _currentcredits = value;
+  }
+
+  List<BasicShip> get tempsaveteam => _tempsaveteam;
+
+  set tempsaveteam(List<BasicShip> value) {
+    _tempsaveteam = value;
   }
 }

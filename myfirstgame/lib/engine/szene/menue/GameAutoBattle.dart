@@ -141,11 +141,14 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _isactivestate = true;
         //    _timer.destroy();
            // _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
+            player1.tempsaveteam.clear();
+            player2.tempsaveteam.clear();
+            player1.addAllToTempList();
+            player2.addAllToTempList();
             beginnFight();
             map.setVisibale(false);
             ennemymap.setVisibale(false);
          //   add(_timer);
-
           }
           if(_isactivestate){
             if(checkFightending()){
@@ -214,9 +217,15 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     }
     else if(player1.team.isEmpty && player2.team.isNotEmpty){
       player1.hp--;
+      player2.team.forEach((element) {
+        element.fighting(false);
+      });
       return true;
     } else if(player2.team.isEmpty && player1.team.isNotEmpty){
       player2.hp--;
+      player1.team.forEach((element) {
+        element.fighting(false);
+      });
       return true;
     }
     else
@@ -266,38 +275,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   }
 
   void endFight() {
-    player1.team.forEach((BasicShip ship) {
-      ship.fighting(false);
-      for (int i = 0; i < map.maincells.length; i++) {
-        if(ship.mainfieldis==i)
-        {
-         map.maincells[i].cells[ship.cellfields.first].setShipPosition(ship);
-        }
-      }
-
-    });
-
-  //
-    player2.team.forEach((BasicShip ship) {
-      ship.fighting(false);
-/*
-      for (int i = 0; i < ennemymap.maincells.length; i++) {
-        if(ship.mainfieldis==i)
-        {
-          ennemymap.maincells[i].cells[ship.cellfields.first].setShipPosition(ship);
-        }
-      }
-
-
- */
-
-    });
-//
-
-
-
 
   }
+
 
 
 

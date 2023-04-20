@@ -1,0 +1,9 @@
+
+
+enum EnumBulletList
+
+
+{
+  Laser,
+
+}
