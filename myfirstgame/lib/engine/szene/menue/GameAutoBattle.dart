@@ -5,6 +5,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
+import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameBottomBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameUpperBar.dart';
@@ -13,9 +14,13 @@ import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+import 'package:myfirstgame/main.dart';
 
+import '../../bullets/BulletListLoader.dart';
 import '../../player/Player.dart';
 import '../../ships/BasicShip.dart';
+import '../../ships/galacticempireships/EnumGalaticEmpireShips.dart';
+import '../../ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import '../background/Background.dart';
 import '../background/EnumGlobalsBackgroundElements.dart';
 import 'enums/EnumGameState.dart';
@@ -29,6 +34,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   late Player _player1;
   late Player _player2;
 
+  List<BasicShip> _player1team = [];
+  List<BasicShip> _player2team = [];
 
   late GameShopMenue shopMenue;
   late GameBottomBar bottomBar;
@@ -98,11 +105,17 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             ennemymap.setVisibale(true);
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  10);
+            _player1team = [];
+            _player2team = [];
+
+
 
             if(player2 is PlayerAi)
             {
               PlayerAi   player =  player2 as PlayerAi;
               player.buyphase();
+
+              _player2team.addAll(player2.team);
             }
             if(!isShopopen){
               gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
@@ -125,6 +138,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
               if(_timer.timer.current > 9){
                 if(isShopopen){
+                  _player1team.addAll(player1.team);
                   shopMenue.destroy();
                   isShopopen = false;
                 }
@@ -141,10 +155,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _isactivestate = true;
         //    _timer.destroy();
            // _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
-            player1.tempsaveteam.clear();
-            player2.tempsaveteam.clear();
-            player1.addAllToTempList();
-            player2.addAllToTempList();
             beginnFight();
             map.setVisibale(false);
             ennemymap.setVisibale(false);
@@ -219,12 +229,14 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       player1.hp--;
       player2.team.forEach((element) {
         element.fighting(false);
+        element.removeFromParent();
       });
       return true;
     } else if(player2.team.isEmpty && player1.team.isNotEmpty){
       player2.hp--;
       player1.team.forEach((element) {
         element.fighting(false);
+        element.removeFromParent();
       });
       return true;
     }
@@ -251,8 +263,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         });
       }
 
-
-
       if(playeronewon){
      //   print("player one won");
         player2.hp--;
@@ -274,7 +284,137 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     player2.team.forEach((BasicShip ship) {ship.fighting(true);});
   }
 
-  void endFight() {
+  void endFight()
+  {
+    /*
+    map.removeFromParent();
+    ennemymap.removeFromParent();
+    map = GamePlayFieldMap(30, gameRef.size[1]/ 2.1);
+    ennemymap = GamePlayFieldMap(30, 100);
+    add(map);
+    add(ennemymap);
+
+
+     */
+
+    map.maincells.forEach((element) {
+      element.clearShipsAndMap();
+      //  print(element.getFreeCells());
+    });
+
+    ennemymap.maincells.forEach((element) {
+      element.clearShipsAndMap();
+      // print(element.getFreeCells());
+    });
+    player1.team = [];
+    player2.team = [];
+
+
+
+
+
+
+    print("Team: ");
+    player1.team.forEach((element)
+    {
+      print(element.toString() + ", team 1");
+    });
+    print("tempsave: ");
+    _player1team.forEach((element)
+    {
+      print(element.toString() + ", team 1");
+    });
+    print("Team: ");
+    player2.team.forEach((element)
+    {
+      print(element.toString() + ", team 2");
+    });
+    print("tempsave: ");
+    _player2team.forEach((element)
+    {
+      print(element.toString() + ", team 2");
+    });
+
+
+
+    _player1team.forEach((element)
+    {
+      BasicShip temp;
+      switch (element.nation)
+      {
+        case EnumNation.Imperium:
+          /*
+          randomNumberShip = random.nextInt(GalaticEmpireShipsLoader.empireships.length );
+          tempbasicShip =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]!;
+          GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
+          rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(randomNumberShip));
+
+           */
+
+          for(int i = 0; i< GalaticEmpireShipsLoader.empireships.length; i++)
+          {
+            print(" Suche Ship: "+ GalaticEmpireShipsLoader.empireships[i].toString() + ", "+ element.toString());
+            if(GalaticEmpireShipsLoader.empireships[i] == element)
+            {
+              temp = GalaticEmpireShipsLoader.empireships[i]!;
+              player1.team.add( temp);
+              add(temp);
+              map.maincells[element.mainfieldis].addShip(temp);
+              GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
+              rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+            }
+          }
+
+          break;
+        case EnumNation.Republic:
+          break;
+        case EnumNation.CIS:
+          break;
+        case EnumNation.Rebellen:
+          break;
+      }
+
+
+    });
+    _player2team.forEach((element) 
+    
+    {
+      BasicShip tempbasicShip;
+      if (element.nation == EnumNation.Imperium) {
+        for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++) {
+          //print("Suche Ship: " +              GalaticEmpireShipsLoader.empireships.values.elementAt(i).toString() +              ", " +element.toString());
+          if (GalaticEmpireShipsLoader.empireships.values.elementAt(i).runtimeType == element.runtimeType) {
+            print("Gefunden Ship: " +EnumGalaticEmpireShips.values[i].toString() + ", " +element.toString());
+            GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
+            rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+            tempbasicShip =GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(i)]!;
+            tempbasicShip.currentteam = 2;
+              player2.team.add(tempbasicShip);
+              gameRef.add(tempbasicShip);
+              tempbasicShip.rotateImage();
+             // ennemymap.maincells[element.mainfieldis].addShip(tempbasicShip);
+              if(player2 is PlayerAi)
+             {
+              PlayerAi   player =  player2 as PlayerAi;
+              player.placeShip(tempbasicShip);
+             }
+
+              rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+
+          }
+        }
+      }
+    });
+
+
+
+
+
+
+
+
+
+
 
   }
 

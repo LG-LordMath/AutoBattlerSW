@@ -224,8 +224,14 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       //print("Ship position: " + position.toString());
       if (positionEnemy.x != 0 && positionEnemy.y != 0) {
 
-          add(NormalBullet(Vector2(absolutePosition.x , absolutePosition.y ) , positionEnemy, _currentteam));
-          _currentamonition--;
+          if(_currentteam == 1){
+            add(NormalBullet(Vector2(absolutePosition.x + size.x / 2, absolutePosition.y + size.y / 2 ) , positionEnemy, _currentteam));
+            _currentamonition--;
+          }else{
+            add(NormalBullet(Vector2(absolutePosition.x - size.x / 2, absolutePosition.y - size.y / 2 ) , positionEnemy, _currentteam));
+            _currentamonition--;
+          }
+
 
 
 
@@ -357,7 +363,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         break;
     }
 
-    print("Damage: " + damage.toString());
+  //  print("Damage: " + damage.toString());
 
 
     if(_fight){
@@ -373,7 +379,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       }else{
 
         _currenthp -= damage;
-        print(this.toString() + " HP: " + _currenthp.toString());
+      //  print(this.toString() + " HP: " + _currenthp.toString());
       }
     }
   }
@@ -549,21 +555,21 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
     if (other is ScreenHitbox) {
-      print("end hitting");
+     // print("end hitting");
       _ishittingwall = false;
     }
     if (!isColliding) {
       if (other is ScreenHitbox) {
-        print("end hitting");
+      //  print("end hitting");
         _ishittingwall = false;
       }
     }
     if (other is NormalBullet) {
       print("collosion with bullet");
       if (other.team == currentteam) {
-        print("same team");
+        //print("same team");
       } else {
-        print(" hit ");
+        //print(" hit ");
         // damage(other.damage, other.goodAginst);
         damage(other.damage, EnumGoodAginst.hp);
         other.removeFromParent();

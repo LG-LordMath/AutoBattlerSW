@@ -7,7 +7,7 @@ import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/music/EnumMusic.dart';
 
-class GalaticEmpireShipsLoader {
+class BulletListLoader {
 
 
   static Map<EnumBulletList, IBasicBullet> bulletlist = {};

@@ -40,6 +40,7 @@ class PlayerAi extends Player
     if(nation == EnumNation.Rebellen){
       nation = EnumNation.Imperium;
     }
+    nation = EnumNation.Imperium;
     print("Nation: " + nation.toString());
 
 
@@ -101,6 +102,7 @@ class PlayerAi extends Player
   {
 
   }
+
 
 
   void placeShip(BasicShip ship)
@@ -248,29 +250,35 @@ class PlayerAi extends Player
     switch (nation)
     {
       case EnumNation.Imperium:
+
         print(ship.shipclass);
-        switch (ship.shipclass){
-          case EnumShipClass.Fighter:
-            if(_maxshipfighter < 8) {
-              _maxshipfighter++;
-              return true;
-            }else {
-             return false;
-            }
-          case EnumShipClass.Battleship:
-            if(_maxshipbattleship < 1) {
-              _maxshipbattleship++;
-              return true;
-            }else {
-              return false;
-            }
-          case EnumShipClass.Mothership:
-            if(_maxshipmothership < 3) {
-              _maxshipmothership++;
-              return true;
-            }else {
-              return false;
-            }
+        print("Kaufen Schiff: " + (_maxshipfighter + _maxshipbattleship + _maxshipmothership).toString() + ", to 12");
+        if((_maxshipfighter + _maxshipbattleship + _maxshipmothership) <= 12) {
+          switch (ship.shipclass) {
+            case EnumShipClass.Fighter:
+              if (_maxshipfighter < 8) {
+                _maxshipfighter++;
+                return true;
+              } else {
+                return false;
+              }
+            case EnumShipClass.Battleship:
+              if (_maxshipbattleship < 1) {
+                _maxshipbattleship++;
+                return true;
+              } else {
+                return false;
+              }
+            case EnumShipClass.Mothership:
+              if (_maxshipmothership < 3) {
+                _maxshipmothership++;
+                return true;
+              } else {
+                return false;
+              }
+          }
+        }else{
+          return false;
         }
         break;
       case EnumNation.CIS:
