@@ -31,7 +31,7 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
   @override
   Future<void> onLoad() async
   {
-    this.position = pposition;
+    position = pposition;
 
     sizeofCell = Vector2(width / numOfCellsHorizontal, height / numOfCellsVertical);
 
@@ -127,9 +127,6 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
       if(ship.currentteam == 1) {
         if (gameRef.gameAutoBattle.bottomBar.isFull()) {
           // Check if bottomBar is full
-          gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
-        } else {
-          // Add ship back to bottomBar if it's not full
           gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
           ship.scale = Vector2(1, 1);
         }

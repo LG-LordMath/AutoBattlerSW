@@ -7,6 +7,10 @@ import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
+import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
+import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameBottomBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameUpperBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gamemap/GamePlayFieldMap.dart';
@@ -91,6 +95,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           }
           else
           {
+            _player1team = [];
+            _player2team = [];
             _round ++;
             _isactivestate = false;
             gameState = EnumGameState.BUYPHASE;
@@ -105,17 +111,21 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             ennemymap.setVisibale(true);
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  10);
-            _player1team = [];
-            _player2team = [];
+
 
 
 
             if(player2 is PlayerAi)
             {
-              PlayerAi   player =  player2 as PlayerAi;
-              player.buyphase();
 
+              PlayerAi   player =  player2 as PlayerAi;
+
+
+              player.buyphase();
               _player2team.addAll(player2.team);
+
+
+
             }
             if(!isShopopen){
               gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
@@ -136,13 +146,23 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           }
           if(_isactivestate){
 
-              if(_timer.timer.current > 9){
-                if(isShopopen){
-                  _player1team.addAll(player1.team);
+              if(_timer.timer.current > 9)
+              {
+
+                if(isShopopen)
+                {
                   shopMenue.destroy();
                   isShopopen = false;
                 }
+
+
                 _isactivestate = false;
+
+                _player1team.addAll(player1.team);
+                for(int i = 0; i < _player1team.length;i++){
+                  _player1team[i].mainfieldis = player1.team[i].mainfieldis;
+                  print("Set Mainfield: "+ _player1team[i].mainfieldis.toString() + ", from "+ player1.team[i].mainfieldis.toString());
+                }
                 gameState = EnumGameState.FIGHTPHASE;
               }
           }
@@ -152,6 +172,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
          // print("Phase: Fight");
           if(!_isactivestate)
           {
+
             _isactivestate = true;
         //    _timer.destroy();
            // _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
@@ -218,8 +239,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   bool checkFightending()
   {
   //  print("Check if won ");
-    bool playertwowon = true;
-    bool playeronewon = true;
     if(player1.team.isEmpty && player2.team.isEmpty){
       player1.hp--;
       player2.hp--;
@@ -240,6 +259,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       });
       return true;
     }
+    /*
     else
     {
       if(player1.team.isNotEmpty)
@@ -247,6 +267,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         player1.team.forEach((element) {
           if(element.hp > 0 && playertwowon){
            // print("team 1: " + element.toString());;
+
             playertwowon = false;
           }
         });
@@ -258,6 +279,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         player2.team.forEach((element) {
           if(element.hp > 0 && playeronewon){
            // print("team 2: " + element.toString());
+
             playeronewon = false;
           }
         });
@@ -273,6 +295,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         return true;
       }
     }
+
+     */
     return false;
   }
 
@@ -286,34 +310,20 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
   void endFight()
   {
-    /*
-    map.removeFromParent();
-    ennemymap.removeFromParent();
-    map = GamePlayFieldMap(30, gameRef.size[1]/ 2.1);
-    ennemymap = GamePlayFieldMap(30, 100);
-    add(map);
-    add(ennemymap);
 
 
-     */
 
     map.maincells.forEach((element) {
       element.clearShipsAndMap();
       //  print(element.getFreeCells());
     });
-
     ennemymap.maincells.forEach((element) {
       element.clearShipsAndMap();
       // print(element.getFreeCells());
     });
     player1.team = [];
     player2.team = [];
-
-
-
-
-
-
+/*
     print("Team: ");
     player1.team.forEach((element)
     {
@@ -336,70 +346,143 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     });
 
 
-
+ */
     _player1team.forEach((element)
     {
-      BasicShip temp;
-      switch (element.nation)
-      {
-        case EnumNation.Imperium:
-          /*
-          randomNumberShip = random.nextInt(GalaticEmpireShipsLoader.empireships.length );
-          tempbasicShip =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(randomNumberShip)]!;
-          GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
-          rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(randomNumberShip));
-
-           */
-
-          for(int i = 0; i< GalaticEmpireShipsLoader.empireships.length; i++)
+      BasicShip tempbasicShip;
+      print("add ship to main field: " + element.mainfieldis.toString());
+      if (element.nation == EnumNation.Imperium) {
+        for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++)
+        {
+          if (GalaticEmpireShipsLoader.empireships.values.elementAt(i).runtimeType == element.runtimeType)
           {
-            print(" Suche Ship: "+ GalaticEmpireShipsLoader.empireships[i].toString() + ", "+ element.toString());
-            if(GalaticEmpireShipsLoader.empireships[i] == element)
-            {
-              temp = GalaticEmpireShipsLoader.empireships[i]!;
-              player1.team.add( temp);
-              add(temp);
-              map.maincells[element.mainfieldis].addShip(temp);
-              GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
-              rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
-            }
-          }
+            GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
+            rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+            tempbasicShip =GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(i)]!;
+            tempbasicShip.currentteam = 1;
+            add(tempbasicShip);
+            tempbasicShip.rotateImage();
+            tempbasicShip.mainfieldis = element.mainfieldis;
+            tempbasicShip.scale = Vector2(tempbasicShip.shipclass.CellsizeX.toDouble(), tempbasicShip.shipclass.CellsizeY.toDouble());
+            map.maincells[element.mainfieldis].addShip(tempbasicShip);
+            rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
 
-          break;
-        case EnumNation.Republic:
-          break;
-        case EnumNation.CIS:
-          break;
-        case EnumNation.Rebellen:
-          break;
+          }
+        }
+      }
+      else if (element.nation == EnumNation.Republic) {
+        for (int i = 0; i < RepublicShipsLoader.republicships .length; i++)
+        {
+          if (RepublicShipsLoader.republicships.values.elementAt(i).runtimeType == element.runtimeType)
+          {
+            RepublicShipsLoader rep = RepublicShipsLoader();
+            rep.reloadObject(EnumRepublicShips.values.elementAt(i));
+            tempbasicShip =RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(i)]!;
+            tempbasicShip.currentteam = 1;
+            add(tempbasicShip);
+            tempbasicShip.rotateImage();
+            tempbasicShip.mainfieldis = element.mainfieldis;
+            tempbasicShip.scale = Vector2(tempbasicShip.shipclass.CellsizeX.toDouble(), tempbasicShip.shipclass.CellsizeY.toDouble());
+            map.maincells[element.mainfieldis].addShip(tempbasicShip);
+            rep.reloadObject(EnumRepublicShips.values.elementAt(i));
+
+          }
+        }
+      }
+      else if (element.nation == EnumNation.CIS) {
+
+        for (int i = 0; i < SeperatistCISShipLoader.cisships.length; i++)
+        {
+          if (SeperatistCISShipLoader.cisships.values.elementAt(i).runtimeType == element.runtimeType)
+          {
+            SeperatistCISShipLoader rep = SeperatistCISShipLoader();
+            rep.reloadObject(EnumCISShips.values.elementAt(i));
+            tempbasicShip =SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(i)]!;
+            tempbasicShip.currentteam = 1;
+            add(tempbasicShip);
+            tempbasicShip.rotateImage();
+            tempbasicShip.mainfieldis = element.mainfieldis;
+            tempbasicShip.scale = Vector2(tempbasicShip.shipclass.CellsizeX.toDouble(), tempbasicShip.shipclass.CellsizeY.toDouble());
+
+            map.maincells[element.mainfieldis].addShip(tempbasicShip);
+            rep.reloadObject(EnumCISShips.values.elementAt(i));
+
+          }
+        }
       }
 
 
     });
+
+
+    //player Ai
+
+
     _player2team.forEach((element) 
     
     {
       BasicShip tempbasicShip;
       if (element.nation == EnumNation.Imperium) {
-        for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++) {
-          //print("Suche Ship: " +              GalaticEmpireShipsLoader.empireships.values.elementAt(i).toString() +              ", " +element.toString());
-          if (GalaticEmpireShipsLoader.empireships.values.elementAt(i).runtimeType == element.runtimeType) {
-            print("Gefunden Ship: " +EnumGalaticEmpireShips.values[i].toString() + ", " +element.toString());
+        for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++)
+        {
+          if (GalaticEmpireShipsLoader.empireships.values.elementAt(i).runtimeType == element.runtimeType)
+          {
             GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
             rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
             tempbasicShip =GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 2;
-              player2.team.add(tempbasicShip);
+              //player2.team.add(tempbasicShip);
               gameRef.add(tempbasicShip);
               tempbasicShip.rotateImage();
-             // ennemymap.maincells[element.mainfieldis].addShip(tempbasicShip);
               if(player2 is PlayerAi)
              {
               PlayerAi   player =  player2 as PlayerAi;
               player.placeShip(tempbasicShip);
              }
-
               rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+
+          }
+        }
+      }
+      else if (element.nation == EnumNation.Republic) {
+        for (int i = 0; i < RepublicShipsLoader.republicships .length; i++)
+        {
+          if (RepublicShipsLoader.republicships.values.elementAt(i).runtimeType == element.runtimeType)
+          {
+            RepublicShipsLoader rep = RepublicShipsLoader();
+            rep.reloadObject(EnumRepublicShips.values.elementAt(i));
+            tempbasicShip =RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(i)]!;
+            tempbasicShip.currentteam = 2;
+            gameRef.add(tempbasicShip);
+            tempbasicShip.rotateImage();
+            if(player2 is PlayerAi)
+            {
+              PlayerAi   player =  player2 as PlayerAi;
+              player.placeShip(tempbasicShip);
+            }
+            rep.reloadObject(EnumRepublicShips.values.elementAt(i));
+
+          }
+        }
+      }
+      else if (element.nation == EnumNation.CIS) {
+
+        for (int i = 0; i < SeperatistCISShipLoader.cisships.length; i++)
+        {
+          if (SeperatistCISShipLoader.cisships.values.elementAt(i).runtimeType == element.runtimeType)
+          {
+            SeperatistCISShipLoader rep = SeperatistCISShipLoader();
+            rep.reloadObject(EnumCISShips.values.elementAt(i));
+            tempbasicShip =SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(i)]!;
+            tempbasicShip.currentteam = 2;
+            gameRef.add(tempbasicShip);
+            tempbasicShip.rotateImage();
+            if(player2 is PlayerAi)
+            {
+              PlayerAi   player =  player2 as PlayerAi;
+              player.placeShip(tempbasicShip);
+            }
+            rep.reloadObject(EnumCISShips.values.elementAt(i));
 
           }
         }

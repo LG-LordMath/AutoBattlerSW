@@ -40,7 +40,6 @@ class PlayerAi extends Player
     if(nation == EnumNation.Rebellen){
       nation = EnumNation.Imperium;
     }
-    nation = EnumNation.Imperium;
     print("Nation: " + nation.toString());
 
 
@@ -254,23 +253,45 @@ class PlayerAi extends Player
         print(ship.shipclass);
         print("Kaufen Schiff: " + (_maxshipfighter + _maxshipbattleship + _maxshipmothership).toString() + ", to 12");
         if((_maxshipfighter + _maxshipbattleship + _maxshipmothership) <= 12) {
-          switch (ship.shipclass) {
+          int counter = 0;
+          switch (ship.shipclass)
+          {
             case EnumShipClass.Fighter:
-              if (_maxshipfighter < 8) {
-                _maxshipfighter++;
+
+              game.gameAutoBattle.player2.team.forEach((element)
+              {
+                if(element.shipclass ==  EnumShipClass.Fighter){
+                  counter++;
+                }
+              });
+
+              if (counter < 8 ) {
+                //_maxshipfighter++;
                 return true;
               } else {
                 return false;
               }
             case EnumShipClass.Battleship:
-              if (_maxshipbattleship < 1) {
+              game.gameAutoBattle.player2.team.forEach((element)
+              {
+                if(element.shipclass ==  EnumShipClass.Battleship){
+                  counter++;
+                }
+              });
+              if (counter < 1) {
                 _maxshipbattleship++;
                 return true;
               } else {
                 return false;
               }
             case EnumShipClass.Mothership:
-              if (_maxshipmothership < 3) {
+              game.gameAutoBattle.player2.team.forEach((element)
+              {
+                if(element.shipclass ==  EnumShipClass.Mothership){
+                  counter++;
+                }
+              });
+              if (counter < 3) {
                 _maxshipmothership++;
                 return true;
               } else {

@@ -9,6 +9,8 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
+import 'package:myfirstgame/engine/music/EnumMusic.dart';
+import 'package:myfirstgame/engine/music/MyMusicPlayer.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 import 'package:myfirstgame/engine/szene/menue/enums/EnumGameState.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -49,7 +51,9 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
       add(hitbox);
     if(!_isplayingmusic)
     {
-    //  FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
+     // FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
+
+      MyMusicPlayer.play(EnumMusic.LaserOne);
       _isplayingmusic = true;
 
     }

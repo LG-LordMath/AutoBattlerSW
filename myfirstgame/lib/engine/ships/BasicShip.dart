@@ -225,10 +225,10 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       if (positionEnemy.x != 0 && positionEnemy.y != 0) {
 
           if(_currentteam == 1){
-            add(NormalBullet(Vector2(absolutePosition.x + size.x / 2, absolutePosition.y + size.y / 2 ) , positionEnemy, _currentteam));
+            add(NormalBullet(Vector2(absolutePosition.x + width  / 2, absolutePosition.y  ) , positionEnemy, _currentteam));
             _currentamonition--;
           }else{
-            add(NormalBullet(Vector2(absolutePosition.x - size.x / 2, absolutePosition.y - size.y / 2 ) , positionEnemy, _currentteam));
+            add(NormalBullet(Vector2(absolutePosition.x - width / 2, absolutePosition.y) , positionEnemy, _currentteam));
             _currentamonition--;
           }
 
@@ -268,8 +268,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
         }
         positionEnemy = gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).absolutePosition;
-        positionEnemy.x -= gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).imagesizex / 2;
-        positionEnemy.y -=  gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).imagesizey / 2;
+        positionEnemy.x -= gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).width ;
+        positionEnemy.y -=  gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).width;
 
       }else{
         enemyrange = 0;
@@ -387,27 +387,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void rotateImage()
   {
     spaceshipimage.rotateImage();
-    /*
-    if(currentteam == 1){
-      final effect = RotateEffect.to(
-        tau/4,
-        EffectController(duration: 0), );
-      add(effect);
-      position = Vector2(position.x+50, position.y);
-    }else {
-      final effect = RotateEffect.to(
-        tau/4,
-        EffectController(duration: 0), );
-      add(effect);
-      position = Vector2(position.x+50  , position.y);
-      scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
-      //scale = Vector2(ship.shipclass.CellsizeX.toDouble(), ship.shipclass.CellsizeY.toDouble());
-    }
-
-     */
-
-
-
   }
 
 
@@ -565,7 +544,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       }
     }
     if (other is NormalBullet) {
-      print("collosion with bullet");
+      //print("collosion with bullet");
       if (other.team == currentteam) {
         //print("same team");
       } else {
