@@ -40,7 +40,7 @@ class ShopButton extends Button
     try {
      // print("Button tapped"); // Add this line
       int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - tempbasicShip.creditcost;
-      if(tempcredits > 0)
+      if(tempcredits >= 0)
       {
         tempbasicShip.currentteam= 1;
         if(gameRef.gameAutoBattle.bottomBar.addShipToBar(tempbasicShip)){

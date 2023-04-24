@@ -17,7 +17,7 @@ class Providenz extends BasicShip
 
 
   Providenz(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISProvidenz]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.CIS, 3, EnumShipClass.Battleship);
+      : super(ImageLoader.sprites[EnumImages.ShipCISProvidenz]!, positionx, positiony, imagesizex, imagesizey, 1500, 1600, currentteam, EnumNation.CIS, 6, EnumShipClass.Battleship);
 
 
   @override

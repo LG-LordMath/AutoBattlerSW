@@ -177,17 +177,19 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         //    _timer.destroy();
            // _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  5);
             beginnFight();
-            map.setVisibale(false);
-            ennemymap.setVisibale(false);
+
          //   add(_timer);
           }
           if(_isactivestate){
+
+
             if(checkFightending()){
               _isactivestate = false;
-              map.setVisibale(true);
-              ennemymap.setVisibale(true);
               endFight();
               gameState = EnumGameState.ENDPHASE;
+            }else {
+              map.setVisibale(false);
+              ennemymap.setVisibale(false);
             }
           }
 
@@ -195,13 +197,13 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         case EnumGameState.ENDPHASE:
         //  print("Phase: End");
           if(!_isactivestate){
-
+            map.setVisibale(true);
+            ennemymap.setVisibale(true);
             _isactivestate = true;
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  0);
             add(_timer);
-            map.setVisibale(true);
-            ennemymap.setVisibale(true);
+
             player1.currentcredits += 6;
             player2.currentcredits += 6;
             if(player1.currentcredits > 99){
@@ -223,10 +225,22 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         case EnumGameState.ENDGAME:
           print("Phase: EndGame");
           if (!_isactivestate) {
-            _isactivestate = true;
+            bottomBar.removeFromParent();
+            player1.team.forEach((element) {
+              element.removeFromParent();
+            });
+            player2.team.forEach((element) {
+              element.removeFromParent();
+            });
+            shopMenue.destroy();
+            upperBar.destroy();
+            map.removeFromParent();
+            ennemymap.removeFromParent();
             if (identical(_winner, "BOT"))
             {
               // remove all Components -> MySpaceGame.losingscreen
+
+              gameRef.setlosescreeen();
             }
           } else {
 

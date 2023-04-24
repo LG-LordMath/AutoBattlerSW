@@ -17,7 +17,7 @@ class Munificent extends BasicShip
 
 
   Munificent(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISMunificent]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.CIS, 3, EnumShipClass.Battleship);
+      : super(ImageLoader.sprites[EnumImages.ShipCISMunificent]!, positionx, positiony, imagesizex, imagesizey, 1000, 750, currentteam, EnumNation.CIS, 6, EnumShipClass.Battleship);
 
 
   @override

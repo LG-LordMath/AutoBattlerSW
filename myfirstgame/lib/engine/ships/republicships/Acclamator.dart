@@ -18,7 +18,7 @@ class Acclamator extends BasicShip
 
 
   Acclamator(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipRepublicACCLAMATOR]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3, EnumShipClass.Battleship);
+      : super(ImageLoader.sprites[EnumImages.ShipRepublicACCLAMATOR]!, positionx, positiony, imagesizex, imagesizey, 1200, 1000, currentteam, EnumNation.Republic, 6, EnumShipClass.Battleship);
 
 
   @override

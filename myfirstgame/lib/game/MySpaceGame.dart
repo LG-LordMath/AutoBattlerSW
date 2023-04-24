@@ -27,6 +27,17 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   late LoadingScreen _loadingScreen;
   late GameAutoBattle gameAutoBattle;
   late MainMenue _mainMenue;
+  late LosingScreen _losingScreen;
+
+
+
+  void setlosescreeen()
+  {
+    gameAutoBattle.removeFromParent();
+    _losingScreen = LosingScreen();
+    add(_losingScreen);
+
+  }
 
 
 
@@ -40,10 +51,12 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     _loadingScreen = LoadingScreen();
     add(_loadingScreen);
 
+
   }
 
-  void startMainMenue(){
-    _loadingScreen.removeFromParent();
+  void startMainMenue()
+  {
+
     mainMenue = MainMenue();
     add(_mainMenue);
 

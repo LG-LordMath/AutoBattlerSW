@@ -17,7 +17,7 @@ class SRPDroid extends BasicShip
 
 
   SRPDroid(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISSRPDroid]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.CIS, 3, EnumShipClass.Fighter);
+      : super(ImageLoader.sprites[EnumImages.ShipCISSRPDroid]!, positionx, positiony, imagesizex, imagesizey, 500, 200, currentteam, EnumNation.CIS, 2, EnumShipClass.Fighter);
 
 
   @override

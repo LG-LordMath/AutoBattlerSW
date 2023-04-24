@@ -15,7 +15,7 @@ class CR90Corvette extends BasicShip
 
 
   CR90Corvette(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipRepublicCR90CORVETTE]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3, EnumShipClass.Battleship);
+      : super(ImageLoader.sprites[EnumImages.ShipRepublicCR90CORVETTE]!, positionx, positiony, imagesizex, imagesizey, 1200, 2000, currentteam, EnumNation.Republic, 6, EnumShipClass.Battleship);
 
 
   @override

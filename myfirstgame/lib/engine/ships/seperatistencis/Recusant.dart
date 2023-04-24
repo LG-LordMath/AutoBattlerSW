@@ -17,7 +17,7 @@ class Recusant extends BasicShip
 
 
   Recusant(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISRecusant]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.CIS, 3, EnumShipClass.Battleship);
+      : super(ImageLoader.sprites[EnumImages.ShipCISRecusant]!, positionx, positiony, imagesizex, imagesizey, 900, 800, currentteam, EnumNation.CIS, 5, EnumShipClass.Battleship);
 
 
   @override

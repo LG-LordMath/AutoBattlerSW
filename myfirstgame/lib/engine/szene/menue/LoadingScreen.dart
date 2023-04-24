@@ -102,6 +102,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
       textfieldwithUi.destroy();
       textFieldwithUITwo.destroy();
       btn.destroy();
+      gameRef.loadingScreen.removeFromParent();
       gameRef.startMainMenue();
 
 

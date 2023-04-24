@@ -30,7 +30,7 @@ class PlayerAi extends Player
 
 
 
-  PlayerAi(int php, EnumPlayerImages pimage, this.game) : super('BOT', php, pimage)
+  PlayerAi(int php, EnumPlayerImages pimage, this.game) : super("BOT", php, pimage)
   {
 
 

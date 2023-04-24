@@ -15,7 +15,7 @@ class Venator extends BasicShip
 
 
   Venator(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipRepublicVENATOR]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3, EnumShipClass.Mothership);
+      : super(ImageLoader.sprites[EnumImages.ShipRepublicVENATOR]!, positionx, positiony, imagesizex, imagesizey, 2800, 3200, currentteam, EnumNation.Republic, 9, EnumShipClass.Mothership);
 
 
   @override

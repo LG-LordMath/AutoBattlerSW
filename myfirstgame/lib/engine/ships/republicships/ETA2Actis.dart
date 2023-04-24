@@ -15,7 +15,7 @@ class ETA2Actis extends BasicShip
 
 
   ETA2Actis(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipRepublicETA2ARCTIS]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.Republic, 3, EnumShipClass.Fighter);
+      : super(ImageLoader.sprites[EnumImages.ShipRepublicETA2ARCTIS]!, positionx, positiony, imagesizex, imagesizey, 700, 100, currentteam, EnumNation.Republic, 3, EnumShipClass.Fighter);
 
 
   @override

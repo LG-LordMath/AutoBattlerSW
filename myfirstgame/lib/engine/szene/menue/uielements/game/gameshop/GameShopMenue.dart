@@ -121,7 +121,9 @@ void reroll()
 
   void destroy()
   {
-   rerollButton.destroy();
+   if(!rerollButton.isRemoved) {
+    rerollButton.destroy();
+   }
 
    if(gameRef.gameAutoBattle.tempshipshopbuyed[0] == true){
     if(!btnOne.isRemoved)

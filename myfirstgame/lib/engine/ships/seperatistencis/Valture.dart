@@ -17,7 +17,7 @@ class Valture extends BasicShip
 
 
   Valture(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISValture]!, positionx, positiony, imagesizex, imagesizey, 750, 300, currentteam, EnumNation.CIS, 3, EnumShipClass.Fighter);
+      : super(ImageLoader.sprites[EnumImages.ShipCISValture]!, positionx, positiony, imagesizex, imagesizey, 500, 0, currentteam, EnumNation.CIS, 2, EnumShipClass.Fighter);
 
 
   @override

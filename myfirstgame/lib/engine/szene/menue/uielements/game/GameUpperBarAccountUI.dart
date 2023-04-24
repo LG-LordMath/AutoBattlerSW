@@ -71,4 +71,11 @@ class GameUpperBarAccountUI extends SpriteComponent
   }
 
 
+  void destroy(){
+    textField.destroy();
+    textField1.destroy();
+    effect.removeFromParent();
+    removeFromParent();
+  }
+
 }

@@ -62,7 +62,7 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
 
 
 
-    final effect = MoveEffect.to( _enemy, EffectController(duration: 5));
+    final effect = MoveEffect.to( _enemy, EffectController(duration: 2));
     add(effect);
   }
 
