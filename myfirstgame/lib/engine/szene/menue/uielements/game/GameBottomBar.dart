@@ -91,11 +91,13 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   {
 
     btnShop.destroy();
+    /*
     gameRef.remove(fieldOne);
     gameRef.remove(fieldTwo);
     gameRef.remove(fieldThree);
     gameRef.remove(fieldFour);
     gameRef.remove(fieldFive);
+     */
     removeFromParent();
   }
 

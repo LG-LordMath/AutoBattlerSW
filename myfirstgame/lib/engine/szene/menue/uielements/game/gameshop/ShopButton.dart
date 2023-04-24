@@ -73,8 +73,9 @@ class ShopButton extends Button
  @override
   void destroy(){
    textField.destroy();
-   gameRef.remove(this);
    uiText.destroy();
+   removeFromParent();
+
 
   }
 

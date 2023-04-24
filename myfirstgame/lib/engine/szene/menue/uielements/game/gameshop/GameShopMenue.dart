@@ -123,6 +123,7 @@ void reroll()
   {
    if(!rerollButton.isRemoved) {
     rerollButton.destroy();
+
    }
 
    if(gameRef.gameAutoBattle.tempshipshopbuyed[0] == true){
@@ -141,7 +142,10 @@ void reroll()
      btnThree.destroy();
     }
    }
-   gameRef.remove(this);
+   if(!isRemoved){
+    removeFromParent();
+   }
+
   }
 
 

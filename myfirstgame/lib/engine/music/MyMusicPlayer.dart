@@ -35,7 +35,7 @@ class MyMusicPlayer
 
   static void play(EnumMusic music)
   {
-      FlameAudio.play(music.musicfilepath);
+      FlameAudio.play(music.musicfilepath, volume: 2);
   }
 
   static void playlong(EnumMusic music) {

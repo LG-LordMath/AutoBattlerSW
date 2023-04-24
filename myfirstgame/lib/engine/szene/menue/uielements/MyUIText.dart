@@ -54,7 +54,7 @@ class MyUIText extends SpriteComponent with HasGameRef<MySpaceGame>
 
       textField.destroy();
     }
-    gameRef.remove(this);
+    removeFromParent();
   }
 
 }

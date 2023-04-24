@@ -1,156 +1,101 @@
 
 
 
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:myfirstgame/engine/loader/EnumImages.dart';
-import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 
 import '../../game/MySpaceGame.dart';
+import '../loader/EnumImages.dart';
+import '../loader/ImageLoader.dart';
 import '../music/EnumMusic.dart';
 import '../music/MyMusicPlayer.dart';
 import '../ships/BasicShip.dart';
 import '../szene/menue/enums/EnumGameState.dart';
-import 'EnumGoodAginst.dart';
 
-abstract class IBasicBullet extends SpriteComponent with HasGameRef<MySpaceGame>, CollisionCallbacks
+abstract class IBasicBullet
+    extends SpriteComponent
+    with HasGameRef<MySpaceGame>, CollisionCallbacks
 {
-
   final _defaultColor = Colors.red;
-  //image
-  late Sprite _image;
-  late double _imagesizex;
-  late double _imagesizey;
+  late Vector2 _enemyposition;
+  late Vector2 _currentship;
 
-  //team
-  late int _team;
+  late Vector2 _imagesize;
 
-  //
+  late int _movementspeed;
   late int _lifetime;
   late int _damage;
+  late int _team;
+
 
   bool _isplayingmusic = false;
 
-
-  late EnumGoodAginst goodAginst;
-  late EnumMusic sound;
-
-  late  ShapeHitbox hitbox;
-
-
-  IBasicBullet(this._image, this._imagesizex, this._imagesizey,
-      this._damage, this._lifetime, this._team, this.goodAginst, this.sound);
+  IBasicBullet(this._currentship, this._enemyposition, this._imagesize,
+               this._movementspeed, this._damage, this._lifetime);
 
   @override
   Future<void> onLoad() async
   {
     super.onLoad();
-    sprite = _image;
+    sprite = ImageLoader.sprites[EnumImages.LaserOne];
     parent = gameRef;
+    size = _imagesize;
+    position = _currentship;
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
-    hitbox = CircleHitbox()
+    ShapeHitbox hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
-
-
-
-
-  }
-
-
-  void attackTarget(Vector2 currentship, Vector2 enemyposition)
-  {
-    size = Vector2(_imagesizex, _imagesizey);
-    position = Vector2(currentship.x, currentship.y);
     add(hitbox);
-    final effect = MoveEffect.to(enemyposition, EffectController(duration: 3));
-    add(effect);
-    playSound();
-  }
-
-
-
-
-
-
-  @override
-  void update(double dt){
-    super.update(dt);
-
-
-    if(gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE){
-      _lifetime--;
-      if(_lifetime <=  0){
-        removeFromParent();
-        print("remove from parent");
-      }
-    }else{
-      removeFromParent();
-    }
-
-
-  }
-
-  @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints,
-      PositionComponent other,
-      ) {
-    super.onCollisionStart(intersectionPoints, other);
-    if (other is ScreenHitbox) {
-      removeFromParent();
-    }else if(other is BasicShip)
-    {
-      if(other.currentteam != _team){
-       // removeFromParent();
-        print("collisio with enemy: bullet: "+_team.toString() + ", ship: "+other.toString());
-
-      }
-    }
-  }
-
-  void destroy()
-  {
-    removeFromParent();
-  }
-
-
-  void playSound()
-  {
     if(!_isplayingmusic)
     {
-
-      MyMusicPlayer.play(sound);
-
+      MyMusicPlayer.play(EnumMusic.LaserOne);
       _isplayingmusic = true;
-
     }
+    final effect = MoveEffect.to( _enemyposition, EffectController(duration: _movementspeed.toDouble()));
+    add(effect);
 
+    effect.removeOnFinish;
   }
-
-
-
-
-
-
-  int get damage => _damage;
-
-  set damage(int value) {
-    _damage = value;
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE) {
+      _lifetime--;
+      if (_lifetime <= 0) {
+        removeFromParent();
+      }
+    } else {
+      removeFromParent();
+    }
+    @override
+    void onCollisionStart(Set<Vector2> intersectionPoints,
+        PositionComponent other,) {
+      super.onCollisionStart(intersectionPoints, other);
+      if (other is ScreenHitbox) {
+        removeFromParent();
+      } else if (other is BasicShip) {
+        if (other.currentteam != _team) {
+          //       print("collisio with enemy: bullet: "+_team.toString() + ", ship: "+other.toString());
+          //removeFromParent();
+        }
+      }
+    }
   }
 
   int get team => _team;
 
   set team(int value) {
     _team = value;
+  }
+
+  int get damage => _damage;
+
+  set damage(int value) {
+    _damage = value;
   }
 }
 

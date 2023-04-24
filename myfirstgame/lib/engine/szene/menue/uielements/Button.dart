@@ -80,10 +80,9 @@ class Button extends SpriteComponent with Tappable, HasGameRef<MySpaceGame>
   {
 
 
-    textField.destroy();
+    textField.removeFromParent();
 
-
-    gameRef.remove(this);
+    removeFromParent();
   }
   String get text => _text;
 

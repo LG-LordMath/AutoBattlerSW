@@ -32,8 +32,8 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
   final int damage = 100;
   bool _isplayingmusic = false;
 
-  NormalBullet(this._currentship, this._enemy, this._team){
-  }
+  NormalBullet(this._currentship, this._enemy, this._team);
+
   @override
   Future<void> onLoad() async
   {
@@ -51,19 +51,13 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
       add(hitbox);
     if(!_isplayingmusic)
     {
-     // FlameAudio.play('Laser.ogg')..timeout(Duration(seconds: 2));
-
       MyMusicPlayer.play(EnumMusic.LaserOne);
       _isplayingmusic = true;
-
     }
-
-
-
-
-
     final effect = MoveEffect.to( _enemy, EffectController(duration: 2));
     add(effect);
+
+    effect.removeOnFinish;
   }
 
   @override
@@ -73,7 +67,6 @@ class NormalBullet extends SpriteComponent with CollisionCallbacks, HasGameRef<M
       lifetime--;
       if(lifetime <=  0){
         removeFromParent();
-       // print("remove from parent");
       }
     }else{
       removeFromParent();

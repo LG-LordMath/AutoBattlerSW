@@ -20,7 +20,7 @@ import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/ShopLogi
 import 'package:myfirstgame/game/MySpaceGame.dart';
 import 'package:myfirstgame/main.dart';
 
-import '../../bullets/BulletListLoader.dart';
+
 import '../../player/Player.dart';
 import '../../ships/BasicShip.dart';
 import '../../ships/galacticempireships/EnumGalaticEmpireShips.dart';
@@ -225,15 +225,19 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         case EnumGameState.ENDGAME:
           print("Phase: EndGame");
           if (!_isactivestate) {
-            bottomBar.removeFromParent();
+            bottomBar.destroy();
             player1.team.forEach((element) {
               element.removeFromParent();
             });
             player2.team.forEach((element) {
               element.removeFromParent();
             });
-            shopMenue.destroy();
-            upperBar.destroy();
+            if(shopMenue.isMounted){
+              openOrcloseShop();
+            }
+
+
+                upperBar.destroy();
             map.removeFromParent();
             ennemymap.removeFromParent();
             if (identical(_winner, "BOT"))

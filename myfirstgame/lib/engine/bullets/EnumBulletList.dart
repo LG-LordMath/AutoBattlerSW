@@ -1,9 +1,0 @@
-
-
-enum EnumBulletList
-
-
-{
-  Laser,
-
-}

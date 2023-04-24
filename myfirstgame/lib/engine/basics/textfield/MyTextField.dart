@@ -41,7 +41,8 @@ class MyTextField extends TextComponent with HasGameRef<MySpaceGame>
 
   destroy()
   {
-    gameRef.remove(this);
+
+    removeFromParent();
   }
 
 }
