@@ -84,5 +84,9 @@ enum EnumImages
   AlienShipOne,
 
   //Laser
-  LaserOne,
+  LaserRed,
+  LaserGreen,
+  LaserBlue,
+  LaserYellow,
+  LaserViolett,
 }

@@ -1,6 +1,7 @@
 
 import 'package:flame/components.dart';
 
+import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
@@ -24,6 +25,7 @@ class Recusant extends BasicShip
   Future<void> onLoad() async
   {
     super.onLoad();
+    super.laser = EnumLaserList.LaserRed;
   }
 
 }

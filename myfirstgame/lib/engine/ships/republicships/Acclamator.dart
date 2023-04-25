@@ -2,6 +2,7 @@
 
 
 
+import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
@@ -25,7 +26,7 @@ class Acclamator extends BasicShip
   Future<void> onLoad() async
   {
     super.onLoad();
-
+    super.laser = EnumLaserList.LaserBlue;
 
   }
 

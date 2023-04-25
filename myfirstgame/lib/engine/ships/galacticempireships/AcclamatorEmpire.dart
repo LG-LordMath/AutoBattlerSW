@@ -4,6 +4,7 @@
 
 
 
+import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
 import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
@@ -27,7 +28,7 @@ class AcclamatorEmpire extends BasicShip
   Future<void> onLoad() async
   {
     super.onLoad();
-
+    super.laser = EnumLaserList.LaserBlue;
 
 
   }

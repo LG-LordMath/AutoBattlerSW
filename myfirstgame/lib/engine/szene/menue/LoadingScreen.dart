@@ -94,6 +94,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
     if(_loadingimages && _loadingAudio &&  _loadingAnimations)
     {
+      gameRef.bulletLaserLoader.load();
       if(FlameAudio.bgm.isPlaying){
         FlameAudio.bgm.stop();
       }

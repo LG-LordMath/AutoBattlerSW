@@ -1,6 +1,11 @@
+
 import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
-import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/LaserBlue.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/LaserGreen.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/LaserRed.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/LaserViolett.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/LaserYellow.dart';
 
 class BulletLaserLoader{
 
@@ -10,13 +15,34 @@ class BulletLaserLoader{
   void load()
   {
 
- //   republicships[EnumNation.Imperium] = BasicNation("Galactic Empire", ImageLoader.sprites[EnumImages.IconImperium]!, "The Galactic Empire, also known as the First Galactic Empire, the Empire and later as the Old Empire, was the monarchy that replaced the Galactic Republic at the end of the Clone Wars. Though the Empire rose to power by promising to bring order to the galaxy, it oversaw a period of harsh military rule and aggressive expansion.");
+    lasers[EnumLaserList.LaserBlue] = LaserBlue();
+    lasers[EnumLaserList.LaserGreen] = LaserGreen();
+    lasers[EnumLaserList.LaserRed] = LaserRed();
+    lasers[EnumLaserList.LaserViolett] = LaserViolett();
+    lasers[EnumLaserList.LaserYellow] = LaserYellow();
 
   }
 
-  void reloadObject()
+  void reloadObject(EnumLaserList laser)
   {
+    switch (laser){
 
+      case EnumLaserList.LaserBlue:
+        lasers[EnumLaserList.LaserBlue] = LaserBlue();
+        break;
+      case EnumLaserList.LaserGreen:
+        lasers[EnumLaserList.LaserGreen] = LaserGreen();
+        break;
+      case EnumLaserList.LaserRed:
+        lasers[EnumLaserList.LaserRed] = LaserRed();
+        break;
+      case EnumLaserList.LaserViolett:
+        lasers[EnumLaserList.LaserViolett] = LaserViolett();
+        break;
+      case EnumLaserList.LaserYellow:
+        lasers[EnumLaserList.LaserYellow] = LaserYellow();
+        break;
+    }
   }
 
 

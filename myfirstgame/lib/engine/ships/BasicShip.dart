@@ -12,6 +12,8 @@ import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/BulletLaserLoader.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
@@ -19,7 +21,6 @@ import 'package:myfirstgame/engine/ships/ImageShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../basics/MovementDirection.dart';
-import '../bullets/NormalBullet.dart';
 import '../loader/ImageLoader.dart';
 import '../nations/EnumNation.dart';
 
@@ -63,13 +64,10 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   late List<int> cellfields = [];
 
   // weapon
-  int _maxammonition = 1;
+  late EnumLaserList laser;
   int _maxreloadtime  = 100;
   int _currentreloadtime  = 30;
-  int _currentamonition = 0;
 
-
-  //late List<BasicWeaponCanon> _weapons = [];
 
 
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
@@ -213,6 +211,27 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   void shootEnemy()
   {
+
+    if(_currentreloadtime <= 0)
+    {
+      _currentreloadtime = _maxreloadtime;
+      print("feuer");
+      IBasicBullet tempbullet = BulletLaserLoader.lasers[laser]!;
+      add(tempbullet);
+      if(_currentteam == 1){
+        tempbullet.shoot(Vector2(absolutePosition.x + width  / 2, absolutePosition.y  ), positionEnemy, _currentteam);
+      }else{
+        tempbullet.shoot(Vector2(absolutePosition.x - width  / 2, absolutePosition.y  ), positionEnemy, _currentteam);
+      }
+
+      gameRef.bulletLaserLoader.reloadObject(laser);
+    }else{
+      _currentreloadtime--;
+    }
+
+
+
+    /*
     if(_currentamonition == 0 ){
       _currentreloadtime--;
     }
@@ -239,6 +258,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       }
 
     }
+
+     */
 
   }
 
@@ -543,14 +564,14 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         _ishittingwall = false;
       }
     }
-    if (other is NormalBullet) {
+    if (other is IBasicBullet) {
       //print("collosion with bullet");
       if (other.team == currentteam) {
         //print("same team");
       } else {
         //print(" hit ");
-        // damage(other.damage, other.goodAginst);
-        damage(other.damage, EnumGoodAginst.hp);
+         damage(other.damage, other.goodAginst);
+      //  damage(other.damage, EnumGoodAginst.hp);
         other.removeFromParent();
       }
     }

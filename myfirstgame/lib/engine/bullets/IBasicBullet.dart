@@ -5,6 +5,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 
 import '../../game/MySpaceGame.dart';
 import '../loader/EnumImages.dart';
@@ -19,11 +20,9 @@ abstract class IBasicBullet
     with HasGameRef<MySpaceGame>, CollisionCallbacks
 {
   final _defaultColor = Colors.red;
-  late Vector2 _enemyposition;
-  late Vector2 _currentship;
-
+  late EnumGoodAginst goodAginst;
   late Vector2 _imagesize;
-
+  late Sprite spriteimage;
   late int _movementspeed;
   late int _lifetime;
   late int _damage;
@@ -32,17 +31,16 @@ abstract class IBasicBullet
 
   bool _isplayingmusic = false;
 
-  IBasicBullet(this._currentship, this._enemyposition, this._imagesize,
-               this._movementspeed, this._damage, this._lifetime);
+  IBasicBullet(this.spriteimage, this._imagesize,this._movementspeed,
+      this._damage, this._lifetime, this.goodAginst);
 
   @override
   Future<void> onLoad() async
   {
     super.onLoad();
-    sprite = ImageLoader.sprites[EnumImages.LaserOne];
+    sprite = spriteimage;
     parent = gameRef;
     size = _imagesize;
-    position = _currentship;
     final defaultPaint = Paint()
       ..color = _defaultColor
       ..style = PaintingStyle.stroke ;
@@ -55,11 +53,21 @@ abstract class IBasicBullet
       MyMusicPlayer.play(EnumMusic.LaserOne);
       _isplayingmusic = true;
     }
-    final effect = MoveEffect.to( _enemyposition, EffectController(duration: _movementspeed.toDouble()));
-    add(effect);
 
+  }
+
+
+  void shoot(Vector2 currentship, Vector2 enemyposition, int team)
+  {
+    _team = team;
+    position = currentship;
+    final effect = MoveEffect.to( enemyposition, EffectController(duration: _movementspeed.toDouble()));
+    add(effect);
     effect.removeOnFinish;
   }
+
+
+
   @override
   void update(double dt) {
     super.update(dt);

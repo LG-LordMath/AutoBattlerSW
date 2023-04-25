@@ -6,6 +6,7 @@ import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/bullets/lasertypes/BulletLaserLoader.dart';
 import 'package:myfirstgame/engine/player/EnumPlayerImages.dart';
 import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
@@ -28,6 +29,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   late GameAutoBattle gameAutoBattle;
   late MainMenue _mainMenue;
   late LosingScreen _losingScreen = LosingScreen();
+  late BulletLaserLoader bulletLaserLoader = BulletLaserLoader();
 
 
 
@@ -54,6 +56,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     add(_loadingScreen);
 
 
+
   }
 
   void startMainMenue()
@@ -72,7 +75,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     //_mainMenue.destroy();
     PlayerAi enemyplayer = searchEnemyPlayer();
     EnumPlayerImages image = EnumPlayerImages.image1;
-    Player player = Player("Gast", 1, image);
+    Player player = Player("Gast", 8, image);
     player.currentcredits = 12;
     enemyplayer.currentcredits = 12;
     _mainMenue.removeAll(_mainMenue.children);

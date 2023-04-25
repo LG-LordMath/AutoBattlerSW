@@ -85,7 +85,11 @@ class ImageLoader
     //Ships Alien (other)
     sprites[EnumImages.AlienShipOne] = Sprite(await Flame.images.load('ships/normal/other/AlienShip1.png'));
     //Laser
-    sprites[EnumImages.LaserOne] = Sprite(await Flame.images.load('laser/normal/Laser1.png'));
+    sprites[EnumImages.LaserRed] = Sprite(await Flame.images.load('laser/normal/LaserRed.png'));
+    sprites[EnumImages.LaserBlue] = Sprite(await Flame.images.load('laser/normal/LaserBlue.png'));
+    sprites[EnumImages.LaserGreen] = Sprite(await Flame.images.load('laser/normal/LaserGreen.png'));
+    sprites[EnumImages.LaserViolett] = Sprite(await Flame.images.load('laser/normal/LaserViolett.png'));
+    sprites[EnumImages.LaserYellow] = Sprite(await Flame.images.load('laser/normal/LaserYellow.png'));
 
 
 

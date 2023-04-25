@@ -5,6 +5,7 @@ import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/BasicShip.dart';
 
+import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../nations/EnumNation.dart';
 import '../EnumShipClass.dart';
 class Z95 extends BasicShip
@@ -24,7 +25,7 @@ class Z95 extends BasicShip
   Future<void> onLoad() async
   {
     super.onLoad();
-
+    super.laser = EnumLaserList.LaserBlue;
 
   }
 
