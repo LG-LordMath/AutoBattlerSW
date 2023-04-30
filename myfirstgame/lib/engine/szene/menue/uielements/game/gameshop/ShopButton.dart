@@ -14,7 +14,7 @@ import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../../../ships/BasicShip.dart';
+import '../../../../../ships/basic/BasicShip.dart';
 import 'ShopLogic.dart';
 
 class ShopButton extends Button

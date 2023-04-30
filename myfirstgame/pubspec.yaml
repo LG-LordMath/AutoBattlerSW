@@ -82,6 +82,7 @@ flutter:
     - assets/images/laser/
     - assets/images/laser/animated/
     - assets/images/laser/normal/
+    - assets/images/rockets/
     - assets/audio/
     - assets/audio/music/
     - assets/audio/sounds/

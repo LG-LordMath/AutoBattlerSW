@@ -4,8 +4,8 @@ import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
-import '../BasicShip.dart';
-import '../EnumShipClass.dart';
+import '../basic/BasicShip.dart';
+import '../basic/EnumShipClass.dart';
 
 class Tie extends BasicShip
 

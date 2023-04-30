@@ -5,8 +5,8 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../../../ships/BasicShip.dart';
-import '../../../../../ships/EnumShipClass.dart';
+import '../../../../../ships/basic/BasicShip.dart';
+import '../../../../../ships/basic/EnumShipClass.dart';
 import 'Cell.dart';
 
 class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<MySpaceGame>{

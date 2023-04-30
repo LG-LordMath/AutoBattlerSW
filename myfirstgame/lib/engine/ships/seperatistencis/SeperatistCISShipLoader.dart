@@ -12,7 +12,7 @@ import 'package:myfirstgame/engine/ships/seperatistencis/SRPDroid.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/Subjugator.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/Valture.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/Zenuas33.dart';
-import '../BasicShip.dart';
+import '../basic/BasicShip.dart';
 
 class SeperatistCISShipLoader {
 

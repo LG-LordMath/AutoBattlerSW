@@ -12,7 +12,7 @@ import '../loader/EnumImages.dart';
 import '../loader/ImageLoader.dart';
 import '../music/EnumMusic.dart';
 import '../music/MyMusicPlayer.dart';
-import '../ships/BasicShip.dart';
+import '../ships/basic/BasicShip.dart';
 import '../szene/menue/enums/EnumGameState.dart';
 
 abstract class IBasicBullet

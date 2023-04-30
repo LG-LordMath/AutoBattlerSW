@@ -4,7 +4,7 @@
 
 import 'package:flame/components.dart';
 
-import '../ships/BasicShip.dart';
+import '../ships/basic/BasicShip.dart';
 
 class BasicNation
 

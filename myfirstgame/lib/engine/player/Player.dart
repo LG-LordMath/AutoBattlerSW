@@ -2,7 +2,7 @@
 
 
 
-import '../ships/BasicShip.dart';
+import '../ships/basic/BasicShip.dart';
 import 'EnumPlayerImages.dart';
 
 class Player

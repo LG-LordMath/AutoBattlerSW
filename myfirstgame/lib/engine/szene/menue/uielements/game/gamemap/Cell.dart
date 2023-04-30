@@ -7,7 +7,7 @@ import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../../../ships/BasicShip.dart';
+import '../../../../../ships/basic/BasicShip.dart';
 
 
 

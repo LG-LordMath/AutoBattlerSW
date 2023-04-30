@@ -1,14 +1,16 @@
 
 import 'package:flame/components.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EffectShip.dart';
 
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
-import '../BasicShip.dart';
-import '../EnumShipClass.dart';
+import '../basic/BasicShip.dart';
+import '../basic/EnumShipClass.dart';
+import '../basic/effects/EnumEffects.dart';
 
-class Lucrehulk extends BasicShip
+class Lucrehulk extends EffectShip
 
 {
 
@@ -26,6 +28,7 @@ class Lucrehulk extends BasicShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserRed;
+    super.setEffect(EnumEffects.shootRocketOne, 200);
   }
 
 

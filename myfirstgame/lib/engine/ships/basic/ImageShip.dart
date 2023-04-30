@@ -7,9 +7,9 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:flutter/foundation.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 
-import '../../game/MySpaceGame.dart';
+import '../../../game/MySpaceGame.dart';
 
 class ImageShip extends SpriteComponent with HasGameRef<MySpaceGame>
 

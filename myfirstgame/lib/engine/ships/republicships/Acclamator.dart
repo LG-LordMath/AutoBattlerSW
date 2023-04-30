@@ -2,14 +2,17 @@
 
 
 
+import 'package:myfirstgame/engine/ships/basic/effects/EffectShip.dart';
+
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
-import '../BasicShip.dart';
-import '../EnumShipClass.dart';
+import '../basic/BasicShip.dart';
+import '../basic/EnumShipClass.dart';
+import '../basic/effects/EnumEffects.dart';
 
-class Acclamator extends BasicShip
+class Acclamator extends EffectShip
 
 {
 
@@ -27,7 +30,7 @@ class Acclamator extends BasicShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserBlue;
-
+    super.setEffect(EnumEffects.shootRocketTwo, 200);
   }
 
 

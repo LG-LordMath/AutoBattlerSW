@@ -1,4 +1,4 @@
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/republicships/Acclamator.dart';
 import 'package:myfirstgame/engine/ships/republicships/Arquitens.dart';
 import 'package:myfirstgame/engine/ships/republicships/CR90Corvette.dart';

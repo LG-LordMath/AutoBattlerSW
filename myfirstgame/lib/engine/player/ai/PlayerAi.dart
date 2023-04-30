@@ -5,8 +5,8 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
-import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 import '../../nations/EnumNation.dart';
 import '../../nations/EnumNation.dart';
@@ -40,6 +40,7 @@ class PlayerAi extends Player
     if(nation == EnumNation.Rebellen){
       nation = EnumNation.Imperium;
     }
+    nation = EnumNation.Imperium;
     print("Nation: " + nation.toString());
 
 

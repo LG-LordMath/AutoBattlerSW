@@ -5,11 +5,11 @@
 
 
 import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
-import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
+import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
-import '../BasicShip.dart';
+import '../basic/BasicShip.dart';
 
 class AcclamatorEmpire extends BasicShip
 

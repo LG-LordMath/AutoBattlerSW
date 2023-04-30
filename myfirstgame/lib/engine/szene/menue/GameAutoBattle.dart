@@ -22,7 +22,7 @@ import 'package:myfirstgame/main.dart';
 
 
 import '../../player/Player.dart';
-import '../../ships/BasicShip.dart';
+import '../../ships/basic/BasicShip.dart';
 import '../../ships/galacticempireships/EnumGalaticEmpireShips.dart';
 import '../../ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import '../background/Background.dart';

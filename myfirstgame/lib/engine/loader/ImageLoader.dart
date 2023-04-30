@@ -90,8 +90,10 @@ class ImageLoader
     sprites[EnumImages.LaserGreen] = Sprite(await Flame.images.load('laser/normal/LaserGreen.png'));
     sprites[EnumImages.LaserViolett] = Sprite(await Flame.images.load('laser/normal/LaserViolett.png'));
     sprites[EnumImages.LaserYellow] = Sprite(await Flame.images.load('laser/normal/LaserYellow.png'));
-
-
+    //Bullet
+    sprites[EnumImages.RocketOne] = Sprite(await Flame.images.load('rockets/RocketOne.png'));
+    sprites[EnumImages.RocketTwo] = Sprite(await Flame.images.load('rockets/RocketTwo.png'));
+    sprites[EnumImages.RocketThree] = Sprite(await Flame.images.load('rockets/RocketThree.png'));
 
 
     print("Ende mit dem Laden der Images");

@@ -7,9 +7,10 @@ import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/BulletLaserLoader.dart';
+import 'package:myfirstgame/engine/bullets/rockets/BulletRocketLoader.dart';
 import 'package:myfirstgame/engine/player/EnumPlayerImages.dart';
 import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/szene/background/EnumGlobalsBackgroundElements.dart';
 import 'package:myfirstgame/engine/szene/menue/GameAutoBattle.dart';
 import 'package:myfirstgame/engine/szene/menue/LoadingScreen.dart';
@@ -30,7 +31,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   late MainMenue _mainMenue;
   late LosingScreen _losingScreen = LosingScreen();
   late BulletLaserLoader bulletLaserLoader = BulletLaserLoader();
-
+  late BulletRocketLoader bulletRocketLoader = BulletRocketLoader();
 
 
   void setlosescreeen()

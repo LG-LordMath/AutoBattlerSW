@@ -1,12 +1,14 @@
 
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EffectShip.dart';
 
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../nations/EnumNation.dart';
-import '../EnumShipClass.dart';
-class CR90Corvette extends BasicShip
+import '../basic/EnumShipClass.dart';
+import '../basic/effects/EnumEffects.dart';
+class CR90Corvette extends EffectShip
 
 {
 
@@ -24,7 +26,7 @@ class CR90Corvette extends BasicShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserBlue;
-
+    super.setEffect(EnumEffects.masterheal, 200);
   }
 
 

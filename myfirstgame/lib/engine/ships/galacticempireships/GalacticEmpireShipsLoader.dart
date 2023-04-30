@@ -9,7 +9,7 @@ import 'package:myfirstgame/engine/ships/galacticempireships/TieBomber.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/TieIntercepter.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/Victory.dart';
 
-import '../BasicShip.dart';
+import '../basic/BasicShip.dart';
 import 'EnumGalaticEmpireShips.dart';
 import 'Tie.dart';
 

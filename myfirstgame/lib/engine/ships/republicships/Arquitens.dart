@@ -3,11 +3,11 @@
 import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../nations/EnumNation.dart';
-import '../EnumShipClass.dart';
+import '../basic/EnumShipClass.dart';
 class Arquitens extends BasicShip
 
 {

@@ -89,4 +89,9 @@ enum EnumImages
   LaserBlue,
   LaserYellow,
   LaserViolett,
+
+  //
+  RocketOne,
+  RocketTwo,
+  RocketThree,
 }

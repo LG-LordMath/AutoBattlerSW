@@ -4,7 +4,7 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/republicships/Acclamator.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 

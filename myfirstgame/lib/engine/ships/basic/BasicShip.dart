@@ -15,14 +15,14 @@ import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/BulletLaserLoader.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
-import 'package:myfirstgame/engine/ships/EnumShipClass.dart';
-import 'package:myfirstgame/engine/ships/HealthbarShip.dart';
-import 'package:myfirstgame/engine/ships/ImageShip.dart';
+import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
+import 'package:myfirstgame/engine/ships/basic/HealthbarShip.dart';
+import 'package:myfirstgame/engine/ships/basic/ImageShip.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../basics/MovementDirection.dart';
-import '../loader/ImageLoader.dart';
-import '../nations/EnumNation.dart';
+import '../../basics/MovementDirection.dart';
+import '../../loader/ImageLoader.dart';
+import '../../nations/EnumNation.dart';
 
 class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, CollisionCallbacks, DragCallbacks
 {
@@ -679,8 +679,23 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     _maxhp = value;
   }
 
+  bool get fight => _fight;
 
+  set fight(bool value) {
+    _fight = value;
+  }
 
+  int get currentshieldhp => _currentshieldhp;
+
+  set currentshieldhp(int value) {
+    _currentshieldhp = value;
+  }
+
+  int get currenthp => _currenthp;
+
+  set currenthp(int value) {
+    _currenthp = value;
+  }
 }
 
 

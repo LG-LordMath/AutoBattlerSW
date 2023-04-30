@@ -1,13 +1,15 @@
 import 'package:flame/components.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EffectShip.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EnumEffects.dart';
 
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
 import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
-import '../BasicShip.dart';
-import '../EnumShipClass.dart';
+import '../basic/BasicShip.dart';
+import '../basic/EnumShipClass.dart';
 
-class TieBomber extends BasicShip
+class TieBomber extends EffectShip
 
 {
 
@@ -25,6 +27,7 @@ class TieBomber extends BasicShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserGreen;
+    super.setEffect(EnumEffects.shootRocketTwo, 200);
   }
 
 

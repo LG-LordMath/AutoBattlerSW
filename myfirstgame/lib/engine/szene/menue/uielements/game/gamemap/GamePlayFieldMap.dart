@@ -4,7 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/ships/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/szene/menue/enums/EnumGameState.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
