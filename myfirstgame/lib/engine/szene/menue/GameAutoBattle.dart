@@ -245,9 +245,10 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
               // remove all Components -> MySpaceGame.losingscreen
 
               gameRef.setlosescreeen();
+
             }
           } else {
-
+              gameRef.setwinningscreen();
           }
           break;
       }

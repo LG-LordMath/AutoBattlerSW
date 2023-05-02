@@ -273,7 +273,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       if(gameRef.gameAutoBattle.player2.team.isNotEmpty){
         for(int i = 0; i <gameRef.gameAutoBattle.player2.team.length ; i++)
         {
-        //  if( gameRef.gameAutoBattle.player2.team.elementAt(i).hp > 0){
+          if( gameRef.gameAutoBattle.player2.team.elementAt(i).absolutePosition.x > 0 && gameRef.gameAutoBattle.player2.team.elementAt(i).absolutePosition.y > 0  ){
             Vector2 temp =  gameRef.gameAutoBattle.player2.team.elementAt(i).absolutePosition;
             var resges =  distanceTo(temp);
 
@@ -285,7 +285,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
               enemyrange = resges.toInt();
               enemycounter = i;
             }
-         // }
+          }
 
         }
         positionEnemy = gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).absolutePosition;
@@ -293,8 +293,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         positionEnemy.y -=  gameRef.gameAutoBattle.player2.team.elementAt(enemycounter).width;
 
       }else{
-        enemyrange = 0;
-        positionEnemy = Vector2(0, 0);
+  //      enemyrange = 0;
+  //      positionEnemy = Vector2(0, 0);
 
       }
 
@@ -303,7 +303,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       if(gameRef.gameAutoBattle.player1.team.isNotEmpty){
         for(int i = 0; i <gameRef.gameAutoBattle.player1.team.length ; i++)
         {
-          //if( gameRef.gameAutoBattle.player1.team.elementAt(i).hp > 0) {
+          if( gameRef.gameAutoBattle.player1.team.elementAt(i).absolutePosition.x > 0 && gameRef.gameAutoBattle.player1.team.elementAt(i).absolutePosition.y > 0  ){
             Vector2 temp = gameRef.gameAutoBattle.player1.team .elementAt(i).absolutePosition;
             var resges = distanceTo(temp);
 
@@ -315,7 +315,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
               enemyrange = resges.toInt();
               enemycounter = i;
             }
-         // }
+          }
         }
         positionEnemy = gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).absolutePosition;
 
@@ -323,14 +323,14 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         positionEnemy.y +=  gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).imagesizey / 2;
         // positionEnemy.x += gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).spaceshipimage.width;
       }else{
-        enemyrange = 0;
-        positionEnemy = Vector2(0, 0);
+     //   enemyrange = 0;
+     //   positionEnemy = Vector2(0, 0);
 
       }
     }else
     {
-      enemyrange = 0;
-      positionEnemy = Vector2(0, 0);
+    // enemyrange = 0;
+   //   positionEnemy = Vector2(0, 0);
     }
     return (enemyrange);
   }
@@ -546,6 +546,26 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           break;
 
       }
+    }else if(other is BasicShip){
+      switch (_movment) {
+        case MovementDirection.moveup:
+          _movment =   MovementDirection.movedown;
+          break;
+        case MovementDirection.movedown:
+          _movment =   MovementDirection.moveup;
+          break;
+        case MovementDirection.moveleft:
+          _movment =  MovementDirection.moveright;
+          break;
+        case MovementDirection.moveright:
+          _movment =  MovementDirection.moveleft;
+          break;
+        default:
+          break;
+
+      }
+
+
     }
     else {
       _ishittingwall = false;

@@ -15,6 +15,7 @@ import 'package:myfirstgame/engine/szene/background/EnumGlobalsBackgroundElement
 import 'package:myfirstgame/engine/szene/menue/GameAutoBattle.dart';
 import 'package:myfirstgame/engine/szene/menue/LoadingScreen.dart';
 import 'package:myfirstgame/engine/szene/menue/MainMenue.dart';
+import 'package:myfirstgame/engine/szene/menue/WinningScreen.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/LosingScreen.dart';
@@ -30,6 +31,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
   late GameAutoBattle gameAutoBattle;
   late MainMenue _mainMenue;
   late LosingScreen _losingScreen = LosingScreen();
+  late WinningScreen _winningScreen = WinningScreen();
   late BulletLaserLoader bulletLaserLoader = BulletLaserLoader();
   late BulletRocketLoader bulletRocketLoader = BulletRocketLoader();
 
@@ -41,6 +43,15 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     remove(gameAutoBattle);
     _losingScreen = LosingScreen();
     add(_losingScreen);
+
+  }
+  void setwinningscreen()
+  {
+
+    gameAutoBattle.removeAll(gameAutoBattle.children);
+    remove(gameAutoBattle);
+    _winningScreen = WinningScreen();
+    add(_winningScreen);
 
   }
 
