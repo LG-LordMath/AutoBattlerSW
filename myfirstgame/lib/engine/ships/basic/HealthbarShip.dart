@@ -6,7 +6,11 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+
+import '../../loader/EnumImages.dart';
+import '../../loader/ImageLoader.dart';
 
 class Healthbar extends Component with HasGameRef<MySpaceGame>
 {
@@ -16,6 +20,7 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
 
   double _hpFromShip = 0;
   double _shielfFromShip = 0;
+  EnumNation  nation;
 
   late double _healtbarlength = 0;
   late double _shieldbarlength = 0;
@@ -24,12 +29,17 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
   late RectangleComponent rechealth;
   late RectangleComponent rec;
 
-  Healthbar(this._hpFromShip, this._shielfFromShip);
+
+  Healthbar(this._hpFromShip, this._shielfFromShip, this.nation);
 
 
   @override
   Future<void> onLoad() async
   {
+
+
+
+
     final paintbar = Paint()
       ..color = _barColor
       ..style = PaintingStyle.fill;
@@ -40,30 +50,35 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
       ..color = _barShieldColor
       ..style = PaintingStyle.fill;
 
-    rec = RectangleComponent()
-      ..position = Vector2(-25, 0)
-      ..size = Vector2(20, 30)
-      ..paint = paintbar;
-    rechealth = RectangleComponent()
+   /* rec = RectangleComponent()
       ..position = Vector2(-15, 0)
       ..size = Vector2(10, 30)
+      ..paint = paintbar;
+
+    */
+    rechealth = RectangleComponent()
+      ..position = Vector2(-10, 0)
+      ..size = Vector2(5, 30)
       ..paint = healthbar;
     recshield = RectangleComponent()
-      ..position = Vector2(-25, 0)
-      ..size = Vector2(10, 30)
+      ..position = Vector2(-15, 0)
+      ..size = Vector2(5, 30)
       ..paint = shieldbar;
 
 
   }
 
   void init(){
-    if(rec.isMounted && recshield.isMounted && rechealth.isMounted){
+    if(
+  //  rec.isMounted &&
+        recshield.isMounted && rechealth.isMounted){
 
     }else {
-      add(rec);
+     // add(rec);
       add(recshield);
       add(rechealth);
     }
+
   }
 
   void updateHealBar(double hp, double shield)
@@ -84,9 +99,9 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
   void update(double dt) {
     // TODO: implement update
     super.update(dt);
-    rechealth.size = Vector2(10,  _healtbarlength);
+    rechealth.size = Vector2(3,  _healtbarlength);
+    recshield.size = Vector2(3, _shieldbarlength);
 
-    recshield.size = Vector2(10, _shieldbarlength);
   }
 
   double get shielfFromShip => _shielfFromShip;

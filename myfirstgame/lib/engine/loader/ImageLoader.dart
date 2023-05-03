@@ -36,7 +36,7 @@ class ImageLoader
     sprites[EnumImages.IconTrophy] = Sprite(await Flame.images.load('elements/normal/Trophy.png'));
     sprites[EnumImages.IconCredits] = Sprite(await Flame.images.load('elements/normal/IconCredits.png'));
     sprites[EnumImages.IconLoading] = Sprite(await Flame.images.load('elements/normal/Iconpfeil.png'));
-
+    sprites[EnumImages.IconStar] = Sprite(await Flame.images.load('elements/normal/Star.png'));
     //Icons Fractions
     sprites[EnumImages.IconRepublic] = Sprite(await Flame.images.load('elements/normal/shipfraction/Republic.jpg'));
     sprites[EnumImages.IconImperium] = Sprite(await Flame.images.load('elements/normal/shipfraction/Imperium.jpg'));

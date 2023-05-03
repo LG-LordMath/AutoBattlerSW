@@ -136,26 +136,19 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
                 shopLogic.getRandomShip(1)]);
               shopMenue=  GameShopMenue();
               add(shopMenue);
-
-
               isShopopen = true;
             }
-
-
             add(_timer);
           }
           if(_isactivestate){
 
               if(_timer.timer.current > 9)
               {
-
                 if(isShopopen)
                 {
                   shopMenue.destroy();
                   isShopopen = false;
                 }
-
-
                 _isactivestate = false;
 
                 _player1team.addAll(player1.team);
@@ -235,20 +228,15 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             if(shopMenue.isMounted){
               openOrcloseShop();
             }
-
-
-                upperBar.destroy();
+            upperBar.destroy();
             map.removeFromParent();
             ennemymap.removeFromParent();
             if (identical(_winner, "BOT"))
             {
-              // remove all Components -> MySpaceGame.losingscreen
-
               gameRef.setlosescreeen();
-
-            }
-          } else {
+            } else {
               gameRef.setwinningscreen();
+            }
           }
           break;
       }
@@ -278,44 +266,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       });
       return true;
     }
-    /*
-    else
-    {
-      if(player1.team.isNotEmpty)
-      {
-        player1.team.forEach((element) {
-          if(element.hp > 0 && playertwowon){
-           // print("team 1: " + element.toString());;
-
-            playertwowon = false;
-          }
-        });
-      }
-
-      if(player2.team.isNotEmpty)
-      {
-
-        player2.team.forEach((element) {
-          if(element.hp > 0 && playeronewon){
-           // print("team 2: " + element.toString());
-
-            playeronewon = false;
-          }
-        });
-      }
-
-      if(playeronewon){
-     //   print("player one won");
-        player2.hp--;
-        return true;
-      }
-      if(playertwowon){
-        player1.hp--;
-        return true;
-      }
-    }
-
-     */
     return false;
   }
 
@@ -342,30 +292,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     });
     player1.team = [];
     player2.team = [];
-/*
-    print("Team: ");
-    player1.team.forEach((element)
-    {
-      print(element.toString() + ", team 1");
-    });
-    print("tempsave: ");
-    _player1team.forEach((element)
-    {
-      print(element.toString() + ", team 1");
-    });
-    print("Team: ");
-    player2.team.forEach((element)
-    {
-      print(element.toString() + ", team 2");
-    });
-    print("tempsave: ");
-    _player2team.forEach((element)
-    {
-      print(element.toString() + ", team 2");
-    });
 
-
- */
     _player1team.forEach((element)
     {
       BasicShip tempbasicShip;

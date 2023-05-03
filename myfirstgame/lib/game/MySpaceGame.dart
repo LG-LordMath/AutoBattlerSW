@@ -24,7 +24,7 @@ import '../engine/player/Player.dart';
 import '../engine/szene/background/Background.dart';
 
 
-class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComponents, HasTappables {
+class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComponents,  HasTappableComponents, HasTappablesBridge{
 
 
   late LoadingScreen _loadingScreen;

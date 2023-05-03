@@ -32,6 +32,7 @@ enum EnumImages
   IconTrophy,
   IconCredits,
   IconLoading,
+  IconStar,
 
 
   //Icons Fractions

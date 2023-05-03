@@ -34,26 +34,15 @@ class ImageShip extends SpriteComponent with HasGameRef<MySpaceGame>
     if (kDebugMode) {
       print("${position.x}, ${position.y}");
     }
-
-    if(ship.currentteam == 1)
-    {
-      final effect = RotateEffect.to(
-        tau/4,
-        EffectController(duration: 0), );
-      add(effect);
-      position = Vector2(position.x+50, position.y);
+    final effect = RotateEffect.to(
+      tau/4,
+      EffectController(duration: 0), );
+    add(effect);
+    position = Vector2(position.x+50, position.y);
+    if(ship.currentteam == 2) {
+      ship.scale = Vector2(ship.shipclass.CellsizeX.toDouble(),
+          ship.shipclass.CellsizeY.toDouble());
     }
-    else
-    {
-
-
-      final effect = RotateEffect.to(
-        tau/4,
-        EffectController(duration: 0), );
-      add(effect);
-      position = Vector2(position.x+50  , position.y);
-      ship.scale = Vector2(ship.shipclass.CellsizeX.toDouble(), ship.shipclass.CellsizeY.toDouble());
-   }
 
 
   }

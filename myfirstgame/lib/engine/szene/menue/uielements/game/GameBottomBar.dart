@@ -29,6 +29,7 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   bool fieldFiveismanned = false;
 
 
+
   @override
   Future<void> onLoad() async
 
@@ -70,15 +71,19 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   bool addShipToBar(BasicShip pship)
   {
     BasicShip ship = (pship);
-   // if(counterMaxShips > 0){
-      // gameRef.gameAutoBattle.player1.team.add(ship);
       ship.size = (Vector2(gameRef.size[0] / 6, gameRef.size[1] / 10));
-      if(settingShipOnPosition(ship)){
+
+      if(settingShipOnPosition(ship))
+      {
         return true;
       }
+
     return false;
 
   }
+
+
+    
 
   void openshop()
   {
@@ -171,6 +176,8 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
     }
     return false;
   }
+
+
 
 
 
