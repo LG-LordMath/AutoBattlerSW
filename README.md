@@ -32,22 +32,8 @@ Das Projekt darf durch Erlaubnis getestet und gespielt werden  (Anmeldung: Disco
 
 # Version  Log
 *************************************************************************************************************************************************
-## V0.01-6
-
-Update: 24.03.2023
-
-![image](https://user-images.githubusercontent.com/92640773/227653881-2c1ba715-2028-498c-b27d-d77911802227.png)
-- timer 
-- player / hp -> game end when hp from one player 0
-- animation elments in background
-- backgrounds (random)
-- textfield
-- Basic ship class
-  - Healthbar / shieldbar 
-  - path finding
-  - adding towers
-- Diferent weapontyps / tower 
-  - Laser / Ionen / Rocket / Superlaser / Turbolaser (only laser yet implementet)
+# V0.01-6 Update: 24.03.2023
+# V0.02-7 Update: 01.04.2023
    
  *************************************************************************************************************************************************
  
