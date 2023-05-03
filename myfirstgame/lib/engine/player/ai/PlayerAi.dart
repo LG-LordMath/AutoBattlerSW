@@ -71,7 +71,7 @@ class PlayerAi extends Player
             element.currentteam = 2;
             game.add(element);
             element.rotateImage();
-            print("Ai kauft: " + element.toString());
+            //print("Ai kauft: " + element.toString());
             placeShip(element);
           }
         }
@@ -245,14 +245,14 @@ class PlayerAi extends Player
 
   bool lookifneeded(BasicShip ship)
   {
-    print( _maxshipfighter.toString() + ", " + _maxshipbattleship.toString() + ", " + _maxshipmothership.toString() + ", "+ ship.toString());
+  //  print( _maxshipfighter.toString() + ", " + _maxshipbattleship.toString() + ", " + _maxshipmothership.toString() + ", "+ ship.toString());
 
     switch (nation)
     {
       case EnumNation.Imperium:
 
         print(ship.shipclass);
-        print("Kaufen Schiff: " + (_maxshipfighter + _maxshipbattleship + _maxshipmothership).toString() + ", to 12");
+      //  print("Kaufen Schiff: " + (_maxshipfighter + _maxshipbattleship + _maxshipmothership).toString() + ", to 12");
         if((_maxshipfighter + _maxshipbattleship + _maxshipmothership) <= 12) {
           int counter = 0;
           switch (ship.shipclass)

@@ -28,6 +28,8 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   bool fieldFourismanned = false;
   bool fieldFiveismanned = false;
 
+  List<BasicShip> tempships = [];
+
 
 
   @override
@@ -73,10 +75,16 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
     BasicShip ship = (pship);
       ship.size = (Vector2(gameRef.size[0] / 6, gameRef.size[1] / 10));
 
-      if(settingShipOnPosition(ship))
+      if(checkifShipcanlevelup(ship))
       {
-        return true;
+
+      }else{
+        if(settingShipOnPosition(ship))
+        {
+          return true;
+        }
       }
+
 
     return false;
 
@@ -106,6 +114,124 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
     removeFromParent();
   }
 
+
+  bool checkifShipcanlevelup(BasicShip ship) {
+    List<BasicShip> sameships = [];
+    print("check if is the same type");
+    sameships.add(ship);
+    if (gameRef.gameAutoBattle.player1.team.length > 0)
+    {
+      gameRef.gameAutoBattle.player1.team.forEach((element)
+      {
+        print("gegeben: " + ship.toString());
+        print("team: " + element.toString());
+        if ( ship.toString() == element.toString())
+        {
+          if (element.nation == ship.nation  && element.level == ship.level)
+          {
+
+            sameships.add(element);
+            print("add ship to temp list");
+          }
+        }
+      });
+    }
+    if (tempships.length > 0)
+    {
+      tempships.forEach((element)
+      {
+        print("gegeben: " + ship.toString());
+        print("in reserve: " + element.toString());
+        if ( ship.toString() == element.toString())
+        {
+          if (element.nation == ship.nation && element.level == ship.level)
+          {
+            sameships.add(element);
+
+            print("add ship to temp list");
+          }
+        }
+      });
+    }
+
+
+    if (sameships.length >= 3)
+    {
+      print("fusion der shiffe");
+      BasicShip tempship = ship;
+
+
+      int firstpositionmap = 0;
+
+
+      for(int i = 0; i < 3; i ++ )
+      {
+        print("number: " + i.toString());
+        if(sameships[i].cellfields.length > 0)
+        {
+          print("on map");
+          if(firstpositionmap > sameships[i].cellfields.first)
+          {
+            firstpositionmap  = sameships[i].cellfields.first;
+            tempship.cellfields = sameships[i].cellfields;
+            tempship.mainfieldis = sameships[i].mainfieldis;
+            gameRef.gameAutoBattle.map.maincells[sameships[i].mainfieldis].releaseCellsAndMap(sameships[i].cellfields,sameships[i]);
+
+          }
+        }
+        else
+        {
+
+          print("on bottombar");
+          switch(sameships[i].bottombarposition)
+          {
+            case 1:
+              fieldOneismanned = false;
+              break;
+            case 2:
+              fieldTwoismanned = false;
+              break;
+            case 3:
+              fieldThreeismanned= false;
+              break;
+            case 4:
+              fieldFourismanned = false;
+              break;
+            case 5:
+              fieldFiveismanned = false;
+              break;
+          }
+          gameRef.gameAutoBattle.bottomBar.tempships.remove(sameships[i]);
+          sameships[i].removeFromParent();
+
+        }
+
+
+
+      }
+
+/*
+      if(tempship.cellfields.isNotEmpty)
+      {
+          gameRef.gameAutoBattle.map.maincells[tempship.mainfieldis].addShipToCell(tempship, tempship.cellfields.first);
+
+      }
+      else
+      {
+
+ */
+      tempship.level ++;
+        settingShipOnPosition(tempship);
+     // }
+
+
+    }
+    return false;
+
+  }
+
+
+
   bool settingShipOnPosition(BasicShip ship)
 
   {
@@ -120,6 +246,7 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
       //counterMaxShips--;
       fieldOneismanned = true;
+      tempships.add(ship);
       return true;
     }
     else if(!fieldTwoismanned)
@@ -133,6 +260,7 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
       //counterMaxShips--;
       fieldTwoismanned = true;
+      tempships.add(ship);
       return true;
     }
     else if(!fieldThreeismanned)
@@ -146,6 +274,7 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
      // counterMaxShips--;
       fieldThreeismanned = true;
+      tempships.add(ship);
       return true;
     }
     else if(!fieldFourismanned)
@@ -159,6 +288,7 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
      // counterMaxShips--;
       fieldFourismanned = true;
+      tempships.add(ship);
       return true;
     }
     else if(!fieldFiveismanned)
@@ -172,10 +302,13 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
      //counterMaxShips--;
       fieldFiveismanned = true;
+      tempships.add(ship);
       return true;
     }
     return false;
   }
+
+
 
 
 

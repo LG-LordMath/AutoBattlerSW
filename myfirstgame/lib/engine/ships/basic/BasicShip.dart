@@ -432,6 +432,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         _isDragged = true;
         gameRef.gameAutoBattle.player1.team.remove(this);
         gameRef.gameAutoBattle.map.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
+        gameRef.gameAutoBattle.bottomBar.tempships.remove(this);
       }else {
         gameRef.gameAutoBattle.ennemymap.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
       }

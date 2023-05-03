@@ -306,6 +306,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
             tempbasicShip =GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 1;
+            tempbasicShip.level = element.level;
             add(tempbasicShip);
             tempbasicShip.rotateImage();
             tempbasicShip.mainfieldis = element.mainfieldis;
@@ -325,6 +326,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             rep.reloadObject(EnumRepublicShips.values.elementAt(i));
             tempbasicShip =RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 1;
+            tempbasicShip.level = element.level;
             add(tempbasicShip);
             tempbasicShip.rotateImage();
             tempbasicShip.mainfieldis = element.mainfieldis;
@@ -345,6 +347,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             rep.reloadObject(EnumCISShips.values.elementAt(i));
             tempbasicShip =SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 1;
+            tempbasicShip.level = element.level;
             add(tempbasicShip);
             tempbasicShip.rotateImage();
             tempbasicShip.mainfieldis = element.mainfieldis;
@@ -377,7 +380,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
             tempbasicShip =GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 2;
-              //player2.team.add(tempbasicShip);
+            tempbasicShip.level = element.level;
               gameRef.add(tempbasicShip);
               tempbasicShip.rotateImage();
               if(player2 is PlayerAi)
@@ -399,6 +402,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             rep.reloadObject(EnumRepublicShips.values.elementAt(i));
             tempbasicShip =RepublicShipsLoader.republicships[EnumRepublicShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 2;
+            tempbasicShip.level = element.level;
             gameRef.add(tempbasicShip);
             tempbasicShip.rotateImage();
             if(player2 is PlayerAi)
@@ -421,6 +425,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             rep.reloadObject(EnumCISShips.values.elementAt(i));
             tempbasicShip =SeperatistCISShipLoader.cisships[EnumCISShips.values.elementAt(i)]!;
             tempbasicShip.currentteam = 2;
+            tempbasicShip.level = element.level;
             gameRef.add(tempbasicShip);
             tempbasicShip.rotateImage();
             if(player2 is PlayerAi)

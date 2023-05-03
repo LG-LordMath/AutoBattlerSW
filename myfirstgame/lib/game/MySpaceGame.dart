@@ -88,7 +88,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     PlayerAi enemyplayer = searchEnemyPlayer();
     EnumPlayerImages image = EnumPlayerImages.image1;
     Player player = Player("Gast", 8, image);
-    player.currentcredits = 12;
+    player.currentcredits = 500;
     enemyplayer.currentcredits = 12;
     _mainMenue.removeAll(_mainMenue.children);
     _mainMenue.destroy();
