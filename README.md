@@ -1,13 +1,14 @@
 # AutoBattlerSW
 
 
-##english
+## english
 This is my first Android app that I'm programming. 
 It is an AutoBattler in which the different starships
  of the nations from Star Wars will compete against each other.
 The goal is a strategically interesting and fun mobile game 
 that I developed myself.
-##german
+
+## german
 Dies ist meine erste Android-App, die ich programmiere. 
 Es ist ein AutoBattler, in dem die verschiedenen Raumschiffe 
 der Star-Wars-Nationen gegeneinander antreten.
