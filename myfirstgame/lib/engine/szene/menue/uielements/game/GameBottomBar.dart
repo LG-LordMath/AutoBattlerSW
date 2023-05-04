@@ -72,20 +72,12 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 
   bool addShipToBar(BasicShip pship)
   {
-    BasicShip ship = (pship);
+      BasicShip ship = (pship);
       ship.size = (Vector2(gameRef.size[0] / 6, gameRef.size[1] / 10));
-
-      if(checkifShipcanlevelup(ship))
+      if(settingShipOnPosition(ship))
       {
-
-      }else{
-        if(settingShipOnPosition(ship))
-        {
           return true;
-        }
       }
-
-
     return false;
 
   }
@@ -115,120 +107,7 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   }
 
 
-  bool checkifShipcanlevelup(BasicShip ship) {
-    List<BasicShip> sameships = [];
-    print("check if is the same type");
-    sameships.add(ship);
-    if (gameRef.gameAutoBattle.player1.team.length > 0)
-    {
-      gameRef.gameAutoBattle.player1.team.forEach((element)
-      {
-        print("gegeben: " + ship.toString());
-        print("team: " + element.toString());
-        if ( ship.toString() == element.toString())
-        {
-          if (element.nation == ship.nation  && element.level == ship.level)
-          {
 
-            sameships.add(element);
-            print("add ship to temp list");
-          }
-        }
-      });
-    }
-    if (tempships.length > 0)
-    {
-      tempships.forEach((element)
-      {
-        print("gegeben: " + ship.toString());
-        print("in reserve: " + element.toString());
-        if ( ship.toString() == element.toString())
-        {
-          if (element.nation == ship.nation && element.level == ship.level)
-          {
-            sameships.add(element);
-
-            print("add ship to temp list");
-          }
-        }
-      });
-    }
-
-
-    if (sameships.length >= 3)
-    {
-      print("fusion der shiffe");
-      BasicShip tempship = ship;
-
-
-      int firstpositionmap = 0;
-
-
-      for(int i = 0; i < 3; i ++ )
-      {
-        print("number: " + i.toString());
-        if(sameships[i].cellfields.length > 0)
-        {
-          print("on map");
-          if(firstpositionmap > sameships[i].cellfields.first)
-          {
-            firstpositionmap  = sameships[i].cellfields.first;
-            tempship.cellfields = sameships[i].cellfields;
-            tempship.mainfieldis = sameships[i].mainfieldis;
-            gameRef.gameAutoBattle.map.maincells[sameships[i].mainfieldis].releaseCellsAndMap(sameships[i].cellfields,sameships[i]);
-
-          }
-        }
-        else
-        {
-
-          print("on bottombar");
-          switch(sameships[i].bottombarposition)
-          {
-            case 1:
-              fieldOneismanned = false;
-              break;
-            case 2:
-              fieldTwoismanned = false;
-              break;
-            case 3:
-              fieldThreeismanned= false;
-              break;
-            case 4:
-              fieldFourismanned = false;
-              break;
-            case 5:
-              fieldFiveismanned = false;
-              break;
-          }
-          gameRef.gameAutoBattle.bottomBar.tempships.remove(sameships[i]);
-          sameships[i].removeFromParent();
-
-        }
-
-
-
-      }
-
-/*
-      if(tempship.cellfields.isNotEmpty)
-      {
-          gameRef.gameAutoBattle.map.maincells[tempship.mainfieldis].addShipToCell(tempship, tempship.cellfields.first);
-
-      }
-      else
-      {
-
- */
-      tempship.level ++;
-        settingShipOnPosition(tempship);
-     // }
-
-
-    }
-    return false;
-
-  }
 
 
 
@@ -237,12 +116,13 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   {
     if(!fieldOneismanned)
     {
-      if(!ship.isMounted){
+      if(!ship.isMounted)
+      {
         add(ship);
         ship.rotateImage();
       }
       ship.setBottonBarPosition(1);
-      ship.position = (Vector2(10+ gameRef.size[0] / 6 *4, gameRef.size[1] / 1.13));
+      ship.position = (Vector2(10 + gameRef.size[0] / 6 *4, gameRef.size[1] / 1.13));
 
       //counterMaxShips--;
       fieldOneismanned = true;

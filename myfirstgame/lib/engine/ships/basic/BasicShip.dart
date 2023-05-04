@@ -30,7 +30,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   final _defaultColor = Colors.cyan;
   late int _currentteam;
   //werte vom Schiff
-  late ImageShip spaceshipimage;
+  late ImageShip spaceshipimage = ImageShip(this);
   bool _isenable  = true;
   int _maxhp = 0;
   int _maxshieldhp = 0;
@@ -82,7 +82,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   Future<void> onLoad() async
   {
     super.onLoad();
-     spaceshipimage = ImageShip(this);
+
      add(spaceshipimage);
     parent = gameRef;
     size = Vector2(_imagesizex, _imagesizey);

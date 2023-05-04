@@ -297,7 +297,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     {
       BasicShip tempbasicShip;
       print("add ship to main field: " + element.mainfieldis.toString());
-      if (element.nation == EnumNation.Imperium) {
+      if (element.nation == EnumNation.Imperium)
+      {
         for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++)
         {
           if (GalaticEmpireShipsLoader.empireships.values.elementAt(i).runtimeType == element.runtimeType)
