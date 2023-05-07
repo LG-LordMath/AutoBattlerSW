@@ -7,6 +7,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/engine/player/ai/PlayerAi.dart';
+import 'package:myfirstgame/engine/ships/basic/LoaderShips.dart';
 import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
 import 'package:myfirstgame/engine/ships/republicships/RepublicShipsLoader.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
@@ -18,8 +19,6 @@ import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
-import 'package:myfirstgame/main.dart';
-
 
 import '../../player/Player.dart';
 import '../../ships/basic/BasicShip.dart';
@@ -140,7 +139,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             }
             add(_timer);
           }
-          if(_isactivestate){
+          if(_isactivestate)
+          {
+              checkifshipscanlevelup(player1.team);
 
               if(_timer.timer.current > 9)
               {
@@ -416,6 +417,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           }
         }
       }
+      
       else if (element.nation == EnumNation.CIS) {
 
         for (int i = 0; i < SeperatistCISShipLoader.cisships.length; i++)
@@ -551,5 +553,90 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
   set player1(Player value) {
     _player1 = value;
+  }
+
+  void checkifshipscanlevelup(List<BasicShip> team) {
+    List<BasicShip> sameship = [];
+    // Iteriere über jedes Schiff im "team" Array
+    for (BasicShip ship in team) {
+      // Iteriere erneut über jedes Schiff im "team" Array, außer dem aktuell ausgewählten Schiff
+      for (BasicShip otherShip in team.where((s) => s != ship)) {
+        // Überprüfe, ob die Klasse der Schiffe übereinstimmt
+        if (ship.runtimeType == otherShip.runtimeType) {
+          // Wenn ja, füge das Schiff zur Liste "sameship" hinzu, falls es noch nicht in der Liste ist
+          if (!sameship.contains(ship) ) {
+            sameship.add(ship);
+          }
+          if (!sameship.contains(otherShip)&& ship.level == otherShip.level) {
+            sameship.add(otherShip);
+          }
+        }
+      }
+    }
+    /*
+    for (BasicShip ship in bottomBar.tempships) {
+      // Iteriere erneut über jedes Schiff im "team" Array, außer dem aktuell ausgewählten Schiff
+      for (BasicShip otherShip in bottomBar.tempships.where((s) => s != ship)) {
+        // Überprüfe, ob die Klasse der Schiffe übereinstimmt
+        if (ship.runtimeType == otherShip.runtimeType) {
+          // Wenn ja, füge das Schiff zur Liste "sameship" hinzu, falls es noch nicht in der Liste ist
+          if (!sameship.contains(ship)) {
+            sameship.add(ship);
+          }
+          if (!sameship.contains(otherShip)&& ship.level == otherShip.level) {
+            sameship.add(otherShip);
+          }
+        }
+      }
+    }
+
+     */
+   // print(sameship);
+
+    // Gib die Liste der Schiffe mit der gleichen Klasse aus
+    if(sameship.length >= 3)
+    {
+
+      List<BasicShip> tempsameship = [];
+      sameship.forEach((ship) {
+       // List<BasicShip> sameTypeShips = sameship.where((s) => s.runtimeType == ship.runtimeType).toList();
+
+        List<BasicShip> sameTypeShips = sameship
+            .where((s) => s.runtimeType == ship.runtimeType && s.runtimeType == ship.runtimeType && s.level == ship.level)
+            .toList();
+        if (sameTypeShips.length >= 3) {
+          tempsameship.addAll(sameTypeShips.sublist(0, 3));
+        }
+      });
+    //  print(tempsameship);
+      if(tempsameship.length > 0){
+
+        BasicShip? tempship = LoaderShips.getNewShip(tempsameship[0]);
+        if(tempship!=null)
+        {
+          tempship.level = tempsameship[0].level;
+          tempship.level ++;
+          tempship.currentteam = 1;
+          tempship.cellfields = tempsameship[0].cellfields;
+          tempship.mainfieldis = tempsameship[0].mainfieldis;
+          for(int i = 0; i < 3; i++)
+          {
+            team.remove(tempsameship[i]);
+            if(tempsameship[i].cellfields.isNotEmpty) {
+              map.maincells[tempsameship[i].mainfieldis].releaseCellsAndMap(tempsameship[i].cellfields, tempsameship[i]);
+              tempsameship[i].removeFromParent();
+            }
+          }
+          add(tempship);
+            tempship.scale = Vector2(tempship.shipclass.CellsizeX.toDouble(), tempship.shipclass.CellsizeY.toDouble());
+            map.maincells[tempship.mainfieldis].addShip(tempship);
+
+        }
+
+
+      }
+
+
+    }
   }
 }

@@ -44,7 +44,7 @@ enum EnumImages
 
 
   //Ships
-
+  ShipShieldOne,
   //Ships Imperium
   ShipEmpireTie,
   ShipEmpireTieBomber,

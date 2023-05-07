@@ -47,6 +47,11 @@ class ImageShip extends SpriteComponent with HasGameRef<MySpaceGame>
 
   }
 
+  void destroy()
+  {
+   removeFromParent();
+  }
+
 
 
 }

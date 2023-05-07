@@ -8,6 +8,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/experimental.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
@@ -15,6 +16,7 @@ import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/BulletLaserLoader.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
+import 'package:myfirstgame/engine/ships/basic/AnimationShield.dart';
 import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/basic/HealthbarShip.dart';
 import 'package:myfirstgame/engine/ships/basic/ImageShip.dart';
@@ -72,6 +74,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   late SpriteComponent imagenation;
   late LevelShipBar shipBar;
+  //Shield
+  AnimationShield animationShield = AnimationShield();
 
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
   {
@@ -83,7 +87,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   {
     super.onLoad();
 
-     add(spaceshipimage);
+    add(spaceshipimage);
     parent = gameRef;
     size = Vector2(_imagesizex, _imagesizey);
     position = Vector2(_positionx, _positiony);
@@ -315,14 +319,12 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           }
         }
         positionEnemy = gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).absolutePosition;
-
         positionEnemy.x += gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).imagesizex / 2;
         positionEnemy.y +=  gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).imagesizey / 2;
-        // positionEnemy.x += gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).spaceshipimage.width;
+        //positionEnemy.x += gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).spaceshipimage.width;
       }else{
      //   enemyrange = 0;
      //   positionEnemy = Vector2(0, 0);
-
       }
     }else
     {
@@ -362,11 +364,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     position = Vector2(positionx, positiony);
   }
 
-
   void damage(int damage, EnumGoodAginst goodAginst)
   {
-
-
     switch (goodAginst){
       case EnumGoodAginst.no:
         break;
@@ -380,26 +379,32 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         damage = damage * goodAginst.damagemulti;
         break;
     }
-
   //  print("Damage: " + damage.toString());
-
-
-    if(_fight){
+    if(_fight)
+    {
       if(_currentshieldhp > 0 && _currentshieldhp != 0) {
+
         //FlameAudio.play(soundfilepath).timeout(Duration(seconds: 2));
-        if(damage > _currentshieldhp){
+        if(damage > _currentshieldhp)
+        {
+          animationShield.position = Vector2(imagesizex/ 8, 0);
+          add(animationShield);
           _currentshieldhp = 0;
           _currenthp = _currenthp - (damage - _currentshieldhp);
-
-        }else{
+          animationShield.removeOnFinish;
+        }
+        else
+        {
           _currentshieldhp -= damage;
         }
       }else{
-
         _currenthp -= damage;
+
       //  print(this.toString() + " HP: " + _currenthp.toString());
       }
+
     }
+
   }
 
   void rotateImage()
@@ -445,9 +450,12 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onDragUpdate(DragUpdateEvent event)
   {
-    if(_fight || currentteam != 1){
+    if(_fight || currentteam != 1)
+    {
 
-    }else {
+    }
+    else
+    {
       positionx += event.delta.x;
       positiony += event.delta.y;
      // print(position.toString());
@@ -455,10 +463,13 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       {
         //print(position.toString() + " " +gameRef.size.toString());
          scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
-      }else{
+      }
+          else
+      {
        scale = Vector2(1, 1);
       }
-      switch(bottombarposition){
+      switch(bottombarposition)
+      {
         case 1:
           gameRef.gameAutoBattle.bottomBar.fieldOneismanned = false;
           break;
@@ -516,7 +527,17 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onDragCancel(DragCancelEvent event)
   {
+    position = Vector2(positionx, positiony);
+    if(positiony < gameRef.size[1] / 1.2)
+    {
+      gameRef.gameAutoBattle.map.addShip(this);
 
+    }else{
+      scale = Vector2(1, 1);
+      gameRef.gameAutoBattle.bottomBar.addShipToBar(this);
+
+
+    }
   }
 
 
@@ -577,7 +598,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     }
   }
   @override
-  void onCollisionEnd(PositionComponent other) {
+  void onCollisionEnd(PositionComponent other)
+  {
     super.onCollisionEnd(other);
     if (other is ScreenHitbox) {
      // print("end hitting");
@@ -721,6 +743,18 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   set currenthp(int value) {
     _currenthp = value;
   }
+
+  void destroy()
+  {
+
+    //spaceshipimage.removeFromParent();
+
+    spaceshipimage.destroy();
+    shipBar.destroy();
+    //removeFromParent();
+  }
+
+
 }
 
 

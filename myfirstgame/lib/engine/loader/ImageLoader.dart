@@ -43,6 +43,10 @@ class ImageLoader
     sprites[EnumImages.IconRebellen] = Sprite(await Flame.images.load('elements/normal/shipfraction/Rebellen.jpg'));
     sprites[EnumImages.IconSeperatisten] = Sprite(await Flame.images.load('elements/normal/shipfraction/Seperatisten.jpg'));
     //Ships
+    sprites[EnumImages.ShipShieldOne] = Sprite(await Flame.images.load('elements/normal/Shield1.png'));
+
+
+
     //Ships Imperium
     sprites[EnumImages.ShipEmpireTie] = Sprite(await Flame.images.load('ships/normal/imperium/Tie.png'));
     sprites[EnumImages.ShipEmpireTieBomber] = Sprite(await Flame.images.load('ships/normal/imperium/TieBomber.png'));

@@ -103,7 +103,8 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
 
   @override
-  void update(double dt){
+  void update(double dt)
+  {
    super.update(dt);
 
   }

@@ -14,6 +14,7 @@ class LevelShipBar extends PositionComponent
 
   LevelShipBar(this.level);
 
+
   @override
   Future<void> onLoad() async
   {
@@ -32,6 +33,11 @@ class LevelShipBar extends PositionComponent
 
           break;
       }
+  }
+
+  void destroy()
+  {
+    removeAll(children);
   }
 
 
