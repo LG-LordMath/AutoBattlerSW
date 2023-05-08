@@ -10,6 +10,7 @@ import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 import '../../nations/EnumNation.dart';
 import '../../nations/EnumNation.dart';
+import '../../ships/basic/LoaderShips.dart';
 import '../../szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import '../EnumPlayerImages.dart';
 import '../Player.dart';
@@ -73,6 +74,7 @@ class PlayerAi extends Player
             element.rotateImage();
             //print("Ai kauft: " + element.toString());
             placeShip(element);
+            checkifshipscanlevelup(game.gameAutoBattle.player2.team);
           }
         }
 
@@ -222,10 +224,13 @@ class PlayerAi extends Player
             if(game.gameAutoBattle.ennemymap.maincells[3].getNumberOfFreeCells() > 0 )
             {
               game.gameAutoBattle.ennemymap.maincells[3].addShip(ship);
-            }else{
+            }
+            else
+            {
               if(game.gameAutoBattle.ennemymap.maincells[5].getNumberOfFreeCells() > 0 ){
                 game.gameAutoBattle.ennemymap.maincells[5].addShip(ship);
-              }else{
+              }else
+              {
               }
             }
 
@@ -357,5 +362,68 @@ class PlayerAi extends Player
     return true;
   }
 
+  void checkifshipscanlevelup(List<BasicShip> team) {
+    List<BasicShip> sameship = [];
+    // Iteriere über jedes Schiff im "team" Array
+    for (BasicShip ship in team) {
+      // Iteriere erneut über jedes Schiff im "team" Array, außer dem aktuell ausgewählten Schiff
+      for (BasicShip otherShip in team.where((s) => s != ship)) {
+        // Überprüfe, ob die Klasse der Schiffe übereinstimmt
+        if (ship.runtimeType == otherShip.runtimeType) {
+          // Wenn ja, füge das Schiff zur Liste "sameship" hinzu, falls es noch nicht in der Liste ist
+          if (!sameship.contains(ship) ) {
+            sameship.add(ship);
+          }
+          if (!sameship.contains(otherShip)&& ship.level == otherShip.level) {
+            sameship.add(otherShip);
+          }
+        }
+      }
+    }
+    if(sameship.length >= 3)
+    {
+
+      List<BasicShip> tempsameship = [];
+      sameship.forEach((ship) {
+        // List<BasicShip> sameTypeShips = sameship.where((s) => s.runtimeType == ship.runtimeType).toList();
+
+        List<BasicShip> sameTypeShips = sameship
+            .where((s) => s.runtimeType == ship.runtimeType && s.runtimeType == ship.runtimeType && s.level == ship.level)
+            .toList();
+        if (sameTypeShips.length >= 3) {
+          tempsameship.addAll(sameTypeShips.sublist(0, 3));
+        }
+      });
+      //  print(tempsameship);
+      if(tempsameship.length > 0){
+
+        BasicShip? tempship = LoaderShips.getNewShip(tempsameship[0]);
+        if(tempship!=null)
+        {
+          tempship.level = tempsameship[0].level;
+          tempship.level ++;
+          tempship.currentteam = 2;
+          tempship.cellfields = tempsameship[0].cellfields;
+          tempship.mainfieldis = tempsameship[0].mainfieldis;
+          for(int i = 0; i < 3; i++)
+          {
+            team.remove(tempsameship[i]);
+            if(tempsameship[i].cellfields.isNotEmpty) {
+             game.gameAutoBattle.ennemymap.maincells[tempsameship[i].mainfieldis].releaseCellsAndMap(tempsameship[i].cellfields, tempsameship[i]);
+              tempsameship[i].removeFromParent();
+            }
+          }
+          game.gameAutoBattle.add(tempship);
+          tempship.scale = Vector2(tempship.shipclass.CellsizeX.toDouble(), tempship.shipclass.CellsizeY.toDouble());
+          game.gameAutoBattle.ennemymap.maincells[tempship.mainfieldis].addShip(tempship);
+
+        }
+
+
+      }
+
+
+    }
+  }
 
 }

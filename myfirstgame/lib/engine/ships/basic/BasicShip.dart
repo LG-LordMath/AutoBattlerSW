@@ -43,6 +43,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   double _positiony = 0;
   MovementDirection _movment  = MovementDirection.no;
   double _weaponrange = 200;
+  int stunned = 0;
   //werte des images
   late Sprite _image;
   double _imagesizex = 0;
@@ -74,8 +75,13 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   late SpriteComponent imagenation;
   late LevelShipBar shipBar;
+
+
+
   //Shield
+
   AnimationShield animationShield = AnimationShield();
+
 
   BasicShip(this._image, this._positionx, this._positiony, this._imagesizex, this._imagesizey, this._maxhp, this._maxshieldhp, this._currentteam, this.nation, this.creditcost, this.shipclass)
   {
@@ -122,6 +128,22 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       currentshieldhp = (currentshieldhp * 1.8).toInt();
     }
 
+    if(shipclass.nameofshipclass.toString()=="Fighter")
+    {
+      weaponrange = 100;
+
+    }else if(shipclass.nameofshipclass.toString()=="Figatte")
+    {
+      weaponrange = 100;
+    }else if(shipclass.nameofshipclass.toString()=="Battleship")
+    {
+      weaponrange = 175;
+    }else if(shipclass.nameofshipclass.toString()=="Mothership")
+    {
+      weaponrange = 200;
+    }
+
+
 
 
   }
@@ -131,6 +153,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void update(double dt)
   {
     super.update(dt);
+
     if(_isDragged)
     {
       position = Vector2(positionx, positiony);
@@ -162,8 +185,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
       }
       else {
-
-
         removeFromParent();
         if (_currentteam == 1)
         {
@@ -217,24 +238,38 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     // print("move: "+_movment.toString() + ", "+(positionEnemy.x - positionx).toString()
     //     + ", "+(positionEnemy.y - positiony).toString());
 
-       if(positionEnemy.y <= positiony && (positionEnemy.y - positiony).toInt() < 0 )
+
+       int distanceX = (positionEnemy.x - positionx).toInt();
+       int distanceY = (positionEnemy.y - positiony).toInt();
+       print(this.runtimeType.toString() + ", "+  distanceX.toString() + " , " + distanceY.toString() + ", position: " + position.toString() + ", enemyposition: " + positionEnemy.toString());
+
+
+       if(positionEnemy.x > positionx && (positionEnemy.x - positionx).toInt() > 0 )
+         {
+             _movment  = MovementDirection.movedown;
+
+
+         }
+         else if(positionEnemy.x < positionx && (positionEnemy.x - positionx).toInt() < 0)
+         {
+             _movment  = MovementDirection.moveup;
+
+
+         }
+      else if(positionEnemy.y < positiony && (positionEnemy.y - positiony).toInt() < 0 )
        {
          _movment  = MovementDirection.moveright;
        }
 
-        if(positionEnemy.x >= positionx && (positionEnemy.x - positionx).toInt() > 0 )
-        {
-           _movment  = MovementDirection.movedown;
-         }
-       if(positionEnemy.y >= positiony && (positionEnemy.y - positiony).toInt() > 0  )
+
+     else   if(positionEnemy.y > positiony && (positionEnemy.y - positiony).toInt() > 0  )
        {
          _movment  = MovementDirection.moveleft;
+       }else{
+         _movment  = MovementDirection.no;
        }
 
-        if(positionEnemy.x <= positionx && (positionEnemy.x - positionx).toInt() < 0)
-        {
-          _movment  = MovementDirection.moveup;
-        }
+
     }else if(temp < _weaponrange  && !_ishittingwall)
     {
        shootEnemy();
@@ -450,6 +485,15 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onDragUpdate(DragUpdateEvent event)
   {
+    if(positiony < gameRef.size[1] / 1.2)
+    {
+      //print(position.toString() + " " +gameRef.size.toString());
+      scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
+    }
+    else
+    {
+      scale = Vector2(1, 1);
+    }
     if(_fight || currentteam != 1)
     {
 
@@ -459,15 +503,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       positionx += event.delta.x;
       positiony += event.delta.y;
      // print(position.toString());
-          if(positiony < gameRef.size[1] / 1.2)
-      {
-        //print(position.toString() + " " +gameRef.size.toString());
-         scale = Vector2(shipclass.CellsizeX.toDouble(), shipclass.CellsizeY.toDouble());
-      }
-          else
-      {
-       scale = Vector2(1, 1);
-      }
+
       switch(bottombarposition)
       {
         case 1:
@@ -573,23 +609,48 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
       }
     }else if(other is BasicShip){
-      switch (_movment) {
-        case MovementDirection.moveup:
-          _movment =   MovementDirection.movedown;
-          break;
-        case MovementDirection.movedown:
-          _movment =   MovementDirection.moveup;
-          break;
-        case MovementDirection.moveleft:
-          _movment =  MovementDirection.moveright;
-          break;
-        case MovementDirection.moveright:
-          _movment =  MovementDirection.moveleft;
-          break;
-        default:
-          break;
 
+      /*
+      if(currentteam==1){
+        switch (_movment) {
+          case MovementDirection.moveup:
+            _movment =   MovementDirection.movedown;
+            break;
+          case MovementDirection.movedown:
+            _movment =   MovementDirection.moveup;
+            break;
+          case MovementDirection.moveleft:
+            _movment =  MovementDirection.moveright;
+            break;
+          case MovementDirection.moveright:
+            _movment =  MovementDirection.moveleft;
+            break;
+          default:
+            break;
+
+        }
+      }else{
+        switch (_movment) {
+          case MovementDirection.moveup:
+            _movment =   MovementDirection.movedown;
+            break;
+          case MovementDirection.movedown:
+            _movment =   MovementDirection.moveup;
+            break;
+          case MovementDirection.moveleft:
+            _movment =  MovementDirection.moveright;
+            break;
+          case MovementDirection.moveright:
+            _movment =  MovementDirection.moveleft;
+            break;
+          default:
+            break;
+
+        }
       }
+
+       */
+
 
 
     }
