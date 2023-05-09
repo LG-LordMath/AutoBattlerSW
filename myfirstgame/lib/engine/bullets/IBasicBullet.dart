@@ -4,6 +4,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 
@@ -34,6 +35,10 @@ abstract class IBasicBullet
   IBasicBullet(this.spriteimage, this._imagesize,this._movementspeed,
       this._damage, this._lifetime, this.goodAginst);
 
+
+
+
+
   @override
   Future<void> onLoad() async
   {
@@ -57,6 +62,7 @@ abstract class IBasicBullet
   }
 
 
+
   void shoot(Vector2 currentship, Vector2 enemyposition, int team)
   {
     _team = team;
@@ -64,6 +70,9 @@ abstract class IBasicBullet
     final effect = MoveEffect.to( enemyposition, EffectController(duration: _movementspeed.toDouble()));
     add(effect);
     effect.removeOnFinish;
+    if(effect.isRemoved){
+      removeFromParent();
+    }
   }
 
 

@@ -231,50 +231,30 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void checkifEnemyisinrange()
   {
      int temp = checknearenemy();
-     if( temp >= _weaponrange && temp != 0 && !_ishittingwall ) {
-       //print("not hitting wall");
-     //print("range : " + temp.toString() + " | " + _weaponrange.toString() + "position: "+ positionx.toString() + ", " + positiony.toString() );
-
-    // print("move: "+_movment.toString() + ", "+(positionEnemy.x - positionx).toString()
-    //     + ", "+(positionEnemy.y - positiony).toString());
-
-
-       int distanceX = (positionEnemy.x - positionx).toInt();
-       int distanceY = (positionEnemy.y - positiony).toInt();
-       print(this.runtimeType.toString() + ", "+  distanceX.toString() + " , " + distanceY.toString() + ", position: " + position.toString() + ", enemyposition: " + positionEnemy.toString());
-
-
+     if( temp >= _weaponrange && temp != 0 && !_ishittingwall )
+     {
        if(positionEnemy.x > positionx && (positionEnemy.x - positionx).toInt() > 0 )
          {
              _movment  = MovementDirection.movedown;
-
-
          }
          else if(positionEnemy.x < positionx && (positionEnemy.x - positionx).toInt() < 0)
          {
              _movment  = MovementDirection.moveup;
-
-
          }
       else if(positionEnemy.y < positiony && (positionEnemy.y - positiony).toInt() < 0 )
        {
          _movment  = MovementDirection.moveright;
        }
-
-
      else   if(positionEnemy.y > positiony && (positionEnemy.y - positiony).toInt() > 0  )
        {
          _movment  = MovementDirection.moveleft;
        }else{
          _movment  = MovementDirection.no;
        }
-
-
     }else if(temp < _weaponrange  && !_ishittingwall)
     {
        shootEnemy();
        _movment  = MovementDirection.no;
-
      }
   }
 
@@ -287,7 +267,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       print("feuer");
       IBasicBullet tempbullet = BulletLaserLoader.lasers[laser]!;
       add(tempbullet);
-      if(_currentteam == 1){
+      if(_currentteam == 1)
+      {
         tempbullet.shoot(Vector2(absolutePosition.x + width  / 2, absolutePosition.y  ), positionEnemy, _currentteam);
       }else{
         tempbullet.shoot(Vector2(absolutePosition.x - width  / 2, absolutePosition.y  ), positionEnemy, _currentteam);
@@ -356,15 +337,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         positionEnemy = gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).absolutePosition;
         positionEnemy.x += gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).imagesizex / 2;
         positionEnemy.y +=  gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).imagesizey / 2;
-        //positionEnemy.x += gameRef.gameAutoBattle.player1.team.elementAt(enemycounter).spaceshipimage.width;
-      }else{
-     //   enemyrange = 0;
-     //   positionEnemy = Vector2(0, 0);
       }
-    }else
-    {
-    // enemyrange = 0;
-   //   positionEnemy = Vector2(0, 0);
     }
     return (enemyrange);
   }
@@ -414,12 +387,10 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         damage = damage * goodAginst.damagemulti;
         break;
     }
-  //  print("Damage: " + damage.toString());
     if(_fight)
     {
-      if(_currentshieldhp > 0 && _currentshieldhp != 0) {
-
-        //FlameAudio.play(soundfilepath).timeout(Duration(seconds: 2));
+      if(_currentshieldhp > 0 && _currentshieldhp != 0)
+      {
         if(damage > _currentshieldhp)
         {
           animationShield.position = Vector2(imagesizex/ 8, 0);
@@ -434,7 +405,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         }
       }else{
         _currenthp -= damage;
-
       //  print(this.toString() + " HP: " + _currenthp.toString());
       }
 
@@ -445,7 +415,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void rotateImage()
   {
     spaceshipimage.rotateImage();
-
   }
 
 
@@ -462,7 +431,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     // Do something in response to a drag event
     if(_fight)
     {
-
     }
     else
     {
@@ -575,11 +543,6 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
     }
   }
-
-
-
-
-
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints,
@@ -608,50 +571,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           break;
 
       }
-    }else if(other is BasicShip){
-
-      /*
-      if(currentteam==1){
-        switch (_movment) {
-          case MovementDirection.moveup:
-            _movment =   MovementDirection.movedown;
-            break;
-          case MovementDirection.movedown:
-            _movment =   MovementDirection.moveup;
-            break;
-          case MovementDirection.moveleft:
-            _movment =  MovementDirection.moveright;
-            break;
-          case MovementDirection.moveright:
-            _movment =  MovementDirection.moveleft;
-            break;
-          default:
-            break;
-
-        }
-      }else{
-        switch (_movment) {
-          case MovementDirection.moveup:
-            _movment =   MovementDirection.movedown;
-            break;
-          case MovementDirection.movedown:
-            _movment =   MovementDirection.moveup;
-            break;
-          case MovementDirection.moveleft:
-            _movment =  MovementDirection.moveright;
-            break;
-          case MovementDirection.moveright:
-            _movment =  MovementDirection.moveleft;
-            break;
-          default:
-            break;
-
-        }
-      }
-
-       */
-
-
+    }else if(other is BasicShip)
+    {
 
     }
     else {
