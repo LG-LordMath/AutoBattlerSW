@@ -24,6 +24,9 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
   late bool _isArchivementsopen = false;
   late bool _isArmeeopen = false;
 
+  late bool optionelementisopen = false;
+
+
   late MyGameChoise _gameChoise;
 
   MyMainMenueButtonSection(this.positions);
@@ -36,6 +39,7 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
     position = Vector2(positions.x, positions.y);
     sprite = ImageLoader.sprites[EnumImages.UICardThree];
     size = Vector2(gameRef.size[0], gameRef.size[1] / 3);
+    _gameChoise = MyGameChoise(Vector2(0, 50), Vector2(gameRef.size[0], gameRef.size[1] / 3));
 
     Sprite? sp = ImageLoader.sprites[EnumImages.UIButtonOne];
     btnPlay = Button(sp!,
@@ -84,11 +88,27 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
   }
 
 
+  void resetplaybuttonaction()
+  {
+    if(_gameChoise.isMounted){
+      _gameChoise.destroy();
+    }
+
+    btnPlay.setText("Play");
+    _isGamechoiseopen = false;
+
+  }
+
+
+
+
   void playbuttonaction()
 
   {
 
-    if(!_isGamechoiseopen){
+    if(!_isGamechoiseopen)
+    {
+      gameRef.mainMenue.myHeaderMainMenue.destroyOption();
       _gameChoise = MyGameChoise(Vector2(0, 50), Vector2(gameRef.size[0], gameRef.size[1] / 3));
       add(_gameChoise);
       btnPlay.setText("Cancel");

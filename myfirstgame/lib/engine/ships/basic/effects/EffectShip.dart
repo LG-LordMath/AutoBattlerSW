@@ -2,6 +2,9 @@
 
 
 import 'package:flame/components.dart';
+import 'package:myfirstgame/engine/bullets/other/BulletSpecialLoader.dart';
+import 'package:myfirstgame/engine/bullets/other/EnumSpecialList.dart';
+import 'package:myfirstgame/engine/bullets/other/IoncanonBullet.dart';
 import 'package:myfirstgame/engine/bullets/rockets/EnumRocketList.dart';
 import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/basic/effects/EnumEffects.dart';
@@ -40,8 +43,14 @@ class EffectShip extends BasicShip
     {
       if(_effecktimer<=0)
       {
-        activateeffect();
-        _effecktimer = _maxeffecttimer;
+        if(stunned>0)
+        {
+
+        }else{
+          activateeffect();
+          _effecktimer = _maxeffecttimer;
+        }
+
       }
       _effecktimer--;
     }
@@ -64,7 +73,17 @@ class EffectShip extends BasicShip
         }
         break;
       case EnumEffects.shootIonenCanon:
+       IoncanonBullet ioncanonBullet = BulletSpecialLoader.special[EnumSpecialList.IoncanonShootBig]!;
 
+       add(ioncanonBullet);
+       print("shoot Ioncanon:  " + ioncanonBullet.isLoaded.toString());
+       if(super.currentteam == 1){
+         ioncanonBullet.shoot(Vector2(absolutePosition.x + width  / 2, absolutePosition.y  ), positionEnemy, super.currentteam);
+       }else{
+         ioncanonBullet.shoot(Vector2(absolutePosition.x - width  / 2, absolutePosition.y  ), positionEnemy, super.currentteam);
+       }
+       BulletSpecialLoader bulletSpecialLoader = BulletSpecialLoader();
+       bulletSpecialLoader.reloadObject(EnumSpecialList.IoncanonShootBig);
         break;
       case EnumEffects.shootRocketOne:
         IBasicBullet tempbullet = BulletRocketLoader.rockets[EnumRocketList.RocketOne]!;

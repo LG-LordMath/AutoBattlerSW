@@ -6,6 +6,8 @@ import 'package:flame/flame.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:myfirstgame/engine/music/EnumMusic.dart';
 
+import '../../game/backend/Option.dart';
+
 class MyMusicPlayer
 
 
@@ -35,11 +37,22 @@ class MyMusicPlayer
 
   static void play(EnumMusic music)
   {
-      FlameAudio.play(music.musicfilepath, volume: 2);
+      FlameAudio.play(music.musicfilepath, volume: Option.soundvolume.toDouble());
+
   }
 
   static void playlong(EnumMusic music) {
 
-      FlameAudio.playLongAudio(music.musicfilepath);
+      FlameAudio.playLongAudio(music.musicfilepath, volume:  Option.musicvolume.toDouble());
+
+  }
+
+
+  static void stopplaying()
+  {
+   if(FlameAudio.bgm.isPlaying){
+     FlameAudio.bgm.dispose();
+   }
+
   }
 }

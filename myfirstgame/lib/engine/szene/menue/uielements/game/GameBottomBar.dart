@@ -83,6 +83,29 @@ class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
   }
 
 
+  removeship(BasicShip ship)
+  {
+    tempships.remove(ship);
+    switch(ship.bottombarposition)
+    {
+      case 1:
+        fieldOneismanned = false;
+        break;
+      case 2:
+        fieldTwoismanned = false;
+        break;
+      case 3:
+        fieldThreeismanned = false;
+        break;
+      case 4:
+        fieldFourismanned = false;
+        break;
+      case 5:
+        fieldFiveismanned = false;
+        break;
+    }
+    ship.removeFromParent();
+  }
     
 
   void openshop()

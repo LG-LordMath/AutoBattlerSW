@@ -13,17 +13,14 @@ class MainMenue extends PositionComponent with HasGameRef<MySpaceGame>
 
 
 {
-  late MyMainMenueButtonSection myMainMenueButtonSection;
-  late MyHeaderMainMenue myHeaderMainMenue;
-  late MyAnimatedSzene myAnimatedSzene;
+  MyMainMenueButtonSection  myMainMenueButtonSection = MyMainMenueButtonSection(Vector2(0, 0));
+   MyHeaderMainMenue   myHeaderMainMenue = MyHeaderMainMenue();
+   MyAnimatedSzene   myAnimatedSzene = MyAnimatedSzene(0,0);
 
   @override
   Future<void> onLoad() async
   {
     position = Vector2(0, gameRef.size[1] - gameRef.size[1] / 3.5);
-    myMainMenueButtonSection = MyMainMenueButtonSection(Vector2(0, 0));
-    myHeaderMainMenue = MyHeaderMainMenue();
-    myAnimatedSzene = MyAnimatedSzene(0,0);
 
 
     add(myAnimatedSzene);

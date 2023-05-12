@@ -10,13 +10,14 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
+import 'package:myfirstgame/engine/bullets/other/AnimationBlueSpecial.dart';
 
 import '../../../game/MySpaceGame.dart';
 import '../../ships/basic/BasicShip.dart';
 import '../../szene/menue/enums/EnumGameState.dart';
 
 class IoncanonBullet
-    extends SpriteAnimationComponent
+    extends PositionComponent
     with HasGameRef<MySpaceGame>, CollisionCallbacks
 {
   late Vector2 _imagesize;
@@ -24,7 +25,7 @@ class IoncanonBullet
   late int _lifetime;
   late int _team;
   bool _isplayingmusic = false;
-  late SpriteAnimation animationsprite;
+  late SpriteAnimationComponent animationsprite;
   late int stuneffect;
 
   IoncanonBullet(this._imagesize,this._movementspeed, this._lifetime, this.animationsprite, this.stuneffect);
@@ -36,15 +37,15 @@ class IoncanonBullet
   @override
   Future<void> onLoad() async
   {
-
     await super.onLoad();
-    animation = animationsprite;
     parent = gameRef;
     size = _imagesize;
-
+    animationsprite.size = size;
     ShapeHitbox hitbox = CircleHitbox()
       ..renderShape = false;
     add(hitbox);
+    add(animationsprite);
+
     if(!_isplayingmusic)
     {
       //MyMusicPlayer.play(EnumMusic.LaserOne);
@@ -57,6 +58,7 @@ class IoncanonBullet
   {
     _team = team;
     position = currentship;
+
     final effect = MoveEffect.to( enemyposition, EffectController(duration: _movementspeed.toDouble()));
     add(effect);
     effect.removeOnFinish;

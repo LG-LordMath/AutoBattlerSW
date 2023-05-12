@@ -10,8 +10,8 @@ class IoncanonSmall extends IoncanonBullet
 {
 
 
-  IoncanonSmall(SpriteAnimation ani) :
-        super(Vector2(50, 50), 1.5, 300, ani, 40);
+  IoncanonSmall(SpriteAnimationComponent ani) :
+        super(Vector2(50, 50), 1.5, 100, ani, 40);
 
 
 }

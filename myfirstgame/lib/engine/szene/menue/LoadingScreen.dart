@@ -11,6 +11,8 @@ import 'package:flame/flame.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstgame/engine/bullets/other/BulletSpecialLoader.dart';
+import 'package:myfirstgame/engine/music/EnumMusic.dart';
 import 'package:myfirstgame/engine/music/MyMusicPlayer.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
@@ -22,6 +24,7 @@ import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
+import '../../../game/backend/Option.dart';
 import '../../ships/republicships/RepublicShipsLoader.dart';
 
 class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
@@ -63,7 +66,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
 
       if(!_isplayingmusic)
       {
-        FlameAudio.bgm.play('music/FertigCloneWarsBegin.ogg');//.timeout(Duration(minutes: 1, seconds: 10));
+        FlameAudio.bgm.play('music/FertigCloneWarsBegin.ogg', volume: Option.musicvolume.toDouble());//.timeout(Duration(minutes: 1, seconds: 10));
         _isplayingmusic = true;
       }
 
@@ -81,8 +84,9 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
   void update(double dt)
   {
   //  print("Laden [image | music | animations | ships]: "+ _loadingimages.toString() + ", "+ _loadingAudio.toString()+ ", "+ _loadingAnimations.toString()+ ", "+_loadingShips.toString());
-    if(_loadingimages && _loadingAudio &&  _loadingAnimations && _loadingShips){
-      btn.setText("Play");
+    if(_loadingimages && _loadingAudio &&  _loadingAnimations && _loadingShips)
+    {
+      btn.setText("Start");
     }else{
       loadData();
     }
@@ -96,6 +100,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
     {
       gameRef.bulletLaserLoader.load();
       gameRef.bulletRocketLoader.load();
+
       if(FlameAudio.bgm.isPlaying)
       {
         FlameAudio.bgm.stop();
@@ -204,7 +209,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
         _loadingimages = true;
       } catch (exception)
       {
-        print("image |fehler beim laden");
+      //  print("image |fehler beim laden");
       }
     }
     if(!_loadingAudio){
@@ -214,7 +219,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
         _loadingAudio = true;
       } catch (exception)
       {
-        print("music |fehler beim laden");
+    //    print("music |fehler beim laden");
       }
     }
    if(!_loadingAnimations)
@@ -224,7 +229,7 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
        _loadingAnimations = true;
      } catch (exception)
      {
-       print("animations |fehler beim laden");
+    //   print("animations |fehler beim laden");
      }
    }
     if(!_loadingShips && _loadingimages){
@@ -235,11 +240,12 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
         empireShipsLoader.load();
         SeperatistCISShipLoader cisShipLoader = SeperatistCISShipLoader();
         cisShipLoader.load();
-
+        BulletSpecialLoader bulletSpecialLoader = BulletSpecialLoader();
+        bulletSpecialLoader.load();
         _loadingShips = true;
       } catch (exception)
       {
-        print("ships |fehler beim laden");
+      //  print("ships |fehler beim laden");
       }
     }
   }

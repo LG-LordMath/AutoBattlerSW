@@ -16,6 +16,7 @@ import 'package:myfirstgame/engine/szene/menue/uielements/game/GameBottomBar.dar
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameUpperBar.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gamemap/GamePlayFieldMap.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameSellUI.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
@@ -53,6 +54,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   late GamePlayFieldMap map = GamePlayFieldMap(30, gameRef.size[1]/ 2.1);
   late GamePlayFieldMap ennemymap = GamePlayFieldMap(30, 100);
   GameUpperBar upperBar = GameUpperBar();
+  late GameSellUI gameSellUI;
 
 
   GameAutoBattle(this._player1, this._player2);
@@ -219,6 +221,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         case EnumGameState.ENDGAME:
           print("Phase: EndGame");
           if (!_isactivestate) {
+            gameSellUI.destroy();
             bottomBar.destroy();
             player1.team.forEach((element) {
               element.removeFromParent();
@@ -637,6 +640,23 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       }
 
 
+    }
+  }
+
+
+  void sellShip(BasicShip basicShip)
+  {
+    gameSellUI = GameSellUI(basicShip);
+    if(gameSellUI.isMounted)
+    {
+      print("is there");
+      gameSellUI.destroy();
+      gameSellUI = GameSellUI(basicShip);
+      add(gameSellUI);
+    }else{
+      print("will be there");
+
+      add(gameSellUI);
     }
   }
 }

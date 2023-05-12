@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/mainmenue/GameUIOption.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import 'Button.dart';
@@ -20,6 +21,7 @@ class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
   late MyTextField textField;
   late Button btnsettings;
   late Button btninstructions;
+  late GameUIOption gameOption  = GameUIOption();
 
   @override
   Future<void> onLoad() async
@@ -45,8 +47,28 @@ class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
 
   void settings()
   {
+    if(!gameOption.isMounted){
+      gameRef.mainMenue.myMainMenueButtonSection.resetplaybuttonaction();
+      gameRef.mainMenue.myMainMenueButtonSection.optionelementisopen = true;
+      add(gameOption);
+    }else
+    {
+      gameOption.destroy();
+      gameOption = GameUIOption();
+    }
 
   }
+
+  destroyOption()
+  {
+    if(!gameOption.isMounted){
+    }else {
+      gameRef.mainMenue.myMainMenueButtonSection.optionelementisopen = false;
+      gameOption.destroy();
+      gameOption = GameUIOption();
+    }
+  }
+
 
   void instructions(){
 

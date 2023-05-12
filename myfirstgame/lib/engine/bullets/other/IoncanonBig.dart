@@ -6,7 +6,7 @@ class IoncanonBig extends IoncanonBullet
 {
 
 
-  IoncanonBig(SpriteAnimation ani) :
+  IoncanonBig(SpriteAnimationComponent ani) :
         super(Vector2(50, 50), 1.5, 300, ani, 80);
 
 

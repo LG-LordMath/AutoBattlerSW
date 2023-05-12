@@ -1,5 +1,6 @@
 
 import 'package:flame/components.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EffectShip.dart';
 
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../loader/EnumImages.dart';
@@ -7,8 +8,9 @@ import '../../loader/ImageLoader.dart';
 import '../../nations/EnumNation.dart';
 import '../basic/BasicShip.dart';
 import '../basic/EnumShipClass.dart';
+import '../basic/effects/EnumEffects.dart';
 
-class Subjugator extends BasicShip
+class Subjugator extends EffectShip
 
 {
 
@@ -26,6 +28,7 @@ class Subjugator extends BasicShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserRed;
+    super.setEffect(EnumEffects.shootIonenCanon, 1500);
   }
 
 

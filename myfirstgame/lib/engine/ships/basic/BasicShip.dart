@@ -15,11 +15,13 @@ import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/BulletLaserLoader.dart';
 import 'package:myfirstgame/engine/bullets/lasertypes/EnumLaserList.dart';
+import 'package:myfirstgame/engine/bullets/other/IoncanonBullet.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/ships/basic/AnimationShield.dart';
 import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/basic/HealthbarShip.dart';
 import 'package:myfirstgame/engine/ships/basic/ImageShip.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameSellUI.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../basics/MovementDirection.dart';
@@ -163,25 +165,27 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       {
 
 
-        if(_fight){
-          healbar.init();
-          healbar.updateHealBar(_currenthp.toDouble(), _currentshieldhp.toDouble());
-          moveShip();
-          checkifEnemyisinrange();
-          if(!imagenation.isRemoved){
-            imagenation.removeFromParent();
+        if(stunned > 0){
+          stunned--;
+        }else{
+          if(_fight){
+            healbar.init();
+            healbar.updateHealBar(_currenthp.toDouble(), _currentshieldhp.toDouble());
+            moveShip();
+            checkifEnemyisinrange();
+            if(!imagenation.isRemoved){
+              imagenation.removeFromParent();
+            }
+
+
+          }else
+          {
+            if(imagenation.isRemoved){
+              addnationIcon();
+            }
           }
-
-
-        }else
-        {
-          if(imagenation.isRemoved){
-
-            addnationIcon();
-          }
-          //healbar.removeFromParent();
-          //   _weapons.forEach((element) {element.stopfireing();});
         }
+
 
       }
       else {
@@ -441,6 +445,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         gameRef.gameAutoBattle.player1.team.remove(this);
         gameRef.gameAutoBattle.map.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
         gameRef.gameAutoBattle.bottomBar.tempships.remove(this);
+        bottombarposition = 0;
       }else {
         gameRef.gameAutoBattle.ennemymap.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
       }
@@ -522,8 +527,11 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     }
   }
   @override
-  void onLongTapDown(TapDownEvent event) {
+  void onLongTapDown(TapDownEvent event)
+  {
    print("long tapdown");
+   gameRef.gameAutoBattle.sellShip(this);
+
   }
 
 
@@ -602,6 +610,15 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
          damage(other.damage, other.goodAginst);
       //  damage(other.damage, EnumGoodAginst.hp);
         other.removeFromParent();
+      }
+    }else if(other is IoncanonBullet)
+    {
+      if (other.team == currentteam) {
+
+      }else{
+
+        stunned = other.stuneffect;
+        currentshieldhp = 0;
       }
     }
 
@@ -729,7 +746,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void destroy()
   {
 
-    //spaceshipimage.removeFromParent();
+    spaceshipimage.removeFromParent();
 
     spaceshipimage.destroy();
     shipBar.destroy();

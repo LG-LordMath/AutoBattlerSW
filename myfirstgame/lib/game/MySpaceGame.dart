@@ -29,7 +29,7 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
   late LoadingScreen _loadingScreen;
   late GameAutoBattle gameAutoBattle;
-  late MainMenue _mainMenue;
+  late MainMenue mainMenue;
   late LosingScreen _losingScreen = LosingScreen();
   late WinningScreen _winningScreen = WinningScreen();
   late BulletLaserLoader bulletLaserLoader = BulletLaserLoader();
@@ -62,8 +62,8 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
   {
     await super.onLoad();
-    final screenwidth = size[0];
-    final screenheight = size[1];
+ //   final screenwidth = size[0];
+//    final screenheight = size[1];
     _loadingScreen = LoadingScreen();
     add(_loadingScreen);
 
@@ -76,8 +76,8 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     if(!_losingScreen.isRemoved && _losingScreen != null){
       _losingScreen.removeFromParent();
     }
-    _mainMenue = MainMenue();
-    add(_mainMenue);
+    mainMenue = MainMenue();
+    add(mainMenue);
 
   }
 
@@ -90,8 +90,8 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     Player player = Player("Gast", 8, image);
     player.currentcredits = 500;
     enemyplayer.currentcredits = 12;
-    _mainMenue.removeAll(_mainMenue.children);
-    _mainMenue.destroy();
+    mainMenue.removeAll(mainMenue.children);
+    mainMenue.destroy();
     gameAutoBattle = GameAutoBattle(player, enemyplayer);
     add(gameAutoBattle);
   }
@@ -140,11 +140,6 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
     return PlayerAi(8, image, this);
   }
 
-  MainMenue get mainMenue => _mainMenue;
-
-  set mainMenue(MainMenue value) {
-    _mainMenue = value;
-  }
 
   LoadingScreen get loadingScreen => _loadingScreen;
 
