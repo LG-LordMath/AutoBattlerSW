@@ -21,6 +21,7 @@ import 'package:myfirstgame/engine/ships/basic/AnimationShield.dart';
 import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/basic/HealthbarShip.dart';
 import 'package:myfirstgame/engine/ships/basic/ImageShip.dart';
+import 'package:myfirstgame/engine/szene/menue/enums/EnumGameState.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameSellUI.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
@@ -445,7 +446,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
         gameRef.gameAutoBattle.player1.team.remove(this);
         gameRef.gameAutoBattle.map.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
         gameRef.gameAutoBattle.bottomBar.tempships.remove(this);
-        bottombarposition = 0;
+
       }else {
         gameRef.gameAutoBattle.ennemymap.maincells[mainfieldis].releaseCellsAndMap(cellfields , this);
       }
@@ -495,6 +496,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
           gameRef.gameAutoBattle.bottomBar.fieldFiveismanned = false;
           break;
       }
+      bottombarposition = 0;
     }
   }
 
@@ -529,9 +531,10 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onLongTapDown(TapDownEvent event)
   {
-   print("long tapdown");
-   gameRef.gameAutoBattle.sellShip(this);
-
+   if(gameRef.gameAutoBattle.gameState != EnumGameState.FIGHTPHASE)
+   {
+     gameRef.gameAutoBattle.sellShip(this);
+   }
   }
 
 

@@ -10,6 +10,7 @@ enum EnumEffects {
   shootIonenCanon,
   heal,
   masterheal,
+  spawnfighter,
 
 }
 

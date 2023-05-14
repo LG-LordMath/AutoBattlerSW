@@ -649,13 +649,12 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     gameSellUI = GameSellUI(basicShip);
     if(gameSellUI.isMounted)
     {
-      print("is there");
       gameSellUI.destroy();
       gameSellUI = GameSellUI(basicShip);
       add(gameSellUI);
-    }else{
-      print("will be there");
-
+    }
+    else
+    {
       add(gameSellUI);
     }
   }

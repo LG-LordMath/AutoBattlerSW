@@ -115,6 +115,12 @@ class EffectShip extends BasicShip
         }
         gameRef.bulletRocketLoader.reloadObject(EnumRocketList.RocketThree);
         break;
+      case EnumEffects.spawnfighter:
+
+
+
+        break;
+
     }
   }
 
