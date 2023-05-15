@@ -2,11 +2,13 @@
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EffectShip.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/EnumEffects.dart';
 
 import '../../bullets/lasertypes/EnumLaserList.dart';
 import '../../nations/EnumNation.dart';
 import '../basic/EnumShipClass.dart';
-class Venator extends BasicShip
+class Venator extends EffectShip
 
 {
 
@@ -24,6 +26,7 @@ class Venator extends BasicShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserBlue;
+    super.setEffect(EnumEffects.spawnfighter, 1500);
 
   }
 
