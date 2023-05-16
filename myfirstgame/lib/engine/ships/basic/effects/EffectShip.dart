@@ -12,10 +12,13 @@ import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/basic/LoaderShips.dart';
 import 'package:myfirstgame/engine/ships/basic/effects/EnumEffects.dart';
+import 'package:myfirstgame/engine/ships/galacticempireships/EnumGalaticEmpireShips.dart';
+import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
 
 import '../../../bullets/IBasicBullet.dart';
 import '../../../bullets/rockets/BulletRocketLoader.dart';
+import '../../republicships/RepublicShipsLoader.dart';
 
 class EffectShip extends BasicShip
 
@@ -157,12 +160,9 @@ class EffectShip extends BasicShip
               break;
             case 2:
               spawnChildShip();
-              //  spawnChildShip();
               break;
             case 3:
               spawnChildShip();
-              //  spawnChildShip();
-              //  spawnChildShip();
               break;
           }
         }
@@ -173,57 +173,137 @@ class EffectShip extends BasicShip
 
   void spawnChildShip()
   {
-    BasicShip ship;
+
     if(super.nation == EnumNation.Republic)
     {
-      Random random = new Random();
-      int randomNumber = random.nextInt(3);
-      switch(randomNumber)
+      RepublicShipsLoader rep = RepublicShipsLoader();
+      switch(super.level)
       {
-        case 0:
-          ship  = LoaderShips.getRepublicShip(EnumRepublicShips.ARC170)!;
-          add(ship);
-          ship.currentteam = super.currentteam;
-          ship.position = Vector2(0, 0);
-          ship.fighting(true);
-         // childships.add(ship);
-          if(currentteam == 1){
-            gameRef.gameAutoBattle.player1.team.add(ship);
-          }else{
-            gameRef.gameAutoBattle.player2.team.add(ship);
-          }
-
-          break;
         case 1:
-           ship  = LoaderShips.getRepublicShip(EnumRepublicShips.YWing)!;
-          add(ship);
-          ship.currentteam = super.currentteam;
-          ship.position = Vector2(0, 0);
+          BasicShip ship;
+          ship =  RepublicShipsLoader.republicships[EnumRepublicShips.ARC170]!;
+          rep.reloadObject(EnumRepublicShips.ARC170);
+          gameRef.add(ship);
           ship.fighting(true);
-        //  childships.add(ship);
-          if(currentteam == 1){
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1){
+
             gameRef.gameAutoBattle.player1.team.add(ship);
           }else{
             gameRef.gameAutoBattle.player2.team.add(ship);
           }
-
           break;
         case 2:
-           ship  = LoaderShips.getRepublicShip(EnumRepublicShips.ETA2Actis)!;
-          add(ship);
-          ship.currentteam = super.currentteam;
-          ship.position = Vector2(0, 0);
+          BasicShip ship;
+          ship =  RepublicShipsLoader.republicships[EnumRepublicShips.ARC170]!;
+          rep.reloadObject(EnumRepublicShips.ARC170);
+          gameRef.add(ship);
           ship.fighting(true);
-        //  childships.add(ship);
-          if(currentteam == 1){
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1){
+
             gameRef.gameAutoBattle.player1.team.add(ship);
           }else{
             gameRef.gameAutoBattle.player2.team.add(ship);
           }
+          BasicShip shiptwo;
+          shiptwo =  RepublicShipsLoader.republicships[EnumRepublicShips.ARC170]!;
+          rep.reloadObject(EnumRepublicShips.ARC170);
+          gameRef.add(ship);
+          shiptwo.fighting(true);
+          shiptwo.rotateImage();
+          shiptwo.currentteam = super.currentteam;
+          shiptwo.setPosition(Vector2(super.position.x + 25, super.position.y));
+          childships.add(shiptwo);
+          if(shiptwo.currentteam == 1){
 
+            gameRef.gameAutoBattle.player1.team.add(shiptwo);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(shiptwo);
+          }
+          break;
+        case 3:
+          BasicShip ship;
+          ship =  RepublicShipsLoader.republicships[EnumRepublicShips.ARC170]!;
+          rep.reloadObject(EnumRepublicShips.ARC170);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+          BasicShip shiptwo;
+          shiptwo =  RepublicShipsLoader.republicships[EnumRepublicShips.YWing]!;
+          rep.reloadObject(EnumRepublicShips.YWing);
+          gameRef.add(shiptwo);
+          shiptwo.fighting(true);
+          shiptwo.rotateImage();
+          shiptwo.currentteam = super.currentteam;
+          shiptwo.setPosition(Vector2(super.position.x + 25, super.position.y));
+          childships.add(shiptwo);
+          if(shiptwo.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(shiptwo);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(shiptwo);
+          }
+          BasicShip shipthree;
+          shipthree =  RepublicShipsLoader.republicships[EnumRepublicShips.Z95]!;
+          rep.reloadObject(EnumRepublicShips.Z95);
+          gameRef.add(shipthree);
+          shipthree.fighting(true);
+          shipthree.rotateImage();
+          shipthree.currentteam = super.currentteam;
+          shipthree.setPosition(Vector2(super.position.x - 25, super.position.y));
+          childships.add(shipthree);
+          if(shipthree.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(shipthree);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(shipthree);
+          }
           break;
       }
 
+    }else if(super.nation == EnumNation.Imperium)
+    {
+      GalaticEmpireShipsLoader geloader = GalaticEmpireShipsLoader();
+      switch(super.level)
+      {
+        case 1:
+          BasicShip ship;
+          ship =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.Tie]!;
+          geloader.reloadObject(EnumGalaticEmpireShips.Tie);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+      }
     }
 
   }

@@ -569,7 +569,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         }
       }
     }
-
+/*
     for (BasicShip ship in bottomBar.tempships) {
       // Iteriere erneut über jedes Schiff im "team" Array, außer dem aktuell ausgewählten Schiff
       for (BasicShip otherShip in bottomBar.tempships.where((s) => s != ship)) {
@@ -585,6 +585,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         }
       }
     }
+
+ */
 
    // print(sameship);
 

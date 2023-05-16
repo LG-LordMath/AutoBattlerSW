@@ -34,10 +34,10 @@ class GameUIOption extends SpriteComponent with HasGameRef<MySpaceGame>
 
     spinner.position = Vector2(10, 140);
     spinnertwo.position = Vector2(10, 250);
-    add(textFielspinnerone);
-    add(textFielspinnertwo);
-    add(spinner);
-    add(spinnertwo);
+//    add(textFielspinnerone);
+ //   add(textFielspinnertwo);
+//    add(spinner);
+//    add(spinnertwo);
     add(textFieldaccount);
     add(textFieldid);
     add(textFieldversion);
@@ -48,16 +48,16 @@ class GameUIOption extends SpriteComponent with HasGameRef<MySpaceGame>
   destroy()
   {
 
-    Option.musicvolume = (spinner.spinnercounter).toInt();
-    Option.soundvolume = (spinnertwo.spinnercounter).toInt();
-    spinner.destroy();
-     textFielspinnerone.destroy();
-     textFielspinnertwo.destroy();
+   // Option.musicvolume = (spinner.spinnercounter).toInt();
+    //Option.soundvolume = (spinnertwo.spinnercounter).toInt();
+  //  spinner.destroy();
+  //   textFielspinnerone.destroy();
+   //  textFielspinnertwo.destroy();
      textFieldid.destroy();
      textFieldaccount.destroy();
      textFieldversion.destroy();
     textFieldcreator.destroy();
-     spinnertwo.destroy();
+  //   spinnertwo.destroy();
      removeFromParent();
   }
 
