@@ -15,6 +15,58 @@ class LoaderShips
 
 {
 
+  static BasicShip? getRepublicShip(EnumRepublicShips ship)
+  {
+    BasicShip tempship;
+    for (int i = 0; i < RepublicShipsLoader.republicships .length; i++)
+    {
+        RepublicShipsLoader rep = RepublicShipsLoader();
+        rep.reloadObject(EnumRepublicShips.values.elementAt(i));
+        tempship =RepublicShipsLoader.republicships[ship]!;
+        tempship.currentteam = 1;
+        tempship.level = 1;
+        tempship.rotateImage();
+        tempship.mainfieldis = 0;
+        rep.reloadObject(EnumRepublicShips.values.elementAt(i));
+        return tempship;
+
+    }
+  }
+  static BasicShip? getGalaticEmpireShip(EnumRepublicShips ship)
+  {
+    BasicShip tempship;
+    for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++)
+    {
+        GalaticEmpireShipsLoader rep = GalaticEmpireShipsLoader();
+        rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+        tempship =GalaticEmpireShipsLoader.empireships[ship]!;
+        tempship.currentteam = 1;
+        tempship.level = 1;
+        tempship.rotateImage();
+        tempship.mainfieldis = 0;
+        rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+        return tempship;
+
+    }
+  }
+  static BasicShip? getSeperatistShip(EnumRepublicShips ship)
+  {
+    BasicShip tempship;
+    for (int i = 0; i < SeperatistCISShipLoader.cisships.length; i++)
+    {
+        SeperatistCISShipLoader rep = SeperatistCISShipLoader();
+        rep.reloadObject(EnumCISShips.values.elementAt(i));
+        tempship =SeperatistCISShipLoader.cisships[ship]!;
+        tempship.currentteam = 1;
+        tempship.level = 1;
+        tempship.rotateImage();
+        tempship.mainfieldis = 0;
+        rep.reloadObject(EnumCISShips.values.elementAt(i));
+        return tempship;
+
+    }
+  }
+
 
   static BasicShip? getNewShip(BasicShip ship)
 

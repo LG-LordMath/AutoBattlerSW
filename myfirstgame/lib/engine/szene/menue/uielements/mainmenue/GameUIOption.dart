@@ -20,8 +20,8 @@ class GameUIOption extends SpriteComponent with HasGameRef<MySpaceGame>
 
    MyTextField textFielspinnerone= MyTextField(10, 200, "Music: ", Colors.white);
    MyTextField textFielspinnertwo = MyTextField(10, 260, "Sound: ", Colors.white);
-   Spinner spinner = Spinner(Option.musicvolume * 100, Vector2(100, 190));
-   Spinner spinnertwo = Spinner(Option.soundvolume * 100, Vector2(100, 250));
+   Spinner spinner = Spinner(Option.musicvolume, Vector2(100, 190));
+   Spinner spinnertwo = Spinner(Option.soundvolume , Vector2(100, 250));
    MyTextField textFieldversion = MyTextField(10, 120,      "Version: 0.02 - 10", Colors.white);
    MyTextField textFieldcreator = MyTextField(10, 360,      "Creator(dis): LordMath#4323", Colors.white);
    @override
@@ -48,8 +48,8 @@ class GameUIOption extends SpriteComponent with HasGameRef<MySpaceGame>
   destroy()
   {
 
-    Option.musicvolume = spinner.spinnercounter ~/100;
-    Option.soundvolume = spinnertwo.spinnercounter ~/100;
+    Option.musicvolume = (spinner.spinnercounter).toInt();
+    Option.soundvolume = (spinnertwo.spinnercounter).toInt();
     spinner.destroy();
      textFielspinnerone.destroy();
      textFielspinnertwo.destroy();

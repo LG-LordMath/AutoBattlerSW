@@ -12,6 +12,7 @@ import 'package:myfirstgame/engine/nations/EnumNation.dart';
 import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/basic/LoaderShips.dart';
 import 'package:myfirstgame/engine/ships/basic/effects/EnumEffects.dart';
+import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
 
 import '../../../bullets/IBasicBullet.dart';
 import '../../../bullets/rockets/BulletRocketLoader.dart';
@@ -60,7 +61,6 @@ class EffectShip extends BasicShip
       }
       _effecktimer--;
     }
-
 
   }
 
@@ -147,36 +147,24 @@ class EffectShip extends BasicShip
         gameRef.bulletRocketLoader.reloadObject(EnumRocketList.RocketThree);
         break;
       case EnumEffects.spawnfighter:
-        switch(super.level)
+        if(childships.isEmpty)
         {
-          case 1:
-            if(childships.isEmpty)
-            {
+          switch(super.level)
+          {
+
+            case 1:
               spawnChildShip();
-            }
-            break;
-          case 2:
-            if(childships.isEmpty)
-            {
+              break;
+            case 2:
               spawnChildShip();
+              //  spawnChildShip();
+              break;
+            case 3:
               spawnChildShip();
-            }else if(childships.length < 2){
-              spawnChildShip();
-            }
-            break;
-          case 3:
-            if(childships.isEmpty)
-            {
-              spawnChildShip();
-              spawnChildShip();
-              spawnChildShip();
-            }else if(childships.length < 3){
-              spawnChildShip();
-              spawnChildShip();
-            }else if(childships.length < 2){
-              spawnChildShip();
-            }
-            break;
+              //  spawnChildShip();
+              //  spawnChildShip();
+              break;
+          }
         }
         break;
 
@@ -185,18 +173,53 @@ class EffectShip extends BasicShip
 
   void spawnChildShip()
   {
+    BasicShip ship;
     if(super.nation == EnumNation.Republic)
     {
       Random random = new Random();
       int randomNumber = random.nextInt(3);
-      switch(randomNumber){
+      switch(randomNumber)
+      {
         case 0:
-          BasicShip ship  = LoaderShips.getNewShip();
+          ship  = LoaderShips.getRepublicShip(EnumRepublicShips.ARC170)!;
+          add(ship);
+          ship.currentteam = super.currentteam;
+          ship.position = Vector2(0, 0);
+          ship.fighting(true);
+         // childships.add(ship);
+          if(currentteam == 1){
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+
           break;
         case 1:
+           ship  = LoaderShips.getRepublicShip(EnumRepublicShips.YWing)!;
+          add(ship);
+          ship.currentteam = super.currentteam;
+          ship.position = Vector2(0, 0);
+          ship.fighting(true);
+        //  childships.add(ship);
+          if(currentteam == 1){
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
 
           break;
         case 2:
+           ship  = LoaderShips.getRepublicShip(EnumRepublicShips.ETA2Actis)!;
+          add(ship);
+          ship.currentteam = super.currentteam;
+          ship.position = Vector2(0, 0);
+          ship.fighting(true);
+        //  childships.add(ship);
+          if(currentteam == 1){
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
 
           break;
       }
@@ -208,6 +231,16 @@ class EffectShip extends BasicShip
 
   void removeAllSpawnShips()
   {
+    if(childships.isNotEmpty)
+    {
+      childships.forEach((element)
+      {
+        childships.remove(element);
+        element.destroy();
+        element.removeFromParent();
+
+      });
+    }
 
   }
 

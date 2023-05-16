@@ -531,7 +531,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onLongTapDown(TapDownEvent event)
   {
-   if(gameRef.gameAutoBattle.gameState != EnumGameState.FIGHTPHASE)
+   if(gameRef.gameAutoBattle.gameState != EnumGameState.FIGHTPHASE && currentteam == 1)
    {
      gameRef.gameAutoBattle.sellShip(this);
    }

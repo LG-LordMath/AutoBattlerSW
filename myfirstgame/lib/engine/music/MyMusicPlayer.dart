@@ -46,6 +46,10 @@ class MyMusicPlayer
       FlameAudio.playLongAudio(music.musicfilepath, volume:  Option.musicvolume.toDouble());
 
   }
+  static void playBackgroundMusic()
+  {
+
+  }
 
 
   static void stopplaying()

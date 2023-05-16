@@ -221,7 +221,11 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         case EnumGameState.ENDGAME:
           print("Phase: EndGame");
           if (!_isactivestate) {
-            gameSellUI.destroy();
+            if(gameSellUI!= null)
+            {
+
+              gameSellUI.destroy();
+            }
             bottomBar.destroy();
             player1.team.forEach((element) {
               element.removeFromParent();
@@ -445,17 +449,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         }
       }
     });
-
-
-
-
-
-
-
-
-
-
-
   }
 
 
@@ -576,7 +569,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         }
       }
     }
-    /*
+
     for (BasicShip ship in bottomBar.tempships) {
       // Iteriere erneut über jedes Schiff im "team" Array, außer dem aktuell ausgewählten Schiff
       for (BasicShip otherShip in bottomBar.tempships.where((s) => s != ship)) {
@@ -593,7 +586,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       }
     }
 
-     */
    // print(sameship);
 
     // Gib die Liste der Schiffe mit der gleichen Klasse aus
