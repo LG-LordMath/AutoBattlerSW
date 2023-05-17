@@ -542,17 +542,8 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   @override
   void onDragCancel(DragCancelEvent event)
   {
-    position = Vector2(positionx, positiony);
-    if(positiony < gameRef.size[1] / 1.2)
-    {
-      gameRef.gameAutoBattle.map.addShip(this);
-
-    }else{
       scale = Vector2(1, 1);
       gameRef.gameAutoBattle.bottomBar.addShipToBar(this);
-
-
-    }
   }
   @override
   void onCollisionStart(

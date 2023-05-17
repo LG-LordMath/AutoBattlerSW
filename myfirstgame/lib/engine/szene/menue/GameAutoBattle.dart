@@ -220,10 +220,10 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           break;
         case EnumGameState.ENDGAME:
           print("Phase: EndGame");
-          if (!_isactivestate) {
-            if(gameSellUI!= null)
+          if (!_isactivestate)
+          {
+            if(gameSellUI.isLoaded)
             {
-
               gameSellUI.destroy();
             }
             bottomBar.destroy();

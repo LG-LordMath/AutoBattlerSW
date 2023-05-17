@@ -189,8 +189,8 @@ class EffectShip extends BasicShip
           ship.currentteam = super.currentteam;
           ship.setPosition(super.position);
           childships.add(ship);
-          if(ship.currentteam == 1){
-
+          if(ship.currentteam == 1)
+          {
             gameRef.gameAutoBattle.player1.team.add(ship);
           }else{
             gameRef.gameAutoBattle.player2.team.add(ship);
@@ -213,9 +213,9 @@ class EffectShip extends BasicShip
             gameRef.gameAutoBattle.player2.team.add(ship);
           }
           BasicShip shiptwo;
-          shiptwo =  RepublicShipsLoader.republicships[EnumRepublicShips.ARC170]!;
-          rep.reloadObject(EnumRepublicShips.ARC170);
-          gameRef.add(ship);
+          shiptwo =  RepublicShipsLoader.republicships[EnumRepublicShips.YWing]!;
+          rep.reloadObject(EnumRepublicShips.YWing);
+          gameRef.add(shiptwo);
           shiptwo.fighting(true);
           shiptwo.rotateImage();
           shiptwo.currentteam = super.currentteam;
@@ -300,8 +300,38 @@ class EffectShip extends BasicShip
           }
           break;
         case 2:
+          BasicShip ship;
+          ship =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.Tie]!;
+          geloader.reloadObject(EnumGalaticEmpireShips.Tie);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
           break;
         case 3:
+          BasicShip ship;
+          ship =  GalaticEmpireShipsLoader.empireships[EnumGalaticEmpireShips.Tie]!;
+          geloader.reloadObject(EnumGalaticEmpireShips.Tie);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
           break;
       }
     }

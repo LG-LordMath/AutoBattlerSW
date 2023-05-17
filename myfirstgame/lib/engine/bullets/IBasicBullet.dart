@@ -28,6 +28,7 @@ abstract class IBasicBullet
   late int _lifetime;
   late int _damage;
   late int _team;
+  late Vector2 enemyposition;
 
 
   bool _isplayingmusic = false;
@@ -63,13 +64,14 @@ abstract class IBasicBullet
 
 
 
-  void shoot(Vector2 currentship, Vector2 enemyposition, int team)
+  void shoot(Vector2 currentship, Vector2 penemyposition, int team)
   {
     _team = team;
     position = currentship;
-    final effect = MoveEffect.to( enemyposition, EffectController(duration: _movementspeed.toDouble()));
+    final effect = MoveEffect.to( penemyposition, EffectController(duration: _movementspeed.toDouble()));
     add(effect);
     effect.removeOnFinish;
+    enemyposition = penemyposition;
     if(effect.isRemoved){
       removeFromParent();
     }
@@ -80,8 +82,16 @@ abstract class IBasicBullet
   @override
   void update(double dt) {
     super.update(dt);
-    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE) {
-      _lifetime--;
+    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE)
+    {
+     // print("enemy: "+ enemyposition.x.toInt().toString()+ ", "+ enemyposition.y.toInt().toString() +
+     //     ", own: " + absolutePosition.x.toInt().toString()+", " + absolutePosition.y.toInt().toString());
+
+    if(enemyposition.x.toInt() == absolutePosition.x.toInt()
+        && enemyposition.y.toInt() == absolutePosition.y.toInt()){
+      removeFromParent();
+    }
+    _lifetime--;
       if (_lifetime <= 0) {
         removeFromParent();
       }

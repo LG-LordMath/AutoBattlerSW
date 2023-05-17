@@ -27,6 +27,7 @@ class IoncanonBullet
   bool _isplayingmusic = false;
   late SpriteAnimationComponent animationsprite;
   late int stuneffect;
+  late Vector2 enemyposition;
 
   IoncanonBullet(this._imagesize,this._movementspeed, this._lifetime, this.animationsprite, this.stuneffect);
 
@@ -54,11 +55,11 @@ class IoncanonBullet
 
   }
 
-  void shoot(Vector2 currentship, Vector2 enemyposition, int team)
+  void shoot(Vector2 currentship, Vector2 penemyposition, int team)
   {
     _team = team;
     position = currentship;
-
+    enemyposition = penemyposition;
     final effect = MoveEffect.to( enemyposition, EffectController(duration: _movementspeed.toDouble()));
     add(effect);
     effect.removeOnFinish;
@@ -68,9 +69,15 @@ class IoncanonBullet
   }
 
   @override
-  void update(double dt) {
+  void update(double dt)
+  {
     super.update(dt);
-    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE) {
+    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE)
+    {
+      if(enemyposition.x.toInt() == absolutePosition.x.toInt()
+          && enemyposition.y.toInt() == absolutePosition.y.toInt()){
+        removeFromParent();
+      }
       _lifetime--;
       if (_lifetime <= 0) {
         removeFromParent();
