@@ -7,6 +7,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
+import 'package:myfirstgame/engine/ships/basic/effects/AnimationRocketExplosion.dart';
 
 import '../../game/MySpaceGame.dart';
 import '../loader/EnumImages.dart';
@@ -82,22 +83,22 @@ abstract class IBasicBullet
   @override
   void update(double dt) {
     super.update(dt);
-    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE)
-    {
-     // print("enemy: "+ enemyposition.x.toInt().toString()+ ", "+ enemyposition.y.toInt().toString() +
-     //     ", own: " + absolutePosition.x.toInt().toString()+", " + absolutePosition.y.toInt().toString());
+    if (gameRef.gameAutoBattle.gameState == EnumGameState.FIGHTPHASE) {
+      // print("enemy: "+ enemyposition.x.toInt().toString()+ ", "+ enemyposition.y.toInt().toString() +
+      //     ", own: " + absolutePosition.x.toInt().toString()+", " + absolutePosition.y.toInt().toString());
 
-    if(enemyposition.x.toInt() == absolutePosition.x.toInt()
-        && enemyposition.y.toInt() == absolutePosition.y.toInt()){
-      removeFromParent();
-    }
-    _lifetime--;
+      if (enemyposition.x.toInt() == absolutePosition.x.toInt()
+          && enemyposition.y.toInt() == absolutePosition.y.toInt()) {
+        removeFromParent();
+      }
+      _lifetime--;
       if (_lifetime <= 0) {
         removeFromParent();
       }
     } else {
       removeFromParent();
     }
+  }
     @override
     void onCollisionStart(Set<Vector2> intersectionPoints,
         PositionComponent other,) {
@@ -111,7 +112,7 @@ abstract class IBasicBullet
         }
       }
     }
-  }
+
 
   int get team => _team;
 

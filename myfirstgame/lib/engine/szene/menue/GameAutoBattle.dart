@@ -222,9 +222,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           print("Phase: EndGame");
           if (!_isactivestate)
           {
-            if(gameSellUI.isLoaded)
+            if(gameSellUI!.isLoaded)
             {
-              gameSellUI.destroy();
+              gameSellUI!.destroy();
             }
             bottomBar.destroy();
             player1.team.forEach((element) {

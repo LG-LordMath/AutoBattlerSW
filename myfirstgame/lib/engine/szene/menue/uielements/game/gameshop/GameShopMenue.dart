@@ -21,9 +21,9 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 
 
 
- late ShopButton btnOne;
- late ShopButton btnTwo;
- late ShopButton btnThree;
+  ShopButton? btnOne;
+  ShopButton? btnTwo;
+  ShopButton? btnThree;
 
  late Button rerollButton;
 
@@ -34,6 +34,7 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
  @override
  Future<void> onLoad() async
  {
+
   parent = gameRef;
   sprite = ImageLoader.sprites[EnumImages.UICardTwo];
   position = Vector2(0, gameRef.size[1] / 3 );
@@ -47,25 +48,25 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 
   if(gameRef.gameAutoBattle.tempshipshopbuyed[0]){
    btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing,0));
-   add(btnOne);
+   add(btnOne!);
    if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
-    btnOne.setShip(gameRef.gameAutoBattle.tempshipsshop[0]);
+    btnOne!.setShip(gameRef.gameAutoBattle.tempshipsshop[0]);
    }
   }
   if(gameRef.gameAutoBattle.tempshipshopbuyed[1]){
    btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing,1));
-   add(btnTwo);
+   add(btnTwo!);
    if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
-    btnTwo.setShip(gameRef.gameAutoBattle.tempshipsshop[1]);
+    btnTwo!.setShip(gameRef.gameAutoBattle.tempshipsshop[1]);
    }
   }
 
   if(gameRef.gameAutoBattle.tempshipshopbuyed[2]){
    btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
 
-   add(btnThree);
+   add(btnThree!);
    if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty){
-    btnThree.setShip(gameRef.gameAutoBattle.tempshipsshop[2]);
+    btnThree!.setShip(gameRef.gameAutoBattle.tempshipsshop[2]);
    }
   }
  }
@@ -75,9 +76,19 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 
 void reroll()
 {
+
  int tempcredits = gameRef.gameAutoBattle.player1.currentcredits - 1;
+
+ /*
+ btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 0));
+ btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 1));
+ btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
+  */
+
+
  if(tempcredits >= 0)
  {
+  /*
   if(btnOne!=null){
    if(!btnOne.isRemoved)
    {
@@ -93,24 +104,26 @@ void reroll()
    if (!btnThree.isRemoved) {
     btnThree.destroy();
    }
- }
+  }
+
+  add(btnOne);
+  add(btnTwo);
+  add(btnThree);
+
+   */
 
 
   gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
   gameRef.gameAutoBattle.tempshipshopbuyed[1] = true;
   gameRef.gameAutoBattle.tempshipshopbuyed[2] = true;
- btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 0));
- btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 1));
- btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
+  gameRef.gameAutoBattle.tempshipsshop[0] = gameRef.gameAutoBattle.shopLogic.getRandomShip(1);
+  gameRef.gameAutoBattle.tempshipsshop[1] = gameRef.gameAutoBattle.shopLogic.getRandomShip(1);
+  gameRef.gameAutoBattle.tempshipsshop[2] = gameRef.gameAutoBattle.shopLogic.getRandomShip(1);
 
-
-  add(btnOne);
-  add(btnTwo);
-  add(btnThree);
-  gameRef.gameAutoBattle.tempshipsshop[0] = btnOne.tempbasicShip;
-  gameRef.gameAutoBattle.tempshipsshop[1] = btnTwo.tempbasicShip;
-  gameRef.gameAutoBattle.tempshipsshop[2] = btnThree.tempbasicShip;
   gameRef.gameAutoBattle.player1.currentcredits--;
+
+  gameRef.gameAutoBattle.openOrcloseShop();
+  gameRef.gameAutoBattle.openOrcloseShop();
  }
 
 }
@@ -124,30 +137,40 @@ void reroll()
 
    }
 
+
    if(gameRef.gameAutoBattle.tempshipshopbuyed[0] == true){
-    if(!btnOne.isRemoved)
-    {
-     btnOne.destroy();
+    if(btnOne != null){
+     if(!btnOne!.isRemoved)
+     {
+      btnOne!.destroy();
+     }
     }
+
    }
    if(gameRef.gameAutoBattle.tempshipshopbuyed[1] == true) {
-    if (!btnTwo.isRemoved) {
-     btnTwo.destroy();
+    if(btnTwo != null){
+     if (!btnTwo!.isRemoved) {
+      btnTwo!.destroy();
+     }
     }
+
    }
    if(gameRef.gameAutoBattle.tempshipshopbuyed[2] == true) {
-    if (!btnThree.isRemoved) {
-     btnThree.destroy();
+    if(btnThree != null){
+     if (!btnThree!.isRemoved)
+     {
+      btnThree!.destroy();
+     }
     }
+
    }
    if(!isRemoved){
     removeFromParent();
    }
 
   }
-
-
-  void donothing(){
+  void donothing()
+  {
 
   }
 

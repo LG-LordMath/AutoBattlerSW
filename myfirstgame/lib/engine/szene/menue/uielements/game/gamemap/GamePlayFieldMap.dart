@@ -107,7 +107,7 @@ class GamePlayFieldMap extends SpriteComponent with HasGameRef<MySpaceGame>
       }
 
       }else{
-      scale = Vector2(1, 1);
+      ship.scale = Vector2(1, 1);
       gameRef.gameAutoBattle.bottomBar.addShipToBar(ship);
     }
 
