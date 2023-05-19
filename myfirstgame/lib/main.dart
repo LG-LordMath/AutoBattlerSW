@@ -9,7 +9,7 @@ import 'game/MySpaceGame.dart';
 
 void main() {
 
-  print("start game");
+  print("start");
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
   Flame.device.setOrientation(DeviceOrientation.portraitUp);
