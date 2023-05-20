@@ -28,18 +28,6 @@ Das Projekt darf durch Erlaubnis getestet und gespielt werden  (Anmeldung: Disco
 # Allows the program to redistribute:
 ## Distribution without prior agreement with the development team is not permitted. The source code is only intended for the development team.
 
-
-
-# Version  Log
-*************************************************************************************************************************************************
-# V0.01-6 Update: 24.03.2023
-# V0.02-7 Update: 01.04.2023
-   
- *************************************************************************************************************************************************
- 
- 
-
-
 # Set Up
 *************************************************************************************************************************************************
 ## SetUp Flutter Windows
