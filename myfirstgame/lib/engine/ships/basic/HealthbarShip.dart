@@ -20,7 +20,6 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
 
   double _hpFromShip = 0;
   double _shielfFromShip = 0;
-  EnumNation  nation;
 
   late double _healtbarlength = 0;
   late double _shieldbarlength = 0;
@@ -30,32 +29,18 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
   late RectangleComponent rec;
 
 
-  Healthbar(this._hpFromShip, this._shielfFromShip, this.nation);
+  Healthbar(this._hpFromShip, this._shielfFromShip);
 
 
   @override
   Future<void> onLoad() async
   {
-
-
-
-
-    final paintbar = Paint()
-      ..color = _barColor
-      ..style = PaintingStyle.fill;
     final healthbar = Paint()
       ..color = _barhealtColor
       ..style = PaintingStyle.fill;
     final shieldbar = Paint()
       ..color = _barShieldColor
       ..style = PaintingStyle.fill;
-
-   /* rec = RectangleComponent()
-      ..position = Vector2(-15, 0)
-      ..size = Vector2(10, 30)
-      ..paint = paintbar;
-
-    */
     rechealth = RectangleComponent()
       ..position = Vector2(-10, 0)
       ..size = Vector2(5, 30)
@@ -69,12 +54,8 @@ class Healthbar extends Component with HasGameRef<MySpaceGame>
   }
 
   void init(){
-    if(
-  //  rec.isMounted &&
-        recshield.isMounted && rechealth.isMounted){
-
+    if(recshield.isMounted && rechealth.isMounted){
     }else {
-     // add(rec);
       add(recshield);
       add(rechealth);
     }

@@ -8,11 +8,11 @@ import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
 import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+import 'package:myfirstgame/game/backend/commander/EnumGameCommanders.dart';
 import '../../nations/EnumNation.dart';
 import '../../nations/EnumNation.dart';
 import '../../ships/basic/LoaderShips.dart';
 import '../../szene/menue/uielements/game/gameshop/ShopLogic.dart';
-import '../EnumPlayerImages.dart';
 import '../Player.dart';
 
 class PlayerAi extends Player
@@ -31,7 +31,7 @@ class PlayerAi extends Player
 
 
 
-  PlayerAi(int php, EnumPlayerImages pimage, this.game) : super("BOT", php, pimage)
+  PlayerAi(int php, EnumGameCommanders commander, this.game) : super("BOT", php, commander)
   {
 
 

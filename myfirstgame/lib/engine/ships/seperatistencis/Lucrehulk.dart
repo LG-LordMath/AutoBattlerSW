@@ -28,7 +28,7 @@ class Lucrehulk extends EffectShip
   {
     super.onLoad();
     super.laser = EnumLaserList.LaserRed;
-    super.setEffect(EnumEffects.shootRocketOne, 200);
+    super.setEffect(EnumEffects.spawnfighter, 200);
   }
 
 

@@ -19,7 +19,7 @@ class ImperialClass extends EffectShip
 
 
   ImperialClass(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipEmpireImperialClass]!, positionx, positiony, imagesizex, imagesizey, 3000, 3000, currentteam, EnumNation.Imperium, 10, EnumShipClass.Mothership);
+      : super(ImageLoader.sprites[EnumImages.ShipEmpireImperialClass]!, positionx, positiony, imagesizex, imagesizey, 3000, 3000, currentteam, EnumNation.Imperium, 10, EnumShipClass.Titan);
 
 
   @override

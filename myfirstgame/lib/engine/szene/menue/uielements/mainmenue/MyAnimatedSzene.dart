@@ -10,7 +10,7 @@ import 'package:myfirstgame/engine/szene/background/Background.dart';
 import 'package:myfirstgame/engine/szene/background/EnumGlobalsBackgroundElements.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../background/AnimatedBackgroundElements.dart';
+import '../../../background/AnimatedBackgroundElements.dart';
 
 class MyAnimatedSzene extends SpriteComponent with HasGameRef<MySpaceGame>
 {

@@ -18,7 +18,7 @@ class Victory extends EffectShip
 
 
   Victory(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipEmpireVictory]!, positionx, positiony, imagesizex, imagesizey, 2500, 2500, currentteam, EnumNation.Imperium, 8, EnumShipClass.Mothership);
+      : super(ImageLoader.sprites[EnumImages.ShipEmpireVictory]!, positionx, positiony, imagesizex, imagesizey, 2500, 2500, currentteam, EnumNation.Imperium, 8, EnumShipClass.Titan);
 
 
   @override

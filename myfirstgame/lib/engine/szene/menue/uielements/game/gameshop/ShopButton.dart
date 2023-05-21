@@ -10,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/nations/EnumNation.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
+import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
+import 'package:myfirstgame/engine/basics/Button.dart';
+import 'package:myfirstgame/engine/basics/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../../../../ships/basic/BasicShip.dart';
@@ -27,6 +28,7 @@ class ShopButton extends Button
   late Sprite? imagebasicShip;
   late    SpriteComponent spriteComponenticon;
   late int number;
+  late SpriteComponent iconshipclass;
 
   ShopButton(Vector2 position, Vector2 sizeofImage, Function methode, this.number)
       :
@@ -68,13 +70,16 @@ class ShopButton extends Button
     uiText = MyUIText(ImageLoader.sprites[EnumImages.IconCredits]!, 40, 40, Vector2(super.positionofButton.x + super.size.x / 3.3,super.positionofButton.y + super.size.y / 1.2), "", Colors.black);
     add(uiText);
     getShip();
+
  }
 
  @override
   void destroy(){
    textField.destroy();
    uiText.destroy();
+   iconshipclass.removeFromParent();
    removeFromParent();
+
 
 
   }
@@ -128,9 +133,42 @@ class ShopButton extends Button
         spriteComponenticon = SpriteComponent(sprite: iconfraction, position:  Vector2(0, 0), size: Vector2(20, 20));
         add(spriteComponenticon);
         break;
-
-
     }
+
+  }
+
+  Future<void> setIconofShipclass(BasicShip ship)
+
+  async {
+   // iconshipclass?.removeFromParent();
+    Sprite tempiconsprite;
+    switch(ship.shipclass) {
+      case EnumShipClass.Fighter:
+        tempiconsprite = await Sprite.load(EnumShipClass.Fighter.Iconpath);
+
+        break;
+      case EnumShipClass.Figatte:
+        tempiconsprite = await Sprite.load(EnumShipClass.Figatte.Iconpath);
+
+        break;
+      case EnumShipClass.Battleship:
+        tempiconsprite = await Sprite.load(EnumShipClass.Battleship.Iconpath);
+
+        break;
+      case EnumShipClass.Mothership:
+        tempiconsprite = await Sprite.load(EnumShipClass.Mothership.Iconpath);
+
+        break;
+      case EnumShipClass.Titan:
+        tempiconsprite = await Sprite.load(EnumShipClass.Titan.Iconpath);
+
+        break;
+    }
+    iconshipclass = SpriteComponent(sprite: tempiconsprite,
+        position: Vector2(0, super.size.y),
+        size: Vector2(20, 20));
+    add(iconshipclass);
+
   }
 
 

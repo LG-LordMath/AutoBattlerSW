@@ -54,7 +54,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   late GamePlayFieldMap map = GamePlayFieldMap(30, gameRef.size[1]/ 2.1);
   late GamePlayFieldMap ennemymap = GamePlayFieldMap(30, 100);
   GameUpperBar upperBar = GameUpperBar();
-  late GameSellUI gameSellUI;
+  GameSellUI? gameSellUI;
 
 
   GameAutoBattle(this._player1, this._player2);
@@ -112,10 +112,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             ennemymap.setVisibale(true);
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  10);
-
-
-
-
             if(player2 is PlayerAi)
             {
 
@@ -132,8 +128,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
               gameRef.gameAutoBattle.tempshipshopbuyed[0] = true;
               gameRef.gameAutoBattle.tempshipshopbuyed[1] = true;
               gameRef.gameAutoBattle.tempshipshopbuyed[2] = true;
+
               tempshipsshop = List.from([shopLogic.getRandomShip(1),
-                shopLogic.getRandomShip(1),
+               shopLogic.getRandomShip(1),
                 shopLogic.getRandomShip(1)]);
               shopMenue=  GameShopMenue();
               add(shopMenue);
@@ -222,10 +219,13 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           print("Phase: EndGame");
           if (!_isactivestate)
           {
-            if(gameSellUI!.isLoaded)
-            {
-              gameSellUI!.destroy();
+            if(gameSellUI != null){
+              if(gameSellUI!.isLoaded)
+              {
+                gameSellUI!.destroy();
+              }
             }
+
             bottomBar.destroy();
             player1.team.forEach((element) {
               element.removeFromParent();
@@ -641,15 +641,15 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
   void sellShip(BasicShip basicShip)
   {
     gameSellUI = GameSellUI(basicShip);
-    if(gameSellUI.isMounted)
+    if(gameSellUI!.isMounted)
     {
-      gameSellUI.destroy();
+      gameSellUI?.destroy();
       gameSellUI = GameSellUI(basicShip);
-      add(gameSellUI);
+      add(gameSellUI!);
     }
     else
     {
-      add(gameSellUI);
+      add(gameSellUI!);
     }
   }
 }

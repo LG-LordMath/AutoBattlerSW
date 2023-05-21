@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
+import 'package:myfirstgame/engine/basics/Button.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 class Spinner extends SpriteComponent with HasGameRef<MySpaceGame>

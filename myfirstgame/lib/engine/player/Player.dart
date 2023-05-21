@@ -2,21 +2,20 @@
 
 
 
+import '../../game/backend/commander/EnumGameCommanders.dart';
 import '../ships/basic/BasicShip.dart';
-import 'EnumPlayerImages.dart';
 
 class Player
 {
 
   late String nickname;
   late int _hp;
-  late EnumPlayerImages _image;
   List<BasicShip> _team = List.from([], growable: true);
   late int _currentcredits = 0;
+  late EnumGameCommanders commander;
 
 
-
-    Player(this.nickname, this._hp, this._image);
+    Player(this.nickname, this._hp, this.commander);
 
   void lostround(){
     _hp--;
@@ -28,11 +27,7 @@ class Player
     _team = value;
   }
 
-  EnumPlayerImages get image => _image;
 
-  set image(EnumPlayerImages value) {
-    _image = value;
-  }
 
   int get hp => _hp;
 

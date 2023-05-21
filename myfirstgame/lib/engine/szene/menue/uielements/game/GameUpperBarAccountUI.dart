@@ -37,7 +37,7 @@ class GameUpperBarAccountUI extends SpriteComponent
     size = Vector2(sizeX, 80);
     position = Vector2(positionX, 10);
 
-    Sprite? sp = Sprite(await Flame.images.load(player.image.imagepath));
+    Sprite? sp = Sprite(await Flame.images.load(player.commander.IconSmallpath));
     SpriteComponent spriteComponent = SpriteComponent(sprite: sp, position: Vector2(10, 10), size: Vector2(sizeX / 3, 50) );
     add(spriteComponent);
 

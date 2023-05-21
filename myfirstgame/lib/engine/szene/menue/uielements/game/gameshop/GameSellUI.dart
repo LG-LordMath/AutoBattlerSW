@@ -6,7 +6,7 @@ import 'package:flame/components.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/ships/basic/BasicShip.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
+import 'package:myfirstgame/engine/basics/Button.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 class GameSellUI extends SpriteComponent with HasGameRef<MySpaceGame>

@@ -7,10 +7,10 @@ import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/GameTimer.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
+import 'package:myfirstgame/engine/basics/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import 'Button.dart';
+import '../../../../basics/Button.dart';
 
 class MyGameChoise extends PositionComponent with HasGameRef<MySpaceGame>
 
@@ -20,7 +20,7 @@ class MyGameChoise extends PositionComponent with HasGameRef<MySpaceGame>
   late Vector2 _size;
   late Vector2 _position;
   late Button btnGameBot;
-  late Button btnGameOnline;
+//  late Button btnGameOnline;
   late  MyUIText textmatch;
   late TimerComponent timer =  timer = TimerComponent(period: 3, repeat: false);
   bool _searchMatchBot = false;
@@ -43,13 +43,13 @@ MyGameChoise(this._position, this._size);
         "Player VS Bot");
 
     add(btnGameBot);
-    btnGameOnline = Button(sp,
-        gameRef.size[0] - 50, gameRef.size[1] / 9.5,
-        Vector2(30, 200), gamestartPlayer,
-        "PvP (nicht verfügbar)");
+    //btnGameOnline = Button(sp,
+     //   gameRef.size[0] - 50, gameRef.size[1] / 9.5,
+      //  Vector2(30, 200), gamestartPlayer,
+       // "PvP (nicht verfügbar)");
 
 
-    add(btnGameOnline);
+   //7 add(btnGameOnline);
 
 
 
@@ -67,10 +67,10 @@ MyGameChoise(this._position, this._size);
 
       btnGameBot.destroy();
     }
-    if(!btnGameOnline.isRemoved){
+   // if(!btnGameOnline.isRemoved){
 
-      btnGameOnline.destroy();
-    }
+   //   btnGameOnline.destroy();
+  //  }
     if(timer != null)
     {
       timer.removeFromParent();
@@ -101,18 +101,36 @@ MyGameChoise(this._position, this._size);
 
   void gamestartBot()
   {
-    _searchMatchBot = true;
-    timer = TimerComponent(period: 5, repeat: false);
+    if(gameRef.mainMenue.charSelection.chars.commanders.elementAt(gameRef.mainMenue.charSelection.currentposition).isEnable){
+      _searchMatchBot = true;
+      timer = TimerComponent(period: 5, repeat: false);
       add(timer);
+      gameRef.mainMenue.charSelection.disablearrows();
       if(!btnGameBot.isRemoved){
         btnGameBot.destroy();
       }
-      if(!btnGameOnline.isRemoved){
-        btnGameOnline.destroy();
-      }
       add(textmatch);
+    }else{
+
+      btnGameBot.textField.text = "Commander locked";
+      timer = TimerComponent(period: 1, repeat: false, onTick: Buttontext);
+      add(timer);
+      _searchMatchBot = false;
+      }
+
+    }
+
+    //  if(!btnGameOnline.isRemoved){
+  //      btnGameOnline.destroy();
+  //    }
+  void Buttontext()
+  {
+    btnGameBot.textField.text = "Player VS Bot";
 
   }
+
+
+
   void gamestartPlayer()
   {
 

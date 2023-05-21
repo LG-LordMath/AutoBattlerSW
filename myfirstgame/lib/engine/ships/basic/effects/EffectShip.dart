@@ -15,6 +15,8 @@ import 'package:myfirstgame/engine/ships/basic/effects/EnumEffects.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/EnumGalaticEmpireShips.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
+import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 
 import '../../../bullets/IBasicBullet.dart';
 import '../../../bullets/rockets/BulletRocketLoader.dart';
@@ -331,6 +333,108 @@ class EffectShip extends BasicShip
             gameRef.gameAutoBattle.player1.team.add(ship);
           }else{
             gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+          break;
+      }
+    }else if(super.nation == EnumNation.CIS)
+    {
+      SeperatistCISShipLoader geloader = SeperatistCISShipLoader();
+      switch(super.level)
+      {
+        case 1:
+          BasicShip ship;
+          ship =  SeperatistCISShipLoader.cisships[EnumCISShips.Valture]!;
+          geloader.reloadObject(EnumCISShips.Valture);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+          break;
+        case 2:
+          BasicShip ship;
+          ship =  SeperatistCISShipLoader.cisships[EnumCISShips.Valture]!;
+          geloader.reloadObject(EnumCISShips.Valture);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+          BasicShip tempship;
+          tempship =  SeperatistCISShipLoader.cisships[EnumCISShips.Hyaenen]!;
+          geloader.reloadObject(EnumCISShips.Valture);
+          gameRef.add(tempship);
+          tempship.fighting(true);
+          tempship.rotateImage();
+          tempship.currentteam = super.currentteam;
+          tempship.setPosition(super.position);
+          childships.add(tempship);
+          if(tempship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(tempship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(tempship);
+          }
+          break;
+        case 3:
+          BasicShip ship;
+          ship =  SeperatistCISShipLoader.cisships[EnumCISShips.Valture]!;
+          geloader.reloadObject(EnumCISShips.Valture);
+          gameRef.add(ship);
+          ship.fighting(true);
+          ship.rotateImage();
+          ship.currentteam = super.currentteam;
+          ship.setPosition(super.position);
+          childships.add(ship);
+          if(ship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(ship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(ship);
+          }
+          BasicShip tempship;
+          tempship =  SeperatistCISShipLoader.cisships[EnumCISShips.Hyaenen]!;
+          geloader.reloadObject(EnumCISShips.Valture);
+          gameRef.add(tempship);
+          tempship.fighting(true);
+          tempship.rotateImage();
+          tempship.currentteam = super.currentteam;
+          tempship.setPosition(super.position);
+          childships.add(tempship);
+          if(tempship.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(tempship);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(tempship);
+          }
+          BasicShip tempship2;
+          tempship2 =  SeperatistCISShipLoader.cisships[EnumCISShips.SRPDroid]!;
+          geloader.reloadObject(EnumCISShips.Valture);
+          gameRef.add(tempship2);
+          tempship2.fighting(true);
+          tempship2.rotateImage();
+          tempship2.currentteam = super.currentteam;
+          tempship2.setPosition(super.position);
+          childships.add(tempship2);
+          if(tempship2.currentteam == 1)
+          {
+            gameRef.gameAutoBattle.player1.team.add(tempship2);
+          }else{
+            gameRef.gameAutoBattle.player2.team.add(tempship2);
           }
           break;
       }

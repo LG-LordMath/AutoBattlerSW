@@ -17,14 +17,15 @@ import 'package:myfirstgame/engine/music/MyMusicPlayer.dart';
 import 'package:myfirstgame/engine/ships/galacticempireships/GalacticEmpireShipsLoader.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 import 'package:myfirstgame/engine/szene/background/Background.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
+import 'package:myfirstgame/engine/basics/Button.dart';
 import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
+import 'package:myfirstgame/engine/basics/MyUIText.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../../game/backend/Option.dart';
+import '../../client/TCPclient.dart';
 import '../../ships/republicships/RepublicShipsLoader.dart';
 
 class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
@@ -111,6 +112,10 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
       textFieldwithUITwo.destroy();
       btn.destroy();
       gameRef.loadingScreen.removeFromParent();
+
+
+     // TCPclient tcPclient =TCPclient('192.168.34.245', 40000);
+      //tcPclient.connectToServer();
       gameRef.startMainMenue();
 
 

@@ -20,7 +20,7 @@ class Subjugator extends EffectShip
 
 
   Subjugator(double positionx, double positiony, double imagesizex, double imagesizey, int  currentteam)
-      : super(ImageLoader.sprites[EnumImages.ShipCISSubjugator]!, positionx, positiony, imagesizex, imagesizey, 2600, 3000, currentteam, EnumNation.CIS, 10, EnumShipClass.Mothership);
+      : super(ImageLoader.sprites[EnumImages.ShipCISSubjugator]!, positionx, positiony, imagesizex, imagesizey, 2600, 3000, currentteam, EnumNation.CIS, 10, EnumShipClass.Titan);
 
 
   @override

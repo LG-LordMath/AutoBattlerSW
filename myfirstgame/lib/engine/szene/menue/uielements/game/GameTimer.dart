@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyUIText.dart';
+import 'package:myfirstgame/engine/basics/MyUIText.dart';
 
 class GameTimer extends TimerComponent
 

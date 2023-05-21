@@ -2,14 +2,9 @@
 
 
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/experimental.dart';
-import 'package:flame/flame.dart';
-import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/engine/bullets/EnumGoodAginst.dart';
 import 'package:myfirstgame/engine/bullets/IBasicBullet.dart';
@@ -21,9 +16,7 @@ import 'package:myfirstgame/engine/ships/basic/AnimationShield.dart';
 import 'package:myfirstgame/engine/ships/basic/EnumShipClass.dart';
 import 'package:myfirstgame/engine/ships/basic/HealthbarShip.dart';
 import 'package:myfirstgame/engine/ships/basic/ImageShip.dart';
-import 'package:myfirstgame/engine/ships/basic/effects/AnimationExplosionShip.dart';
 import 'package:myfirstgame/engine/szene/menue/enums/EnumGameState.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameSellUI.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../basics/MovementDirection.dart';
@@ -80,7 +73,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   late SpriteComponent imagenation;
   late LevelShipBar shipBar;
-
+  late SpriteComponent iconshipclass;
 
 
   //Shield
@@ -116,7 +109,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       ..paint = defaultPaint
       ..renderShape = false;
     add(hitbox);
-    healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble(), nation);
+    healbar = Healthbar(_maxhp.toDouble(), _maxshieldhp.toDouble());
     add(healbar);
     addnationIcon();
     shipBar =  LevelShipBar(level);
@@ -178,6 +171,9 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
             if(!imagenation.isRemoved){
               imagenation.removeFromParent();
             }
+            if(!iconshipclass.isRemoved){
+              iconshipclass.removeFromParent();
+            }
 
 
           }else
@@ -192,7 +188,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       }
       else {
         removeFromParent();
-      //  AnimationExplosionShip(absolutePosition);
+        //AnimationExplosionShip(absolutePosition);
         if (_currentteam == 1)
         {
           gameRef.gameAutoBattle.player1.team.remove(this);
@@ -209,24 +205,49 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
 
   }
 
-  void addnationIcon(){
+  Future<void> addnationIcon() async {
     switch(nation){
       case EnumNation.Republic:
-        imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-15, 30), sprite: ImageLoader.sprites[EnumImages.IconRepublic]);
+        imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-10, 30), sprite: ImageLoader.sprites[EnumImages.IconRepublic]);
         break;
       case EnumNation.Rebellen:
-        imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-15, 30), sprite: ImageLoader.sprites[EnumImages.IconRebellen]);
+        imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-10, 30), sprite: ImageLoader.sprites[EnumImages.IconRebellen]);
         break;
       case EnumNation.Imperium:
-        imagenation =  SpriteComponent(size: Vector2(10, 10), position: Vector2(-15, 30), sprite: ImageLoader.sprites[EnumImages.IconImperium]);
+        imagenation =  SpriteComponent(size: Vector2(10, 10), position: Vector2(-10, 30), sprite: ImageLoader.sprites[EnumImages.IconImperium]);
         break;
       case EnumNation.CIS:
-        imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-15, 30), sprite: ImageLoader.sprites[EnumImages.IconSeperatisten]);
+        imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-10, 30), sprite: ImageLoader.sprites[EnumImages.IconSeperatisten]);
         break;
       default:
         break;
     }
+    imagenation.scale = Vector2(1, 1);
     add(imagenation);
+    Sprite tempiconsprite;
+    switch(shipclass) {
+      case EnumShipClass.Fighter:
+        tempiconsprite = await Sprite.load(EnumShipClass.Fighter.Iconpath);
+        break;
+      case EnumShipClass.Figatte:
+        tempiconsprite = await Sprite.load(EnumShipClass.Figatte.Iconpath);
+        break;
+      case EnumShipClass.Battleship:
+        tempiconsprite = await Sprite.load(EnumShipClass.Battleship.Iconpath);
+        break;
+      case EnumShipClass.Mothership:
+        tempiconsprite = await Sprite.load(EnumShipClass.Mothership.Iconpath);
+        break;
+      case EnumShipClass.Titan:
+        tempiconsprite = await Sprite.load(EnumShipClass.Titan.Iconpath);
+        break;
+    }
+    iconshipclass = SpriteComponent(sprite: tempiconsprite,
+        position:  Vector2(-10, 10),
+        size: Vector2(10, 10));
+    iconshipclass.scale = Vector2(1, 1);
+    add(iconshipclass!);
+
   }
 
   void fighting(bool pfight)
@@ -422,6 +443,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void rotateImage()
   {
     spaceshipimage.rotateImage();
+
   }
 
 

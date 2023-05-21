@@ -8,7 +8,7 @@ import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 import '../../../../ships/basic/BasicShip.dart';
-import '../Button.dart';
+import '../../../../basics/Button.dart';
 
 class GameBottomBar extends SpriteComponent with HasGameRef<MySpaceGame>
 

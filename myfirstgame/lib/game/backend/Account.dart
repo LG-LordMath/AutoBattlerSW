@@ -8,9 +8,6 @@ class Account
   late String _id;
 
 
-
-
-
   String get nickname => _nickname;
 
   set nickname(String value) {

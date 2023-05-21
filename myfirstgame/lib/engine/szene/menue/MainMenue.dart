@@ -3,10 +3,11 @@
 
 
 import 'package:flame/components.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/Button.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyAnimatedSzene.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyHeaderMainMenue.dart';
-import 'package:myfirstgame/engine/szene/menue/uielements/MyMainMenueButtonSection.dart';
+import 'package:myfirstgame/engine/basics/Button.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/mainmenue/GameCharSelection.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/mainmenue/MyAnimatedSzene.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/mainmenue/MyHeaderMainMenue.dart';
+import 'package:myfirstgame/engine/szene/menue/uielements/mainmenue/MyMainMenueButtonSection.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
 class MainMenue extends PositionComponent with HasGameRef<MySpaceGame>
@@ -16,6 +17,7 @@ class MainMenue extends PositionComponent with HasGameRef<MySpaceGame>
   MyMainMenueButtonSection  myMainMenueButtonSection = MyMainMenueButtonSection(Vector2(0, 0));
    MyHeaderMainMenue   myHeaderMainMenue = MyHeaderMainMenue();
    MyAnimatedSzene   myAnimatedSzene = MyAnimatedSzene(0,0);
+   GameCharSelection charSelection = GameCharSelection();
 
   @override
   Future<void> onLoad() async
@@ -28,6 +30,7 @@ class MainMenue extends PositionComponent with HasGameRef<MySpaceGame>
     add(myHeaderMainMenue);
 
     add(myMainMenueButtonSection);
+    add(charSelection);
 
   }
   @override

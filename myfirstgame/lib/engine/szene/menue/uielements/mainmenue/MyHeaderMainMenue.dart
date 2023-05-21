@@ -13,14 +13,14 @@ import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/mainmenue/GameUIOption.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import 'Button.dart';
+import '../../../../basics/Button.dart';
 
 class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
 
 {
   late MyTextField textField;
   late Button btnsettings;
-  late Button btninstructions;
+ // late Button btninstructions;
   late GameUIOption gameOption  = GameUIOption();
 
   @override
@@ -38,10 +38,10 @@ class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
     add(btnsettings);
 
 
-    Sprite? imageinst = ImageLoader.sprites[EnumImages.IconBook];
-    btninstructions = Button(imageinst!,
-        40, 40, Vector2(gameRef.size[0] - 120, 5), instructions, "");
-    add(btninstructions);
+    //Sprite? imageinst = ImageLoader.sprites[EnumImages.IconBook];
+   // btninstructions = Button(imageinst!,
+   //     40, 40, Vector2(gameRef.size[0] - 120, 5), instructions, "");
+  //  add(btninstructions);
 
   }
 
@@ -79,7 +79,7 @@ class MyHeaderMainMenue extends SpriteComponent with HasGameRef<MySpaceGame>
 
  {
    btnsettings.destroy();
-   btninstructions.destroy();
+  // btninstructions.destroy();
    textField.destroy();
     this.removeFromParent();
  }

@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
 
-import '../../../basics/textfield/MyTextField.dart';
+import 'textfield/MyTextField.dart';
 
 class MyUIText extends SpriteComponent with HasGameRef<MySpaceGame>
 {
