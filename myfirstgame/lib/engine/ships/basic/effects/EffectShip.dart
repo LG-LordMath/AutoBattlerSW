@@ -18,6 +18,7 @@ import 'package:myfirstgame/engine/ships/republicships/EnumRepublicShips.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/EnumCISShips.dart';
 import 'package:myfirstgame/engine/ships/seperatistencis/SeperatistCISShipLoader.dart';
 
+import '../../../../game/backend/commander/EnumGameCommandersEffect.dart';
 import '../../../bullets/IBasicBullet.dart';
 import '../../../bullets/rockets/BulletRocketLoader.dart';
 import '../../republicships/RepublicShipsLoader.dart';
@@ -60,7 +61,25 @@ class EffectShip extends BasicShip
 
         }else{
           activateeffect();
-          _effecktimer = _maxeffecttimer;
+          if(super.currentteam == 1){
+            if(gameRef.gameAutoBattle.player1.commander.effect == EnumGameCommandersEffect.boostreloadtime)
+            {
+              _effecktimer = _maxeffecttimer - (_maxeffecttimer * 0.1).toInt();
+            }else{
+              _effecktimer = _maxeffecttimer;
+            }
+          }else{
+            if(gameRef.gameAutoBattle.player2.commander.effect == EnumGameCommandersEffect.boostreloadtime)
+            {
+              _effecktimer = _maxeffecttimer - (_maxeffecttimer * 0.1).toInt();
+            }else{
+              _effecktimer = _maxeffecttimer;
+            }
+          }
+
+
+
+
         }
 
       }

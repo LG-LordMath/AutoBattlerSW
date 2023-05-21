@@ -47,6 +47,8 @@ class MainMenue extends PositionComponent with HasGameRef<MySpaceGame>
     myMainMenueButtonSection.destroy();
     myHeaderMainMenue.destroy();
     myAnimatedSzene.destroy();
+    charSelection.destroy();
+
 
   }
 

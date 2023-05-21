@@ -18,6 +18,7 @@ import 'package:myfirstgame/engine/ships/basic/HealthbarShip.dart';
 import 'package:myfirstgame/engine/ships/basic/ImageShip.dart';
 import 'package:myfirstgame/engine/szene/menue/enums/EnumGameState.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+import 'package:myfirstgame/game/backend/commander/EnumGameCommandersEffect.dart';
 
 import '../../basics/MovementDirection.dart';
 import 'effects/AnimationRocketExplosion.dart';
@@ -189,13 +190,32 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
       else {
         removeFromParent();
         //AnimationExplosionShip(absolutePosition);
+
         if (_currentteam == 1)
         {
           gameRef.gameAutoBattle.player1.team.remove(this);
+          if(gameRef.gameAutoBattle.player1.commander.effect == EnumGameCommandersEffect.boostincomeEnemyshipdestroyed)
+          {
+            Random random = Random();
+            int randomNumber = random.nextInt(11);
+            if(randomNumber > 1){
+            }else{
+              gameRef.gameAutoBattle.player1.currentcredits ++;
+            }
+          }
           //gameRef.team1.remove(this);
         } else if (currentteam == 2) {
           //gameRef.team2.remove(this);
           gameRef.gameAutoBattle.player2.team.remove(this);
+          if(gameRef.gameAutoBattle.player2.commander.effect == EnumGameCommandersEffect.boostincomeEnemyshipdestroyed)
+          {
+            Random random = Random();
+            int randomNumber = random.nextInt(11);
+            if(randomNumber > 1){
+            }else{
+              gameRef.gameAutoBattle.player2.currentcredits ++;
+            }
+          }
         }
 
 
@@ -291,17 +311,26 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   {
     if(_currentreloadtime <= 0)
     {
-      _currentreloadtime = _maxreloadtime;
-      print("feuer");
       IBasicBullet tempbullet = BulletLaserLoader.lasers[laser]!;
       add(tempbullet);
       if(_currentteam == 1)
       {
         tempbullet.shoot(Vector2(absolutePosition.x + width  / 2, absolutePosition.y  ), positionEnemy, _currentteam);
+        if(gameRef.gameAutoBattle.player1.commander.effect == EnumGameCommandersEffect.boostreloadtime)
+        {
+          _currentreloadtime = _maxreloadtime - (_maxreloadtime * 0.1).toInt();
+        }else{
+          _currentreloadtime = _maxreloadtime ;
+        }
       }else{
         tempbullet.shoot(Vector2(absolutePosition.x - width  / 2, absolutePosition.y  ), positionEnemy, _currentteam);
+        if(gameRef.gameAutoBattle.player2.commander.effect == EnumGameCommandersEffect.boostreloadtime)
+        {
+          _currentreloadtime = _maxreloadtime - (_maxreloadtime * 0.1).toInt();
+        }else{
+          _currentreloadtime = _maxreloadtime ;
+        }
       }
-
       gameRef.bulletLaserLoader.reloadObject(laser);
     }else{
       _currentreloadtime--;

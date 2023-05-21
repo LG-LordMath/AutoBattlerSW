@@ -131,9 +131,8 @@ class PlayerAi extends Player
             if(game.gameAutoBattle.ennemymap.maincells[1].getNumberOfFreeCells() > 0){
               game.gameAutoBattle.ennemymap.maincells[1].addShip(ship);
             }
-
             break;
-          case EnumShipClass.Mothership:
+          case EnumShipClass.Titan:
             if(game.gameAutoBattle.ennemymap.maincells[3].getNumberOfFreeCells() > 0 ){
               game.gameAutoBattle.ennemymap.maincells[3].addShip(ship);
             }else{
@@ -290,7 +289,7 @@ class PlayerAi extends Player
               } else {
                 return false;
               }
-            case EnumShipClass.Mothership:
+            case EnumShipClass.Titan:
               game.gameAutoBattle.player2.team.forEach((element)
               {
                 if(element.shipclass ==  EnumShipClass.Mothership){

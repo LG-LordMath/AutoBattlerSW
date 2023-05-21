@@ -50,13 +50,15 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
     add(btnPlay);
     btnPlay.setTextPosition(Vector2(gameRef.size[0] - gameRef.size[0] / 1.8,
         gameRef.size[1] - gameRef.size[1] / 5));
-    Sprite? spone = ImageLoader.sprites[EnumImages.UIIconCellTwo];
+    //Sprite? spone = ImageLoader.sprites[EnumImages.UIIconCellTwo];
+    /*
     btnArchivements = Button(spone!,
         70, 70, Vector2(30, gameRef.size[1] - gameRef.size[1] / 7.5),
         archivementsbuttonaction, "E");
-    add(btnArchivements);
+  //  add(btnArchivements);
     btnArchivements.setTextPosition(
         Vector2(55, gameRef.size[1] - gameRef.size[1] / 9));
+
     btnarmee = Button(spone,
         70, 70,
         Vector2(gameRef.size[0] - 100, gameRef.size[1] - gameRef.size[1] / 7.5),
@@ -64,6 +66,8 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
     add(btnarmee);
     btnarmee.setTextPosition(
         Vector2(gameRef.size[0] - 75, gameRef.size[1] - gameRef.size[1] / 9));
+
+     */
     btndiscord = Button(sp,
         gameRef.size[0] / 2.5, 70, Vector2(110, gameRef.size[1] - gameRef.size[1] / 7.5),
         discordbuttonaction, "");
@@ -132,9 +136,9 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
   void destroy()
   {
     btnPlay.destroy();
-    btnArchivements.destroy();
+  //  btnArchivements.destroy();
     btnarmee.destroy();
-    btndiscord.destroy();
+    //btndiscord.destroy();
     removeFromParent();
   }
 

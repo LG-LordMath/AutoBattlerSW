@@ -20,6 +20,7 @@ import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameSell
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/GameShopMenue.dart';
 import 'package:myfirstgame/engine/szene/menue/uielements/game/gameshop/ShopLogic.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+import 'package:myfirstgame/game/backend/commander/EnumGameCommandersEffect.dart';
 
 import '../../player/Player.dart';
 import '../../ships/basic/BasicShip.dart';
@@ -154,7 +155,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
                 _player1team.addAll(player1.team);
                 for(int i = 0; i < _player1team.length;i++){
                   _player1team[i].mainfieldis = player1.team[i].mainfieldis;
-                  print("Set Mainfield: "+ _player1team[i].mainfieldis.toString() + ", from "+ player1.team[i].mainfieldis.toString());
+              //    print("Set Mainfield: "+ _player1team[i].mainfieldis.toString() + ", from "+ player1.team[i].mainfieldis.toString());
                 }
                 gameState = EnumGameState.FIGHTPHASE;
               }
@@ -196,9 +197,18 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             _timer.destroy();
             _timer = GameTimer(Vector2(gameRef.size[0] / 2.2, 20),  0);
             add(_timer);
-
-            player1.currentcredits += 6;
-            player2.currentcredits += 6;
+            if(player1.commander.effect == EnumGameCommandersEffect.boostincomeinRoundEnd)
+            {
+              player1.currentcredits += player1.commander.baseofIncomeperRound + 2;
+            }else{
+              player1.currentcredits += player1.commander.baseofIncomeperRound;
+            }
+            if(player2.commander.effect == EnumGameCommandersEffect.boostincomeinRoundEnd)
+            {
+              player2.currentcredits += player2.commander.baseofIncomeperRound + 2;
+            }else{
+              player2.currentcredits += player2.commander.baseofIncomeperRound;
+            }
             if(player1.currentcredits > 99){
               player1.currentcredits = 99;
             }
@@ -304,7 +314,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     _player1team.forEach((element)
     {
       BasicShip tempbasicShip;
-      print("add ship to main field: " + element.mainfieldis.toString());
+    //  print("add ship to main field: " + element.mainfieldis.toString());
       if (element.nation == EnumNation.Imperium)
       {
         for (int i = 0; i < GalaticEmpireShipsLoader.empireships.length; i++)
@@ -616,6 +626,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
           tempship.currentteam = 1;
           tempship.cellfields = tempsameship[0].cellfields;
           tempship.mainfieldis = tempsameship[0].mainfieldis;
+          tempship.shipclass = tempsameship[0].shipclass;
           for(int i = 0; i < 3; i++)
           {
             team.remove(tempsameship[i]);

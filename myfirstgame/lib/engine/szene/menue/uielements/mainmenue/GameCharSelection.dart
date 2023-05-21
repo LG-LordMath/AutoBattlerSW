@@ -10,6 +10,7 @@ import 'package:myfirstgame/engine/basics/textfield/MyTextField.dart';
 import 'package:myfirstgame/engine/loader/EnumImages.dart';
 import 'package:myfirstgame/engine/loader/ImageLoader.dart';
 import 'package:myfirstgame/game/MySpaceGame.dart';
+import 'package:myfirstgame/game/backend/commander/EnumGameCommandersEffect.dart';
 import 'package:myfirstgame/game/backend/commander/GameChars.dart';
 import '../../../../basics/Button.dart';
 import '../../../../nations/EnumNation.dart';
@@ -28,8 +29,10 @@ class GameCharSelection extends PositionComponent with HasGameRef<MySpaceGame>
    SpriteComponent? _componentcommander;
    SpriteComponent? _componentnation;
   SpriteComponent? _componentlocked;
+  MyTextField? _textFieldname;
    MyTextField? _textFieldHp;
   MyTextField? _textFieldCreditsperRound;
+  MyTextField? _textFieldeffect;
 
 
 
@@ -71,8 +74,9 @@ class GameCharSelection extends PositionComponent with HasGameRef<MySpaceGame>
         _textFieldHp?.removeFromParent();
         _textFieldCreditsperRound?.removeFromParent();
         _componentlocked?.removeFromParent();
+        _textFieldeffect?.removeFromParent();
+        _textFieldname?.removeFromParent();
         loadChar();
-
       }
       _lastposition = currentposition;
     }
@@ -98,7 +102,7 @@ class GameCharSelection extends PositionComponent with HasGameRef<MySpaceGame>
   async {
 
     Sprite spritecommander = await Sprite.load(chars.commanders.elementAt(currentposition).commander.Iconpath);
-  _componentcommander = SpriteComponent(sprite: spritecommander,
+    _componentcommander = SpriteComponent(sprite: spritecommander,
       size: Vector2(gameRef.size.x / 3, gameRef.size.y / 3),
       position: Vector2(gameRef.size.x /6, gameRef.size.y / 3) );
 
@@ -122,14 +126,25 @@ class GameCharSelection extends PositionComponent with HasGameRef<MySpaceGame>
         size: Vector2(gameRef.size.x / 6, gameRef.size.y / 8),
         position: Vector2(gameRef.size.x /1.53, gameRef.size.y / 2.95) );
 
+    _textFieldname =  MyTextField(gameRef.size.x /2, gameRef.size.y / 2.1, chars.commanders.elementAt(currentposition).commander.nameofCommander,
+        Colors.amber);
+    _textFieldname?.setTextsize(15);
+    add(_textFieldname!);
+
     if(chars.commanders.elementAt(currentposition).isEnable)
     {
       _textFieldHp = MyTextField(gameRef.size.x /2, gameRef.size.y / 2, "Hp: "+ chars.commanders.elementAt(currentposition).commander.life.toString(),
           Colors.white);
+      _textFieldHp?.setTextsize(18);
       add(_textFieldHp!);
-      _textFieldCreditsperRound = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.8, "Income: "+ chars.commanders.elementAt(currentposition).commander.baseofIncomeperRound.toString(),
+
+      _textFieldCreditsperRound = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.9, "Income: "+ chars.commanders.elementAt(currentposition).commander.baseofIncomeperRound.toString(),
           Colors.white);
+      _textFieldCreditsperRound?.setTextsize(18);
       add(_textFieldCreditsperRound!);
+
+
+
     }else
     {
       Sprite locked = await Sprite.load('elements/normal/IconLocked.png');
@@ -140,6 +155,42 @@ class GameCharSelection extends PositionComponent with HasGameRef<MySpaceGame>
       _textFieldCreditsperRound = MyTextField(gameRef.size.x /2, gameRef.size.y / 2, "Locked",
           Colors.white);
       add(_textFieldCreditsperRound!);
+
+
+    }
+    switch(chars.commanders.elementAt(currentposition).commander.effect)
+    {
+      case EnumGameCommandersEffect.none:
+        _textFieldeffect = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.8, "Effect:\nnone",
+            Colors.white);
+        _textFieldeffect?.setTextsize(15);
+        add(_textFieldeffect!);
+
+        break;
+      case EnumGameCommandersEffect.boostincomeinRoundEnd:
+        _textFieldeffect = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.8, "Effect:\nincome boost\nround end",
+            Colors.white);
+        _textFieldeffect?.setTextsize(15);
+        add(_textFieldeffect!);
+        break;
+      case EnumGameCommandersEffect.boostreloadtime:
+        _textFieldeffect = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.8, "Effect:\nreloadtime boost\nall ships",
+            Colors.white);
+        _textFieldeffect?.setTextsize(15);
+        add(_textFieldeffect!);
+        break;
+      case EnumGameCommandersEffect.boostincomeEnemyshipdestroyed:
+        _textFieldeffect = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.8, "Effect:\nlittle chance to\nbecome [R]Credit\nif destroy e. ship",
+            Colors.white);
+        _textFieldeffect?.setTextsize(15);
+        add(_textFieldeffect!);
+        break;
+      case EnumGameCommandersEffect.boosteffecttime:
+        _textFieldeffect = MyTextField(gameRef.size.x /2, gameRef.size.y / 1.8, "Effect:\nboost effecttime\n",
+            Colors.white);
+        _textFieldeffect?.setTextsize(15);
+        add(_textFieldeffect!);
+        break;
     }
 
 
@@ -165,5 +216,18 @@ class GameCharSelection extends PositionComponent with HasGameRef<MySpaceGame>
       add(_btnleft);
     }
 
+  }
+
+  void destroy()
+  {
+    _componentcommander?.removeFromParent();
+    _componentnation?.removeFromParent();
+    _textFieldHp?.removeFromParent();
+    _textFieldCreditsperRound?.removeFromParent();
+    _componentlocked?.removeFromParent();
+    imagebox.removeFromParent();
+    _btnleft.destroy();
+    _btnright.destroy();
+    removeFromParent();
   }
 }
