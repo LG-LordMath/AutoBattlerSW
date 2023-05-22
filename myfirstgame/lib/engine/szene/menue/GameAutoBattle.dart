@@ -117,8 +117,6 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             {
 
               PlayerAi   player =  player2 as PlayerAi;
-
-
               player.buyphase();
               _player2team.addAll(player2.team);
 

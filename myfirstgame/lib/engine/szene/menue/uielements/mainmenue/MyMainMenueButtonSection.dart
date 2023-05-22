@@ -137,8 +137,8 @@ class MyMainMenueButtonSection extends SpriteComponent with HasGameRef<MySpaceGa
   {
     btnPlay.destroy();
   //  btnArchivements.destroy();
-    btnarmee.destroy();
-    //btndiscord.destroy();
+    //btnarmee.destroy();
+    btndiscord.destroy();
     removeFromParent();
   }
 

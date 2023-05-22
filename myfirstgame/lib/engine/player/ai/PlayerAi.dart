@@ -74,7 +74,7 @@ class PlayerAi extends Player
             element.rotateImage();
             //print("Ai kauft: " + element.toString());
             placeShip(element);
-            checkifshipscanlevelup(game.gameAutoBattle.player2.team);
+           // checkifshipscanlevelup(game.gameAutoBattle.player2.team);
           }
         }
 
@@ -292,7 +292,7 @@ class PlayerAi extends Player
             case EnumShipClass.Titan:
               game.gameAutoBattle.player2.team.forEach((element)
               {
-                if(element.shipclass ==  EnumShipClass.Mothership){
+                if(element.shipclass ==  EnumShipClass.Titan){
                   counter++;
                 }
               });
