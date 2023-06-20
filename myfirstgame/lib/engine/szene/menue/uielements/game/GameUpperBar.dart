@@ -50,7 +50,7 @@ class GameUpperBar extends PositionComponent with HasGameRef<MySpaceGame>
 
   void destroy(){
     playerOneUI.destroy();
-    playerOneUI.destroy();
+    playerTwoUI.destroy();
     removeFromParent();
   }
 

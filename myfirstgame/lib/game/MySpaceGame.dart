@@ -33,6 +33,9 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
     gameAutoBattle.removeAll(gameAutoBattle.children);
     remove(gameAutoBattle);
+    if(!gameAutoBattle.isRemoved){
+      gameAutoBattle.removeFromParent();
+    }
     _losingScreen = LosingScreen();
     add(_losingScreen);
 
@@ -42,6 +45,10 @@ class MySpaceGame extends FlameGame with HasCollisionDetection, HasDraggableComp
 
     gameAutoBattle.removeAll(gameAutoBattle.children);
     remove(gameAutoBattle);
+    if(!gameAutoBattle.isRemoved){
+      gameAutoBattle.removeFromParent();
+    }
+
     _winningScreen = WinningScreen();
     add(_winningScreen);
 

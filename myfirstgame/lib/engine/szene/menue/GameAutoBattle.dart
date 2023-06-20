@@ -306,6 +306,8 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
       element.clearShipsAndMap();
       // print(element.getFreeCells());
     });
+    player1.team.clear();
+    player2.team.clear();
     player1.team = [];
     player2.team = [];
 
@@ -330,6 +332,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
             tempbasicShip.scale = Vector2(tempbasicShip.shipclass.CellsizeX.toDouble(), tempbasicShip.shipclass.CellsizeY.toDouble());
             map.maincells[element.mainfieldis].addShip(tempbasicShip);
             rep.reloadObject(EnumGalaticEmpireShips.values.elementAt(i));
+
 
           }
         }
@@ -379,7 +382,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
 
 
     });
-
+    _player1team.clear();
 
     //player Ai
 
@@ -457,6 +460,7 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
         }
       }
     });
+    _player2team.clear();
   }
 
 
@@ -658,7 +662,9 @@ class GameAutoBattle extends PositionComponent with HasGameRef<MySpaceGame>
     }
     else
     {
-      add(gameSellUI!);
+      if(gameState == EnumGameState.BUYPHASE){
+        add(gameSellUI!);
+      }
     }
   }
 }

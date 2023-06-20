@@ -13,11 +13,11 @@ class GameChars
   void getOfflineChars()
   {
    commanders.add(GameCommander(EnumGameCommanders.CommanderOne, true));
-   commanders.add(GameCommander(EnumGameCommanders.CommanderTwo, false));
-   commanders.add(GameCommander(EnumGameCommanders.CommanderThree, false));
-   commanders.add(GameCommander(EnumGameCommanders.CommanderFour, false));
-   commanders.add(GameCommander(EnumGameCommanders.CommandressOne, false));
-   commanders.add(GameCommander(EnumGameCommanders.CommandressTwo, false));
+   commanders.add(GameCommander(EnumGameCommanders.CommanderTwo, true));
+   commanders.add(GameCommander(EnumGameCommanders.CommanderThree, true));
+   commanders.add(GameCommander(EnumGameCommanders.CommanderFour, true));
+   commanders.add(GameCommander(EnumGameCommanders.CommandressOne, true));
+   commanders.add(GameCommander(EnumGameCommanders.CommandressTwo, true));
   }
 
 

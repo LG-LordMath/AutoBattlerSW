@@ -73,8 +73,9 @@ class PlayerAi extends Player
             game.add(element);
             element.rotateImage();
             //print("Ai kauft: " + element.toString());
+            checkifshipscanlevelup(game.gameAutoBattle.player2.team);
             placeShip(element);
-           // checkifshipscanlevelup(game.gameAutoBattle.player2.team);
+
           }
         }
 
@@ -404,6 +405,7 @@ class PlayerAi extends Player
           tempship.currentteam = 2;
           tempship.cellfields = tempsameship[0].cellfields;
           tempship.mainfieldis = tempsameship[0].mainfieldis;
+          tempship.shipclass = tempsameship[0].shipclass;
           for(int i = 0; i < 3; i++)
           {
             team.remove(tempsameship[i]);

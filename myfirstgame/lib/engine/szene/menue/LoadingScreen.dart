@@ -138,22 +138,22 @@ class LoadingScreen extends SpriteComponent with HasGameRef<MySpaceGame>
     int randomNumber = random.nextInt(5);
     switch (randomNumber){
       case 1:
-        tipp = "\nMutterschiffe können \nkleinere Raumschiffe\nspawnen.";
+        tipp = "\nMotherships can spawn\nsmaller starships.";
         break;
       case 2:
-        tipp = "\nEs gibt verschiedene \nArten von Waffen:\nIonen, Laser, Rockets";
+        tipp = "\nThere are different\ntypes of weapons:\nions, lasers, rockets";
         break;
       case 3:
-        tipp = "\nMansche Raumschiffe\nhaben keine Schilde.";
+        tipp ="\nSome starships\nhave no shields.";
         break;
       case 4:
-        tipp = "\nAlle [R]-Credits\naufeinmal auszugeben\nist manchmal nicht klug!";
+        tipp = "\nSpending all [R] credits\nonce\nis sometimes not wise!";
         break;
       case 5:
-        tipp = "\nLevel deine Schiffe\ndurch doppellden Kauf\nauf.";
+        tipp = "\nLevel up your ships\nby doubling\nthe purchase.";
         break;
       default:
-        tipp = "\nBenutze immer Schiffe \nvon der selben Nation.";
+        tipp = "\nAlways use ships \nof the same nation.";
         break;
     }
 

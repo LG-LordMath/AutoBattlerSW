@@ -159,13 +159,17 @@ class MainCell  extends PositionComponent with CollisionCallbacks, HasGameRef<My
           cells[cellIndex].deoccupyCell();
         }
       }
+      ship.removeFromParent();
       ship.cellfields.clear();
       if (ship.currentteam == 1) {
         gameRef.gameAutoBattle.player1.team.remove(ship);
+
       } else {
         gameRef.gameAutoBattle.player2.team.remove(ship);
       }
+
     }
+
     shipPositions.clear();
   }
 

@@ -229,6 +229,7 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
     switch(nation){
       case EnumNation.Republic:
         imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-10, 30), sprite: ImageLoader.sprites[EnumImages.IconRepublic]);
+
         break;
       case EnumNation.Rebellen:
         imagenation = SpriteComponent(size: Vector2(10, 10), position: Vector2(-10, 30), sprite: ImageLoader.sprites[EnumImages.IconRebellen]);
@@ -279,25 +280,46 @@ class BasicShip extends PositionComponent with HasGameRef<MySpaceGame>, Collisio
   void checkifEnemyisinrange()
   {
      int temp = checknearenemy();
-     if( temp >= _weaponrange && temp != 0 && !_ishittingwall )
+     if( temp  > _weaponrange && temp != 0 && !_ishittingwall )
      {
-       if(positionEnemy.x > positionx && (positionEnemy.x - positionx).toInt() > 0 )
-         {
-             _movment  = MovementDirection.movedown;
-         }
-         else if(positionEnemy.x < positionx && (positionEnemy.x - positionx).toInt() < 0)
-         {
-             _movment  = MovementDirection.moveup;
-         }
-      else if(positionEnemy.y < positiony && (positionEnemy.y - positiony).toInt() < 0 )
+       if(currentteam == 1)
        {
-         _movment  = MovementDirection.moveright;
-       }
-     else   if(positionEnemy.y > positiony && (positionEnemy.y - positiony).toInt() > 0  )
-       {
-         _movment  = MovementDirection.moveleft;
-       }else{
-         _movment  = MovementDirection.no;
+         if (positionEnemy.y < positiony &&
+             (positionEnemy.y - positiony).toInt() < 0) {
+           _movment = MovementDirection.moveright;
+         }else if (positionEnemy.x > positionx &&
+             (positionEnemy.x - positionx).toInt() > 0) {
+           _movment = MovementDirection.movedown;
+         }
+         else if (positionEnemy.x < positionx &&
+             (positionEnemy.x - positionx).toInt() < 0) {
+           _movment = MovementDirection.moveup;
+         } else if (positionEnemy.y > positiony &&
+             (positionEnemy.y - positiony).toInt() > 0) {
+           _movment = MovementDirection.moveleft;
+         } else {
+           _movment = MovementDirection.no;
+         }
+
+       }else {
+         if (positionEnemy.y > positiony &&
+             (positionEnemy.y - positiony).toInt() > 0) {
+           _movment = MovementDirection.moveleft;
+         }
+         else if (positionEnemy.x < positionx &&
+             (positionEnemy.x - positionx).toInt() < 0) {
+           _movment = MovementDirection.moveup;
+         }
+         else if (positionEnemy.y < positiony &&
+             (positionEnemy.y - positiony).toInt() < 0) {
+           _movment = MovementDirection.moveright;
+         }
+         else if (positionEnemy.x > positionx &&
+             (positionEnemy.x - positionx).toInt() > 0) {
+           _movment = MovementDirection.movedown;
+         } else {
+           _movment = MovementDirection.no;
+         }
        }
     }else if(temp < _weaponrange  && !_ishittingwall)
     {

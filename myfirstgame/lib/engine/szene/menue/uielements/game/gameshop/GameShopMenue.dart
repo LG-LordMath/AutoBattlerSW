@@ -56,31 +56,44 @@ class GameShopMenue  extends SpriteComponent with HasGameRef<MySpaceGame>
 
 void setButtons()
 {
- if(gameRef.gameAutoBattle.tempshipshopbuyed[0]){
-  btnOne = (ShopButton(Vector2(position.x + gameRef.size[0] / 16, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing,0));
-
-  add(btnOne!);
-  if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
-   btnOne!.setShip(gameRef.gameAutoBattle.tempshipsshop[0]);
-   btnOne!.setIconofShipclass(btnOne!.tempbasicShip);
-  }
+ if(gameRef.gameAutoBattle.tempshipsshop==null){
+  print("konnte nicht geladen werden: GameShopMenue");
  }
- if(gameRef.gameAutoBattle.tempshipshopbuyed[1]){
-  btnTwo = (ShopButton(Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing,1));
+ else {
+  if (gameRef.gameAutoBattle.tempshipshopbuyed[0]) {
+   btnOne = (ShopButton(
+       Vector2(position.x + gameRef.size[0] / 16, position.y + 20),
+       Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 0));
 
-  add(btnTwo!);
-  if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
-   btnTwo!.setShip(gameRef.gameAutoBattle.tempshipsshop[1]);
-   btnTwo!.setIconofShipclass(btnTwo!.tempbasicShip);
+   add(btnOne!);
+
+
+   if (gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
+    btnOne!.setShip(gameRef.gameAutoBattle.tempshipsshop[0]);
+    btnOne!.setIconofShipclass(btnOne!.tempbasicShip);
+   }
   }
- }
+  if (gameRef.gameAutoBattle.tempshipshopbuyed[1]) {
+   btnTwo = (ShopButton(
+       Vector2(position.x + gameRef.size[0] / 3.5, position.y + 20),
+       Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 1));
 
- if(gameRef.gameAutoBattle.tempshipshopbuyed[2]){
-  btnThree = (ShopButton(Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20), Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
-  add(btnThree!);
-  if(gameRef.gameAutoBattle.tempshipsshop.isNotEmpty){
-   btnThree!.setShip(gameRef.gameAutoBattle.tempshipsshop[2]);
-   btnThree!.setIconofShipclass(btnThree!.tempbasicShip);
+   add(btnTwo!);
+   if (gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
+    btnTwo!.setShip(gameRef.gameAutoBattle.tempshipsshop[1]);
+    btnTwo!.setIconofShipclass(btnTwo!.tempbasicShip);
+   }
+  }
+
+  if (gameRef.gameAutoBattle.tempshipshopbuyed[2]) {
+   btnThree = (ShopButton(
+       Vector2(position.x + gameRef.size[0] / 1.95, position.y + 20),
+       Vector2(gameRef.size[0] / 4.8, gameRef.size[0] / 4.8), donothing, 2));
+   add(btnThree!);
+   if (gameRef.gameAutoBattle.tempshipsshop.isNotEmpty) {
+    btnThree!.setShip(gameRef.gameAutoBattle.tempshipsshop[2]);
+    btnThree!.setIconofShipclass(btnThree!.tempbasicShip);
+   }
   }
  }
 }
